@@ -94,8 +94,8 @@ const Header = (props: Props) => {
                 Close
             </div>
             <div className="w-full flex flex-col border-2 border-black">
-                {options.map(option => (
-                    <Link onClick={() => {setHamburgerMenuActive(false)}} href={option.href}>
+                {options.map((option, i) => (
+                    <Link key={i} onClick={() => {setHamburgerMenuActive(false)}} href={option.href}>
                             {option.text}
                     </Link>
                 ))}

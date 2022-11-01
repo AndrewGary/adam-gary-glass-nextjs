@@ -11,8 +11,8 @@ const Cart: NextPage = (props: Props) => {
 
     return (
         <div>
-            {cartState.map(item => (
-                <div>
+            {cartState.map((item, i) => (
+                <div key={i}>
                     {item.name}
                 </div>
             ))}
