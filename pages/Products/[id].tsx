@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router';
-import { selectCartState, addItem } from '../../store/cartSlice';
+import { addItem } from '../../store/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { dummyProducts } from '../../dummuData';
@@ -10,9 +10,9 @@ const dummyProduct: {name: string, price: number, description: string, defaultIm
 type Props = {}
 
 const blah = (props: Props) => {
-  const cartState = useSelector(selectCartState);
+
+  const cart = useSelector((state) => state.cart.cart)
   const dispatch = useDispatch();
-  console.log(cartState);
 
   const router = useRouter();
   const { id } = router.query;
