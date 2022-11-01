@@ -17,14 +17,6 @@ export const cartSlice = createSlice({
         addItem(state, action) {
             state.cart = [...state.cart, action.payload]
         },
-        extraReducers: {
-            [HYDRATE]: (state, action) => {
-              return {
-                ...state,
-                ...action.payload.cart,
-              };
-            },
-          },
     }
 })
 // export const authSlice = createSlice({
