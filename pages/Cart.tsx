@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { NextPage } from "next";
-import { addItem } from "../store/cartSlice";
+import { addItem, removeItem } from "../store/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 type Props = {};
@@ -20,7 +20,9 @@ const Cart: NextPage = (props: Props) => {
             {/* <span className="flex justify-center items-center">{item.name}</span> */}
             <div className="flex flex-col items-center justify-evenly ml-3">
                 <span>{item.name}</span>
-                <button className="border border-black rounded-lg w-[80%]">Remove</button>
+                <button onClick={() => {
+                    dispatch(removeItem(item))
+                }} className="border border-black rounded-lg w-[80%]">Remove</button>
             </div>
             <div className="flex items-center justify-center">
                 ${item.price}
