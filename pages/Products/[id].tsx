@@ -10,8 +10,7 @@ const dummyProduct: {name: string, price: number, description: string, defaultIm
 type Props = {}
 
 const blah = (props: Props) => {
-
-  const cart = useSelector((state) => state.cart.cart)
+  const cart = useSelector((state) => state.cart.cart);
   const dispatch = useDispatch();
 
   const router = useRouter();

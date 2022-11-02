@@ -1,13 +1,9 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
-// import { wrapper } from "../store/store";
 import Layout from "../components/Layout";
-import { Provider } from "react-redux";
-import { store } from '../store/store';
+import { persistor, store } from '../store/store';
+import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { persistStore } from 'redux-persist';
-
-let persistor = persistStore(store);
 
 function App({ Component, ...pageProps }: AppProps) {
 	return (

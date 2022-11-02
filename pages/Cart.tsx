@@ -6,12 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 type Props = {}
 
 const Cart: NextPage = (props: Props) => {
-    const cartState = useSelector((state) => state.cart.cart);
+    const cart = useSelector((state) => state.cart.cart);
     const dispatch = useDispatch();
 
     return (
         <div>
-            {cartState.map((item, i) => (
+            {cart.map((item, i) => (
                 <div key={i}>
                     {item.name}
                 </div>
