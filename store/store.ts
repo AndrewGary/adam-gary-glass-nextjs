@@ -1,22 +1,22 @@
-import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import { cartSlice } from "./cartSlice";
-import { createWrapper } from "next-redux-wrapper";
+import { configureStore } from "@reduxjs/toolkit";
+import cartReducer from '../store/cartSlice';
+import storage from "redux-persist/lib/storage";
+import { persistReducer, persistStore } from "redux-persist";
+import thunk from 'redux-thunk';
 
-const makeStore = () =>
-  configureStore({
-    reducer: {
-      [cartSlice.name]: cartSlice.reducer,
-    },
-    devTools: true,
-  });
+const persistConfig = {
+  key: 'root',
+  storage,
+}
 
-export type AppStore = ReturnType<typeof makeStore>;
-export type AppState = ReturnType<AppStore["getState"]>;
-export type AppThunk<ReturnType = void> = ThunkAction<
-  ReturnType,
-  AppState,
-  unknown,
-  Action
->;
+const persistedReducer = persistReducer(persistConfig, cartReducer);
 
-export const wrapper = createWrapper<AppStore>(makeStore);
+export const store = configureStore({
+  reducer: {
+    cart: persistedReducer,
+  },
+  devTools: process.env.NODE_ENV !== 'production',
+  middleware: [thunk]
+})
+
+export const persistor = persistStore(store);
