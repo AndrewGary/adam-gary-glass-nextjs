@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import {Cloudinary} from '@cloudinary/url-gen';
+import { CldUploadButton } from 'next-cloudinary';
 
 type Props = {};
 
@@ -7,13 +9,23 @@ const initialState = {
   description: '',
   defaultImage: '',
   images: [],
-  price: null
+  price: 0
 }
 
 const AddNewProduct = (props: Props) => {
 
+  const work = useRef([]);
+  const defaultImageRef = useRef('');
+
+  const cld = new Cloudinary({
+    cloud: {
+
+    }
+  })
+
   const [formValues, setFormValues] = useState(initialState);
   const [ imagePreviews, setImagePreviews ] = useState([]);
+  const [ formMessage, setFormMessage ] = useState('');
 
   const handleChange = async e => {
     if(e.target.name === 'fileSelection'){
@@ -22,19 +34,17 @@ const AddNewProduct = (props: Props) => {
       for( const file of e.target.files){
         await new Promise(resolve => {
           reader.onload = e => {
-            console.log('here');
             filesForState.push(e.target?.result);
             resolve();
           }
-          console.log('reader: ', reader);
-          console.log('file: ', file)
           reader.readAsDataURL(file);
         })
       }
       setImagePreviews(filesForState);
       setFormValues({
         ...formValues,
-        images: filesForState
+        images: filesForState,
+        defaultImage: filesForState[0]
       })
     }else{
     setFormValues({
@@ -44,13 +54,37 @@ const AddNewProduct = (props: Props) => {
   }
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
+    const reqOptions = {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        name: formValues.name,
+        description: formValues.description,
+        price: formValues.price,
+        images: work.current,
+        defaultImage: work.current[0]
+      })
+      
+    }
+
+    console.log(reqOptions.body)
+    const resp = await fetch('/api/addNewProduct', reqOptions);
+    
+    if(resp.status === 201){
+      setFormValues(initialState);
+      setFormMessage('Upload Successful')
+    }
   }
 
+  
 	return (
-		<div className="w-full min-h-screen flex flex-col items-center">
-			<h1>New Product</h1>
+		<div className="relative w-full min-h-screen flex flex-col items-center justify-center">
+			<span className="absolute top-10 text-xl uppercase text-red-500 font-extrabold">{formMessage}</span>
+      <h1>New Product</h1>
+      
+      {/* <CldImage width='600' height='600' src={process.env.CLOUDINARY_URL} /> */}
 
 			<form onSubmit={handleSubmit} className="flex flex-col w-[90%] space-y-3 items-center">
 				<input 
@@ -59,6 +93,7 @@ const AddNewProduct = (props: Props) => {
           onChange={handleChange}
           className='border border-black px-3 rounded-md w-[75%]'
           placeholder="Item name"
+          value={formValues.name}
         />
 				<input 
           type='text'
@@ -66,6 +101,7 @@ const AddNewProduct = (props: Props) => {
           onChange={handleChange}
           className='border border-black px-3 rounded-md w-[75%]'
           placeholder="Item Descrition"
+          value={formValues.description}
         />
 				<input 
           type='number'
@@ -74,12 +110,32 @@ const AddNewProduct = (props: Props) => {
           className='border border-black px-3 rounded-md w-[75%]'
           placeholder='Price $'
         />
-        <input
-          type='file'
-          name='fileSelection'
-          onChange={handleChange}
-          multiple
-        />
+        <CldUploadButton
+  className='border border-black px-3 rounded-lg'
+  onUpload={(error, result, widget) => {
+    // console.log('error: ',error);
+    // console.log(result);
+    // console.log('idk: ', idk);
+    // setIdk(idk + 1);
+    // if(work.current.length === )
+    if(!defaultImageRef.current){
+      defaultImageRef.current = result.info.secure_url
+    }
+    work.current.push(result.info.secure_url);
+    console.log(work.current);
+    // setFormValues({
+    //   ...formValues,
+    //   images: [...formValues.images, result.info.secure_url]
+    // })
+    // widget.close(); // Close widget immediately after successful upload
+  }}
+  uploadPreset="product upload"
+>
+  Upload Images Here
+</CldUploadButton>
+
+{work.current.length || 0} Images Uploaded
+{defaultImageRef.current}
 
         <div className="w-full overflow-x-auto flex space-x-2 pb-2">
         {imagePreviews.map((image, i) => (
