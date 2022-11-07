@@ -13,14 +13,11 @@ export default async function handler(req, res) {
         }
 
         case 'POST': {
-            console.log(req.body);
 
             
 
-            // const result = await db.collection('products').insertOne(req.body);
-            // return res.status(201).json(result);
-
-            return res.status(201).json({ message: 'Testing'})
+            const result = await db.collection('products').insertOne(req.body);
+            return res.status(201).json(result);
         }
 
         case 'PUT': {
