@@ -4,7 +4,8 @@ import { addItem } from '../../store/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { dummyProducts } from '../../dummuData';
-const dummyProduct: {name: string, price: number, description: string, defaultImage: string, images: Array<string>} = {...dummyProducts[0]}
+// const dummyProduct: {name: string, price: number, description: string, defaultImage: string, images: Array<string>} = {...dummyProducts[0]}
+const dummyProduct = {...dummyProducts[Math.floor(Math.random() * 5)]}
 
 
 type Props = {}
@@ -32,14 +33,6 @@ const blah = (props: Props) => {
                 <img className='w-[70%]' src={image} alt='' />
             )
           })}
-          
-          {/* {dummyProduct.images.map((image, i) => {
-            return (
-              <div>
-                <img src={image} alt='' />
-              <div>
-            )
-          })} */}
         </div>
 
         {/* <img src={dummyProduct.defaultImage} alt='' /> */}

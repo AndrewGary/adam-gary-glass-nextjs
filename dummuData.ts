@@ -1,5 +1,6 @@
 export const dummyProducts = [
     {
+        id: 1,
         name: 'Fume Recycler Rig',
         price: 100,
         defaultImage: '/test.jpg',
@@ -7,29 +8,33 @@ export const dummyProducts = [
         description: 'This is a 10mm recycler accented with purple slyme. Great Function'
     },
     {
-        name: 'Fume Recycler Rig',
+        id: 2,
+        name: 'Sherlock',
+        price: 150,
+        defaultImage: '/test.jpg',
+        images: ['/test.jpg', '/test.jpg', '/test.jpg', '/test.jpg', '/test.jpg',],
+        description: 'This is a 10mm recycler accented with purple slyme. Great Function'
+    },
+    {
+        id: 3,
+        name: 'Bubbler',
         price: 100,
         defaultImage: '/test.jpg',
         images: ['/test.jpg', '/test.jpg', '/test.jpg', '/test.jpg', '/test.jpg',],
         description: 'This is a 10mm recycler accented with purple slyme. Great Function'
     },
     {
-        name: 'Fume Recycler Rig',
-        price: 100,
+        id: 4,
+        name: 'BubbleCap',
+        price: 40,
         defaultImage: '/test.jpg',
         images: ['/test.jpg', '/test.jpg', '/test.jpg', '/test.jpg', '/test.jpg',],
         description: 'This is a 10mm recycler accented with purple slyme. Great Function'
     },
     {
-        name: 'Fume Recycler Rig',
-        price: 100,
-        defaultImage: '/test.jpg',
-        images: ['/test.jpg', '/test.jpg', '/test.jpg', '/test.jpg', '/test.jpg',],
-        description: 'This is a 10mm recycler accented with purple slyme. Great Function'
-    },
-    {
-        name: 'Fume Recycler Rig',
-        price: 100,
+        id: 5,
+        name: 'Spoon',
+        price: 50,
         defaultImage: '/test.jpg',
         images: ['/test.jpg', '/test.jpg', '/test.jpg', '/test.jpg', '/test.jpg',],
         description: 'This is a 10mm recycler accented with purple slyme. Great Function'
