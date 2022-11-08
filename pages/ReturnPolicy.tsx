@@ -4,8 +4,10 @@ type Props = {}
 
 const ReturnPolicy = (props: Props) => {
   return (
-    <div>ReturnPolicy</div>
-  )
+    <div className='w-full min-h-screen flex flex-col items-center justify-center'>
+      Return Policy
+    </div>  
+)
 }
 
 export default ReturnPolicy

@@ -4,7 +4,9 @@ type Props = {}
 
 const PurchasePolicy = (props: Props) => {
   return (
-    <div>PurchasePolicy</div>
+    <div className='w-full min-h-screen flex flex-col items-center justify-center'>
+      Purchase Policy
+    </div>
   )
 }
 
