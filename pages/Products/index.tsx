@@ -1,14 +1,34 @@
 import React from 'react'
 import { dummyProducts } from '../../dummuData'
 import Link from 'next/link';
+import { connectToDatabase } from '../../mongoConnection';
 type Props = {}
+
+export const getStaticProps = async () => {
+
+  const connection = await connectToDatabase();
+
+  const db = connection.db;
+
+  const results = await db.collection('blogPosts').find({}).sort({timeStamp: -1}).toArray();
+
+  const a = JSON.stringify(results);
+
+  const allPosts = JSON.parse(a);
+
+  return {
+    props: {
+      allPosts: allPosts
+    }
+  }
+}
 
 const index = (props: Props) => {
 
   console.log(dummyProducts)
   return (
     <div className='flex flex-col w-full min-h-screen items-center mt-4'>
-      {dummyProducts.map((product, i) => (
+      {props.allPosts.map((product, i) => (
         <div key={i} className='w-full flex flex-col items-center'>
           <img className='w-[60%] h-[75%]' src={product.defaultImage} alt='' />
           <div className='w-[60%] flex flex-col items-center bg-[#d3d3d3] mb-2 bg-opacity-20'>
