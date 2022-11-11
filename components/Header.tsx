@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useSelector } from 'react-redux';
 
 const options = [
 	{
@@ -23,6 +24,10 @@ const options = [
 type Props = {};
 
 const Header = (props: Props) => {
+
+	const cartState = useSelector((state) => state.cart);
+	const { cart } = cartState;
+
 	const [hamburgerMenuActive, setHamburgerMenuActive] = useState(false);
 	const [searchActive, setSearchActive] = useState(false);
 	const [searchTerm, setSearchTerm] = useState("");
@@ -194,6 +199,9 @@ const Header = (props: Props) => {
 				</Link>
 
 				<div className="h-full  mr-2 mt-2 flex space-x-3">
+					{/* <div className="absolute w-full"></div> */}
+					<div className="relative">
+						<div className="absolute w-3 h-3 rounded-full flex justify-center items-center left-3 text-[#ff3434] bottom-4 font-bold p-2">{cart.length}</div>
 					<Link href="/Cart">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -210,6 +218,7 @@ const Header = (props: Props) => {
 							/>
 						</svg>
 					</Link>
+					</div>
 					<svg
 						onClick={() => {
 							setSearchActive(!searchActive);

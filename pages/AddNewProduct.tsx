@@ -103,7 +103,7 @@ const AddNewProduct = (props: Props) => {
 				price: parseInt(formValues.price),
 				images: uploadedImages.current,
 				defaultImage: uploadedImages.current[0],
-        time: Date.now()
+				time: Date.now(),
 			}),
 		};
 
@@ -117,15 +117,12 @@ const AddNewProduct = (props: Props) => {
 		}
 	};
 
-  console.log('-00000000000000000');
-  console.log(Date.now())
+	console.log("-00000000000000000");
+	console.log(Date.now());
 
 	return (
 		<div className="relative w-full min-h-screen flex flex-col items-center justify-center">
-			{/* <span className="absolute top-10 text-xl uppercase text-red-500 font-extrabold">{formMessage}</span> */}
 			<h1>New Product</h1>
-
-			{/* <CldImage width='600' height='600' src={process.env.CLOUDINARY_URL} /> */}
 
 			<form
 				onSubmit={handleSubmit}
