@@ -11,5 +11,15 @@ export const authOptions = {
       }),
     // ...add more providers here
   ],
+  callbacks: {
+    async signIn({ user, account, profile, email, credentials}){
+        if(user.email === 'andrew.gary91@gmail.com'){
+            return true;
+        }
+
+        return false;
+
+    }
+  }
 }
 export default NextAuth(authOptions)

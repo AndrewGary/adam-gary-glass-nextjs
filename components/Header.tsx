@@ -164,9 +164,9 @@ const Header = (props: Props) => {
 						if (option.text === "Login") {
 							// return <span onClick={() => {signIn()}}>hello</span>;
 							if(session){
-								return <span onClick={() => {signOut()}}>Sign Out</span>
+								return <span key={i} onClick={() => {signOut()}}>Sign Out</span>
 							}else{
-								return <span onClick={() => {signIn()}}>Sign In</span>;
+								return <span key={i} onClick={() => {signIn()}}>Sign In</span>;
 							}
 						} else {
 							return (
