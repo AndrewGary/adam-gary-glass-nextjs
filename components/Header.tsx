@@ -17,7 +17,7 @@ const options = [
 	},
 	{
 		text: "Contact",
-		href: "",
+		href: "/Contact",
 	},
 ];
 
