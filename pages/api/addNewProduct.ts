@@ -13,6 +13,7 @@ export default async function handler(req, res) {
         }
 
         case 'POST': {
+            console.log('req.body:', req.body);
 
             
 
