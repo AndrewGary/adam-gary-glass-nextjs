@@ -2,7 +2,7 @@ import React from 'react'
 import { dummyProducts } from '../../dummuData'
 import Link from 'next/link';
 import { connectToDatabase } from '../../mongoConnection';
-type Props = {}
+type Props = {allPosts: array}
 
 export const getStaticProps = async () => {
 
@@ -10,7 +10,7 @@ export const getStaticProps = async () => {
 
   const db = connection.db;
 
-  const results = await db.collection('blogPosts').find({}).sort({timeStamp: -1}).toArray();
+  const results = await db.collection('products').find({}).toArray();
 
   const a = JSON.stringify(results);
 
@@ -25,7 +25,8 @@ export const getStaticProps = async () => {
 
 const index = (props: Props) => {
 
-  console.log(dummyProducts)
+  // console.log(dummyProducts)
+  console.log(props)
   return (
     <div className='flex flex-col w-full min-h-screen items-center mt-4'>
       {props.allPosts.map((product, i) => (
