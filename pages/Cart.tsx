@@ -2,6 +2,7 @@ import React from "react";
 import type { NextPage } from "next";
 import { addItem, removeItem, removeAll } from "../store/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
+import CartEmpty from '../components/CartEmpty';
 
 type Props = {};
 
@@ -12,6 +13,12 @@ const Cart: NextPage = (props: Props) => {
 	const { cart, total } = cartState;
 
 	const dispatch = useDispatch();
+
+  if(cart.length === 0){
+    return (
+      <CartEmpty />
+    )
+  }
 
 	return (
 		<div className="w-full min-h-screen flex flex-col items-center">
