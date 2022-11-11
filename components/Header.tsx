@@ -12,8 +12,12 @@ const options = [
 		href: "",
 	},
 	{
-		text: "Purchase/Return Policy",
-		href: "",
+		text: "Purchase Policy",
+		href: "/PurchasePolicy",
+	},
+	{
+		text: "Return Policy",
+		href: '/ReturnPolicy'
 	},
 	{
 		text: "Contact",
