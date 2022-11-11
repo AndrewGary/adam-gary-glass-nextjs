@@ -2,7 +2,7 @@ import React from 'react'
 import { dummyProducts } from '../../dummuData'
 import Link from 'next/link';
 import { connectToDatabase } from '../../mongoConnection';
-type Props = {allPosts: array}
+type Props = {allProducts: array}
 
 export const getStaticProps = async () => {
 
@@ -14,11 +14,11 @@ export const getStaticProps = async () => {
 
   const a = JSON.stringify(results);
 
-  const allPosts = JSON.parse(a);
+  const allProducts = JSON.parse(a);
 
   return {
     props: {
-      allPosts: allPosts
+      allProducts: allProducts
     }
   }
 }
@@ -29,13 +29,13 @@ const index = (props: Props) => {
   console.log(props)
   return (
     <div className='flex flex-col w-full min-h-screen items-center mt-4'>
-      {props.allPosts.map((product, i) => (
+      {props.allProducts.map((product, i) => (
         <div key={i} className='w-full flex flex-col items-center'>
           <img className='w-[60%] h-[75%]' src={product.defaultImage} alt='' />
           <div className='w-[60%] flex flex-col items-center bg-[#d3d3d3] mb-2 bg-opacity-20'>
             <h2>{product.name}</h2>
             <h3>${product.price}</h3>
-            <Link className='border border-black rounded-xl px-3' href={`/Products/${product.name}`}>
+            <Link className='border border-black rounded-xl px-3' href={`/Products/${product._id}`}>
             <button>View Details</button>
             </Link>
           </div>

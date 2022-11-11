@@ -25,12 +25,6 @@ const AddNewProduct = (props: Props) => {
   }
   const defaultImageRef = useRef('');
 
-  // const cld = new Cloudinary({
-  //   cloud: {
-
-  //   }
-  // })
-
   const [formValues, setFormValues] = useState(initialState);
   const [ imagePreviews, setImagePreviews ] = useState([]);
   const [ formMessage, setFormMessage ] = useState('');
@@ -95,7 +89,7 @@ const AddNewProduct = (props: Props) => {
       body: JSON.stringify({
         name: formValues.name,
         description: formValues.description,
-        price: formValues.price,
+        price: parseInt(formValues.price),
         images: uploadedImages.current,
         defaultImage: uploadedImages.current[0]
       })

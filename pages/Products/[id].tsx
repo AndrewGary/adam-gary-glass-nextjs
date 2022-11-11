@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router';
 import { addItem } from '../../store/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { connectToDatabase } from '../../mongoConnection';
+import { ObjectId } from 'mongodb';
 
 import { dummyProducts } from '../../dummuData';
 // const dummyProduct: {name: string, price: number, description: string, defaultImage: string, images: Array<string>} = {...dummyProducts[0]}
 const dummyProduct = {...dummyProducts[Math.floor(Math.random() * 5)]}
 
-
 type Props = {}
 
 const blah = (props: Props) => {
+  console.log('props: ', props);
   const cart = useSelector((state) => state.cart.cart);
   const dispatch = useDispatch();
 
@@ -19,7 +21,7 @@ const blah = (props: Props) => {
 
 
   const handleAddToCart = () => {
-    dispatch(addItem(dummyProduct));
+    dispatch(addItem({...props.post}));
   }
 
   return (
@@ -30,7 +32,7 @@ const blah = (props: Props) => {
         <div className='w-full overflow-x-scroll flex space-x-3'>
           {dummyProduct.images.map((image, i) => {
             return (
-                <img className='w-[70%]' src={image} alt='' />
+                <img key={i} className='w-[70%]' src={image} alt='' />
             )
           })}
         </div>
@@ -49,5 +51,47 @@ const blah = (props: Props) => {
     </div>
   )
 }
+
+export const getStaticPaths = async (context) => {
+  // const connection = await connectToDatabase();
+  // const db = connection.db;
+
+  // const id = context.params.id;
+  // const res = await db.collection('products').findOne({ _id: ObjectId(id)});
+  const connection = await connectToDatabase();
+
+	const db = connection.db;
+
+	const allProducts = await db.collection("products").find({}).toArray();
+
+	const paths = allProducts.map((product) => {
+		return {
+			params: { id: product._id.toString() },
+		};
+	});
+
+	return {
+		paths,
+		fallback: true,
+	};
+}
+
+export const getStaticProps = async (context) => {
+	const connection = await connectToDatabase();
+
+	const db = connection.db;
+	const id = context.params.id;
+	const res = await db
+		.collection("products")
+		.findOne({ _id: ObjectId(context.params.id) });
+
+	const aa = JSON.stringify(res);
+
+	const data = JSON.parse(aa);
+
+	return {
+		props: { post: data },
+	};
+};
 
 export default blah
