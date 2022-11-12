@@ -1,10 +1,19 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Cloudinary } from "@cloudinary/url-gen";
+import React, { useState, useRef } from "react";
 import { CldUploadButton } from "next-cloudinary";
+import { useSession } from 'next-auth/react';
+import { UploadApiResponse } from 'next-cloudinary'
 
 type Props = {};
 
-const initialState = {
+interface InitialState {
+	name: string;
+	description: string;
+	defaultImage: string;
+	images: string[];
+	price: number;
+}
+
+const initialState: InitialState = {
 	name: "",
 	description: "",
 	defaultImage: "",
@@ -13,9 +22,14 @@ const initialState = {
 };
 
 const AddNewProduct = (props: Props) => {
-	const uploadedImages = useRef([]);
-	const setUploadedImages = (newImage) => {
+	const { data: session, status } = useSession();
+
+	
+	const uploadedImages = useRef<string[]>([]);
+	const setUploadedImages = (newImage: string) => {
 		console.log("setUploadedImages has been invoked");
+		console.log(typeof newImage);
+		console.log(newImage);
 		uploadedImages.current.push(newImage);
 		setFormValues({
 			...formValues,
@@ -26,37 +40,17 @@ const AddNewProduct = (props: Props) => {
 
 	const [formValues, setFormValues] = useState(initialState);
 	const [imagePreviews, setImagePreviews] = useState([]);
-	const [formMessage, setFormMessage] = useState("");
-	const [formErrors, setFormErrors] = useState([]);
+	const [formMessage, setFormMessage] = useState<string>("");
+	const [formErrors, setFormErrors] = useState<string[]>([]);
 
-	const handleChange = async (e) => {
-		if (e.target.name === "fileSelection") {
-			const filesForState = [];
-			const reader = new FileReader();
-			for (const file of e.target.files) {
-				await new Promise((resolve) => {
-					reader.onload = (e) => {
-						filesForState.push(e.target?.result);
-						resolve();
-					};
-					reader.readAsDataURL(file);
-				});
-			}
-			setImagePreviews(filesForState);
-			setFormValues({
-				...formValues,
-				images: filesForState,
-				defaultImage: filesForState[0],
-			});
-		} else {
+	const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
 			setFormValues({
 				...formValues,
 				[e.target.name]: e.target.value,
 			});
-		}
 	};
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		console.log(!defaultImageRef.current);
 		console.log(defaultImageRef.current);
@@ -94,13 +88,15 @@ const AddNewProduct = (props: Props) => {
 			return;
 		}
 
+		
+
 		const reqOptions = {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({
 				name: formValues.name,
 				description: formValues.description,
-				price: parseInt(formValues.price),
+				price: formValues.price,
 				images: uploadedImages.current,
 				defaultImage: uploadedImages.current[0],
 				time: Date.now(),
@@ -111,7 +107,6 @@ const AddNewProduct = (props: Props) => {
 		const resp = await fetch("/api/addNewProduct", reqOptions);
 
 		if (resp.status === 201) {
-			setFormMessage([]);
 			setFormValues(initialState);
 			setFormMessage("Upload Successful");
 		}
@@ -119,6 +114,10 @@ const AddNewProduct = (props: Props) => {
 
 	console.log("-00000000000000000");
 	console.log(Date.now());
+
+	if(status === 'unauthenticated'){
+		return <p>Access Denied</p>;
+	}else{
 
 	return (
 		<div className="relative w-full min-h-screen flex flex-col items-center justify-center">
@@ -153,7 +152,10 @@ const AddNewProduct = (props: Props) => {
 				/>
 				<CldUploadButton
 					className="border border-black px-3 rounded-lg"
-					onUpload={(error, result, widget) => {
+					onUpload={(error: any, result: any, widget: any) => {
+						console.log('error: ', error);
+						console.log('result: ', result);
+						console.log('widget: ', widget);
 						if (!defaultImageRef.current) {
 							defaultImageRef.current = result.info.secure_url;
 						}
@@ -166,8 +168,8 @@ const AddNewProduct = (props: Props) => {
 				{uploadedImages.current.length || 0} Images Uploaded
 				{/* {defaultImageRef.current} */}
 				<div className="w-full flex overflow-x-auto space-x-1">
-					{uploadedImages.current.map((image) => {
-						return <img className="w-[40%] h-auto" src={image} alt="" />;
+					{uploadedImages.current.map((image, i) => {
+						return <img key={i} className="w-[40%] h-auto" src={image} alt="" />;
 					})}
 				</div>
 				{formValues.images.length > 0 && (
@@ -183,8 +185,8 @@ const AddNewProduct = (props: Props) => {
 					</div>
 				)}
 				<div className="w-full flex flex-col justify-center text-red-500 uppercase text-sm">
-					{formErrors.map((error) => {
-						return <div className="text-center">{error}</div>;
+					{formErrors.map((error, i) => {
+						return <div key={i} className="text-center">{error}</div>;
 					})}
 				</div>
 				{/* <div className="text-red-500 font-extrabold uppercase flex flex-col">{formErrors.map(error => <div>{error}</div>)}</div> */}
@@ -197,6 +199,7 @@ const AddNewProduct = (props: Props) => {
 			</form>
 		</div>
 	);
+				}
 };
 
 export default AddNewProduct;

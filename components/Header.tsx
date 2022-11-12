@@ -26,14 +26,18 @@ const options = [
 	},
 ];
 
+// interface RootState{
+// 	cart:
+// }
+
 type Props = {};
 
 const Header = (props: Props) => {
 
 	const { data: session } = useSession();
 
-	const cartState = useSelector((state) => state.cart);
-	const { cart } = cartState;
+	const cartLength = useSelector((state: any) => state.cart.cart.length);
+	// const { cart } = cartState;
 
 	const [hamburgerMenuActive, setHamburgerMenuActive] = useState(false);
 	const [searchActive, setSearchActive] = useState(false);
@@ -220,7 +224,7 @@ const Header = (props: Props) => {
 					{/* <div className="absolute w-full"></div> */}
 					<div className="relative">
 						<div className="absolute w-3 h-3 rounded-full flex justify-center items-center left-3 text-[#ff3434] bottom-4 font-bold p-2">
-							{cart.length}
+							{cartLength}
 						</div>
 						<Link href="/Cart">
 							<svg

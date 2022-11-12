@@ -1,6 +1,7 @@
 const { connectToDatabase } = require('../../mongoConnection');
+import type { NextApiRequest, NextApiResponse} from 'next'
 
-export default async function handler(req, res) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     
     const connection = await connectToDatabase();
 

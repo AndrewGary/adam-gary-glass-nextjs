@@ -3,13 +3,24 @@ import type { NextPage } from "next";
 import { addItem, removeItem, removeAll } from "../store/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import CartEmpty from '../components/CartEmpty';
+import { ObjectId } from 'mongodb'
 
 type Props = {};
+
+interface CartItem {
+  _id: ObjectId;
+  name: string;
+  description: string;
+  price: number;
+  defaultImage: string;
+  time: number;
+  images: string[]
+}
 
 const Cart: NextPage = (props: Props) => {
 	// const cart = useSelector((state) => state.cart.cart);
 	// const total = useSelector((state) => state.cart.total);
-	const cartState = useSelector((state) => state.cart);
+	const cartState = useSelector((state: any) => state.cart);
 	const { cart, total } = cartState;
 
 	const dispatch = useDispatch();
@@ -23,7 +34,7 @@ const Cart: NextPage = (props: Props) => {
 	return (
 		<div className="w-full min-h-screen flex flex-col items-center">
 			<div className="w-[90%] h-full flex flex-col spacey-2">
-				{cart.map((item, i) => (
+				{cart.map((item: CartItem, i: number) => (
 					<div key={i} className='w-full bg-gray-100 p-2 flex justify-between items-center'>
             <img src={item.defaultImage} alt='' className="w-20 h-20"/>
             

@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link';
 import { connectToDatabase } from '../../mongoConnection';
-type Props = {allProducts: array}
+type Props = {allProducts: any[]}
 
 export const getStaticProps = async () => {
 
