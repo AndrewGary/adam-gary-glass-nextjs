@@ -4,16 +4,17 @@ import { addItem } from '../../store/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { connectToDatabase } from '../../mongoConnection';
 import { ObjectId } from 'mongodb';
+import { GetStaticPaths, GetStaticProps } from 'next';
 
 import { dummyProducts } from '../../dummuData';
 // const dummyProduct: {name: string, price: number, description: string, defaultImage: string, images: Array<string>} = {...dummyProducts[0]}
 const dummyProduct = {...dummyProducts[Math.floor(Math.random() * 5)]}
 
-type Props = {}
+type Props = {post: any}
 
-const blah = (props: Props) => {
+const ProductDetails = (props: Props) => {
   console.log('props: ', props);
-  const cart = useSelector((state) => state.cart.cart);
+  const cart = useSelector((state: any) => state.cart.cart);
   const dispatch = useDispatch();
 
   const router = useRouter();
@@ -52,7 +53,7 @@ const blah = (props: Props) => {
   )
 }
 
-export const getStaticPaths = async (context) => {
+export const getStaticPaths: GetStaticPaths = async () => {
   // const connection = await connectToDatabase();
   // const db = connection.db;
 
@@ -64,7 +65,7 @@ export const getStaticPaths = async (context) => {
 
 	const allProducts = await db.collection("products").find({}).toArray();
 
-	const paths = allProducts.map((product) => {
+	const paths = allProducts.map((product: { _id: { toString: () => any; }; }) => {
 		return {
 			params: { id: product._id.toString() },
 		};
@@ -76,14 +77,14 @@ export const getStaticPaths = async (context) => {
 	};
 }
 
-export const getStaticProps = async (context) => {
+export const getStaticProps = async (context: { params: { id: string; }; }) => {
 	const connection = await connectToDatabase();
 
 	const db = connection.db;
 	const id = context.params.id;
 	const res = await db
 		.collection("products")
-		.findOne({ _id: ObjectId(context.params.id) });
+		.findOne({ _id: new ObjectId(context.params.id) });
 
 	const aa = JSON.stringify(res);
 
@@ -94,4 +95,4 @@ export const getStaticProps = async (context) => {
 	};
 };
 
-export default blah
+export default ProductDetails

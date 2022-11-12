@@ -1,7 +1,9 @@
-import { MongoClient } from 'mongodb';
+import { Db, MongoClient } from 'mongodb';
+import * as dotenv from 'dotenv';
 
-const MONGODB_URI = process.env.NEXT_PUBLIC_MONGODB_URI;
-const MONGODB_DB = process.env.NEXT_PUBLIC_DB_NAME;
+const MONGODB_URI = process.env.NEXT_PUBLIC_MONGODB_URI || '';
+const MONGODB_DB = process.env.NEXT_PUBLIC_DB_NAME || '';
+
 
 // check the MongoDB URI
 if (!MONGODB_URI) {

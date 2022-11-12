@@ -17,6 +17,7 @@
     "dotenv": "^16.0.3",
     "mongodb": "^4.11.0",
     "next": "13.0.0",
+    "next-auth": "^4.16.4",
     "next-cloudinary": "^0.8.0",
     "next-redux-wrapper": "^8.0.0",
     "react": "18.2.0",

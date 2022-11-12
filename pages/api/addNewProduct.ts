@@ -1,7 +1,8 @@
 const { connectToDatabase } = require('../../mongoConnection');
 const { cloudinary } = require('../../cloudinary');
+import type { NextApiRequest, NextApiResponse} from 'next'
 
-export default async function handler(req, res) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     
     const connection = await connectToDatabase();
 
