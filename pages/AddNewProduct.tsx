@@ -1,7 +1,6 @@
 import React, { useState, useRef } from "react";
 import { CldUploadButton } from "next-cloudinary";
 import { useSession } from 'next-auth/react';
-import { UploadApiResponse } from 'next-cloudinary'
 
 type Props = {};
 
