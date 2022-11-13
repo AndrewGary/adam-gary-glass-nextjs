@@ -1,5 +1,4 @@
 import NextAuth from "next-auth"
-import GithubProvider from "next-auth/providers/github"
 import GoogleProvider from 'next-auth/providers/google';
 
 interface ProviderObject {
@@ -18,13 +17,16 @@ export const authOptions = {
   ],
   callbacks: {
     async signIn({ user, account, profile, email, credentials}: any){
-        if(user.email === 'andrew.gary91@gmail.com'){
+        if(user.email === 'andrew.gary91@gmail.com' || user.email === 'adamgaryglass@gmail.com'){
             return true;
         }
 
         return false;
 
-    }
+    },
+    async redirect() {
+        return '/AdminDashBoard'
+      },
   },
 }
 export default NextAuth(authOptions)
