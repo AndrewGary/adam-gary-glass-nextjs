@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { CldUploadButton } from "next-cloudinary";
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 type Props = {};
 
@@ -21,6 +22,8 @@ const initialState: InitialState = {
 };
 
 const AddNewProduct = (props: Props) => {
+
+	const router = useRouter();
 	const { data: session, status } = useSession();
 
 	
@@ -102,17 +105,24 @@ const AddNewProduct = (props: Props) => {
 			}),
 		};
 
-		console.log(reqOptions.body);
 		const resp = await fetch("/api/addNewProduct", reqOptions);
 
+		console.log('resp: ', resp);
+		const yeah = JSON.stringify(resp)
+		const yeahh = JSON.stringify(resp.body);
+
+		console.log(yeah);
+		console.log(yeahh);
+		
+
 		if (resp.status === 201) {
-			setFormValues(initialState);
-			setFormMessage("Upload Successful");
+			setFormMessage('Upload successful');
+			setTimeout(() => {
+
+				router.push('/AdminDashBoard');
+			}, 2000)
 		}
 	};
-
-	console.log("-00000000000000000");
-	console.log(Date.now());
 
 	if(status === 'unauthenticated'){
 		return <p>Access Denied</p>;
@@ -188,7 +198,7 @@ const AddNewProduct = (props: Props) => {
 						return <div key={i} className="text-center">{error}</div>;
 					})}
 				</div>
-				{/* <div className="text-red-500 font-extrabold uppercase flex flex-col">{formErrors.map(error => <div>{error}</div>)}</div> */}
+				{formMessage && <span>{formMessage}</span>}
 				<button
 					type="submit"
 					className="border border-black px-3 rounded-lg w-1/2"

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { connectToDatabase } from '../../mongoConnection';
 type Props = {allProducts: any[]}
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
 
   const connection = await connectToDatabase();
 

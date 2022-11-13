@@ -19,5 +19,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 return res.status(400).json(error);
             }
         }
+
+        case 'DELETE': {
+            try{
+                const allGone = await db.collection('products').remove({});
+
+                return res.status(200).json(allGone);
+            }catch(error){
+                console.log(error);
+            }
+        }
     }
 }

@@ -19,7 +19,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             
 
             const result = await db.collection('products').insertOne(req.body);
-            return res.status(201).json(result);
+
+            return res.status(201).json(result.insertedId);
         }
 
         case 'PUT': {

@@ -23,6 +23,17 @@ const AdminDashBoard = (props: Props) => {
                 Edit Products
             </Link>
         </div>
+
+        <button onClick={() => {
+            const reqOpts = {
+                method: 'DELETE'
+            }
+
+            fetch('/api/products', reqOpts)
+            .then(resp => {
+                console.log(resp);
+            })
+        }}>Delete All Products</button>
     </div>
   )
 }
