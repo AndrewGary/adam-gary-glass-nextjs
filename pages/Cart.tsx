@@ -4,6 +4,7 @@ import { addItem, removeItem, removeAll } from "../store/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import CartEmpty from '../components/CartEmpty';
 import { ObjectId } from 'mongodb'
+import Link from 'next/link';
 
 type Props = {};
 
@@ -18,8 +19,6 @@ interface CartItem {
 }
 
 const Cart: NextPage = (props: Props) => {
-	// const cart = useSelector((state) => state.cart.cart);
-	// const total = useSelector((state) => state.cart.total);
 	const cartState = useSelector((state: any) => state.cart);
 	const { cart, total } = cartState;
 
@@ -54,6 +53,12 @@ const Cart: NextPage = (props: Props) => {
         <div className="flex flex-col items-end text-sm">
           <span className=" font-extrabold">Total</span>
           <span>${total}</span>
+        </div>
+
+        <div className="flex justify-end my-2">
+          <Link className="border border-black rounded-xl px-2" href='/checkout/1' >
+              Checkout
+          </Link>
         </div>
 
         <button className="border border-black px-3 rounded-xl" onClick={() => {
