@@ -28,15 +28,17 @@ export const cartSlice = createSlice({
     reducers: {
         addItem: (state: {cart: CartItem[], total: number}, action: Action) => {
             state.cart.push(action.payload);
-            console.log(typeof state.total)
 
-            state.total = state.total + action.payload.price;
+            state.total = state.total + parseInt(action.payload.price);
         },
         removeItem: (state, action) => {
             state.cart = state.cart.filter((item: CartItem) => item._id !== action.payload._id)
 
             let newTotal = 0;
             state.cart.forEach((item: CartItem) => {newTotal = newTotal + item.price})
+
+            console.log('typeof newTotal')
+            console.log(typeof newTotal);
             state.total = newTotal;
         },
         removeAll: (state) => {

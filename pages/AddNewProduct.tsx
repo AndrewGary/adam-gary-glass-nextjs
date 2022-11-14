@@ -90,7 +90,7 @@ const AddNewProduct = (props: Props) => {
 			return;
 		}
 
-		
+		// const number = parseInt(formValues.price);
 
 		const reqOptions = {
 			method: "POST",
