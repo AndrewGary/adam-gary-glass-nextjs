@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { addItem } from "../../store/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { connectToDatabase } from "../../mongoConnection";
@@ -7,11 +7,43 @@ import { GetStaticPaths, GetStaticProps } from "next";
 
 type Props = { post: any };
 
+const ItemAdded = (props) => {
+
+	const [visible, setVisible] = useState(props.changeVisible);
+
+	useEffect(() => {
+		setTimeout(() => {
+
+		}, 2000)
+	}, [visible])
+	
+	if(visible){
+	return(
+		<div className="absolute text-green-500">
+			Added Successfully
+		</div>
+	)
+	}
+
+	return(<></>)
+	
+}
+
 const ProductDetails = (props: Props) => {
-	console.log("props: ", props);
+
+	const [showAdded, setShowAdded] = useState(false);
+
+	useEffect(() => {
+		const yeah = () => {
+			setShowAdded(false);
+		}
+		setTimeout(yeah, 4000)
+	}, [showAdded])
+	
 	const dispatch = useDispatch();
 
 	const handleAddToCart = () => {
+		setShowAdded(true);
 		dispatch(addItem({ ...props.post }));
 	};
 
@@ -29,9 +61,10 @@ const ProductDetails = (props: Props) => {
 					})}
 				</div>
 
-				<div className="flex flex-col items-center space-y-4 mt-3">
+				<div className="relative flex flex-col items-center space-y-4 mt-3">
 					<span>${props.post.price}</span>
 					<span>{props.post.description}</span>
+					{showAdded && <div className="top-4 absolute text-green-500 transition-all">Added To Cart</div>}
 					<div className="space-x-3">
 						<button className="border border-black px-4 rounded-lg">
 							Go Back
