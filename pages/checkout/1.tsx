@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { usStates } from '../../utils/utils';
+import OrderPreview from '../../components/OrderPreview';
 
 type Props = {}
 
@@ -42,6 +43,7 @@ const Checkout1 = (props: Props) => {
   return (
     <div className='w-full min-h-screen flex flex-col items-center'>
       <div className='flex flex-col items-center w-[90%] mt-4'>
+        <OrderPreview />
         <h1 className='text-2xl'>Shipping Address</h1>
 
         <form className='w-full flex flex-col space-y-3' onSubmit={handleSubmit}>
@@ -96,8 +98,8 @@ const Checkout1 = (props: Props) => {
 
           <select name='state' onChange={handleChange} className='border border-black rounded-sm text-gray-400'>
             <option>State</option>
-            {usStates.map(state => (
-              <option>
+            {usStates.map((state, i) => (
+              <option key={i} value={state}>
                 {state}
               </option>
             ))}
