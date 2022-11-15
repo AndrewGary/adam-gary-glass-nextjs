@@ -12,7 +12,8 @@ interface FormState {
   city: string;
   state: string;
   zip: string;
-  phoneNumber: string
+  phoneNumber: string;
+  specialInstructions: string
 }
 
 const initialState = {
@@ -23,7 +24,8 @@ const initialState = {
   city: '',
   state: '',
   zip: '',
-  phoneNumber: ''
+  phoneNumber: '',
+  specialInstructions: ''
 }
 
 const Checkout1 = (props: Props) => {
@@ -46,7 +48,7 @@ const Checkout1 = (props: Props) => {
         <OrderPreview />
         <h1 className='text-2xl'>Shipping Address</h1>
 
-        <form className='w-full flex flex-col space-y-3' onSubmit={handleSubmit}>
+        <form className='w-full flex flex-col space-y-3 items-center' onSubmit={handleSubmit}>
 
           {/* <div className='flex w-full justify-evenly'> */}
             <input
@@ -54,8 +56,9 @@ const Checkout1 = (props: Props) => {
               name='firstName'
               value={formValues.firstName}
               onChange={handleChange}
-              className='border border-black rounded-sm w-full'
+              className='pl-1 border border-black rounded-sm w-full'
               placeholder='First Name...'
+              required
             />
 
             <input
@@ -63,8 +66,9 @@ const Checkout1 = (props: Props) => {
               name='lastName'
               value={formValues.lastName}
               onChange={handleChange}
-              className='border border-black rounded-sm w-full'
+              className='pl-1 border border-black rounded-sm w-full'
               placeholder='Last Name...'
+              required
             />
           {/* </div> */}
 
@@ -73,8 +77,9 @@ const Checkout1 = (props: Props) => {
             name='address1'
             value={formValues.address1}
             onChange={handleChange}
-            className='border border-black rounded-sm'
+            className='pl-1 border border-black rounded-sm w-full'
             placeholder='Address'
+            required
           />
 
           <input
@@ -82,7 +87,7 @@ const Checkout1 = (props: Props) => {
             name='address2'
             value={formValues.address2}
             onChange={handleChange}
-            className='border border-black rounded-sm'
+            className='pl-1 border border-black rounded-sm w-full'
             placeholder='Apartment, suite, etc. (optional)'
           />
 
@@ -92,11 +97,12 @@ const Checkout1 = (props: Props) => {
             name='city'
             value={formValues.city}
             onChange={handleChange}
-            className='border border-black rounded-sm'
+            className='pl-1 border border-black rounded-sm w-full'
             placeholder='City'
+            required
           />
-
-          <select name='state' onChange={handleChange} className='border border-black rounded-sm text-gray-400'>
+          <div className='w-full flex justify-between'>
+          <select required name='state' onChange={handleChange} className='w-[38%] border border-black rounded-sm text-gray-400'>
             <option>State</option>
             {usStates.map((state, i) => (
               <option key={i} value={state}>
@@ -110,18 +116,30 @@ const Checkout1 = (props: Props) => {
             name='zip'
             value={formValues.zip}
             onChange={handleChange}
-            className='border border-black rounded-sm'
+            className='pl-1 w-[60%] border border-black rounded-sm'
             placeholder='Zip Code'
+            required
           />
+          </div>
 
           <input
             type='tel'
             name='phoneNumber'
             value={formValues.phoneNumber}
             onChange={handleChange}
-            className='border border-black rounded-sm'
+            className='pl-1 border border-black rounded-sm w-full'
             placeholder='Phone Number'
+            required
           />
+
+          <textarea
+            className='pl-1 border border-black w-full rounded-sm'
+            placeholder='Special Instructions'
+            name='specialInstructions'
+            onChange={handleChange}
+          />
+
+          <button className='border border-black rounded-md w-1/2' type='submit'>Proceed to Payment</button>
         </form>
       </div>
       

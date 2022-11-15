@@ -61,9 +61,9 @@ const Cart: NextPage = (props: Props) => {
           </Link>
         </div>
 
-        <button className="border border-black px-3 rounded-xl" onClick={() => {
+        {process.env.NODE_ENV !== 'production' && <button className="border border-black px-3 rounded-xl" onClick={() => {
           dispatch(removeAll());
-        }}>Remove All From Cart(forTesting)</button>
+        }}>Remove All From Cart(forTesting)</button>}
 			</div>
 
       

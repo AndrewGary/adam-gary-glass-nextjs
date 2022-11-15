@@ -18,8 +18,8 @@ const OrderPreview = (props: Props) => {
             Order Preview
         </div>
         { componentVisible && <div className='w-full'>
-            {cartState.cart.map((item: any) => (
-                <div>
+            {cartState.cart.map((item: any, i: number) => (
+                <div key={i}>
                     {item.name}
                 </div>
             ))}
