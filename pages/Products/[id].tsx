@@ -7,28 +7,6 @@ import { GetStaticPaths, GetStaticProps } from "next";
 
 type Props = { post: any };
 
-const ItemAdded = (props) => {
-
-	const [visible, setVisible] = useState(props.changeVisible);
-
-	useEffect(() => {
-		setTimeout(() => {
-
-		}, 2000)
-	}, [visible])
-	
-	if(visible){
-	return(
-		<div className="absolute text-green-500">
-			Added Successfully
-		</div>
-	)
-	}
-
-	return(<></>)
-	
-}
-
 const ProductDetails = (props: Props) => {
 
 	const [showAdded, setShowAdded] = useState(false);

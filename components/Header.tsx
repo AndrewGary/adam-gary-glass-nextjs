@@ -36,7 +36,7 @@ const Header = (props: Props) => {
 
 	const { data: session } = useSession();
 
-	const cartLength = useSelector((state: any) => state.cart.cart.length);
+	const cartLength = useSelector((state: any) => state.cart.numberOfItems);
 	// const { cart } = cartState;
 
 	const [hamburgerMenuActive, setHamburgerMenuActive] = useState(false);
