@@ -25,7 +25,7 @@ interface Action {
     type:string;
 }
 
-const calculateTotal = (stateArray) => {
+const calculateTotal = (stateArray: CartItem[]) => {
     const yeah = stateArray.map(item => {
         return {
             ...item,
@@ -36,7 +36,7 @@ const calculateTotal = (stateArray) => {
     return yeah;
 }
 
-const calculateCartTotal = (cartArray) => {
+const calculateCartTotal = (cartArray: CartItem[]) => {
     let returnInteger = 0;
 
     for(let i = 0; i < cartArray.length; i++){
