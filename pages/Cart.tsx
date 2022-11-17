@@ -1,6 +1,6 @@
 import React from "react";
 import type { NextPage } from "next";
-import { addItem, removeItem, removeAll } from "../store/cartSlice";
+import { removeItem, removeAll, decreaseQuantity, increaseQuantity } from "../store/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import CartEmpty from '../components/CartEmpty';
 import { ObjectId } from 'mongodb'
@@ -15,7 +15,9 @@ interface CartItem {
   price: number;
   defaultImage: string;
   time: number;
-  images: string[]
+  images: string[];
+  quantity: number;
+  total: number;
 }
 
 const Cart: NextPage = (props: Props) => {
@@ -45,7 +47,19 @@ const Cart: NextPage = (props: Props) => {
             </div>
 
             <div>
-              ${item.price}
+            <button onClick={() => {
+                dispatch(decreaseQuantity(item._id));
+              }}>-</button>
+              <span className="bg-white border border-black text-center mx-1 p-1 rounded-md">{item.quantity}</span>
+              <button onClick={() => {
+                dispatch(increaseQuantity(item._id))
+
+              }}>+</button>
+              
+            </div>
+
+            <div>
+              ${item.total}
             </div>
 
           </div>
