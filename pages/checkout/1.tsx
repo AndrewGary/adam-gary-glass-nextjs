@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { usStates } from '../../utils/utils';
+import { useDispatch, useSelector } from "react-redux";
+import { createOrder } from '../../store/orderSlice';
 import OrderPreview from '../../components/OrderPreview';
 
 type Props = {}
@@ -13,7 +15,9 @@ interface FormState {
   state: string;
   zip: string;
   phoneNumber: string;
-  specialInstructions: string
+  specialInstructions: string;
+  email: string;
+  emailConfirmation: string;
 }
 
 const initialState = {
@@ -25,10 +29,16 @@ const initialState = {
   state: '',
   zip: '',
   phoneNumber: '',
-  specialInstructions: ''
+  specialInstructions: '',
+  email: '',
+  emailConfirmation: ''
 }
 
 const Checkout1 = (props: Props) => {
+
+  const cartState = useSelector((state: any) => state.cart);
+  const dispatch = useDispatch();
+
 
   const [ formValues, setFormValues ] = useState<FormState>(initialState);
 
@@ -39,8 +49,42 @@ const Checkout1 = (props: Props) => {
     })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // if(formValues.email !== formValues.emailConfirmation){
+    //   return
+    // }
+
+    console.log('before dispatch')
+      dispatch(createOrder({
+        order: cartState,
+        customer: formValues
+      }))
+    console.log('after dispatch')
+    // const reqOptions = {
+    //   method: 'POST',
+    //   headers: { "Content-Type": "application/json" },
+		// 	body: JSON.stringify({
+    //     order: cartState,
+    //     customer: {
+    //       firstName: formValues.firstName,
+    //       lastName: formValues.lastName,
+    //       address1: formValues.address1,
+    //       address2: formValues.address2,
+    //       city: formValues.city,
+    //       state: formValues.state,
+    //       zip: formValues.zip,
+    //       phoneNumber: formValues.phoneNumber,
+    //       specialInstructions: formValues.specialInstructions,
+    //       email: formValues.email,
+    //     }
+		// 	})
+    // }
+
+    // const resp = await fetch('/api/order', reqOptions);
+
+    // console.log(resp);
   }
   return (
     <div className='w-full min-h-screen flex flex-col items-center'>
@@ -121,6 +165,26 @@ const Checkout1 = (props: Props) => {
             required
           />
           </div>
+
+          <input
+            type='email'
+            name='email'
+            value={formValues.email}
+            onChange={handleChange}
+            className='pl-1 border border-black rounded-sm w-full'
+            placeholder='Email'
+            required
+          />
+
+          <input
+            type='emailConfirmation'
+            name='emailConfirmation'
+            value={formValues.emailConfirmation}
+            onChange={handleChange}
+            className='pl-1 border border-black rounded-sm w-full'
+            placeholder='Confirm Email'
+            required
+          />
 
           <input
             type='tel'
