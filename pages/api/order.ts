@@ -19,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         case 'POST': {
 
-            console.log(req.body.order.cart)
+            console.log(req.body)
 
             return res.status(200).json({ message: 'work'});
             // const result = await db.collection('orders').insertOne(req.body);

@@ -3,6 +3,8 @@ import { usStates } from '../../utils/utils';
 import { useDispatch, useSelector } from "react-redux";
 import { createOrder } from '../../store/orderSlice';
 import OrderPreview from '../../components/OrderPreview';
+import { uuid } from 'uuidv4';
+import { useRouter } from 'next/router';
 
 type Props = {}
 
@@ -36,6 +38,8 @@ const initialState = {
 
 const Checkout1 = (props: Props) => {
 
+  const router = useRouter();
+
   const cartState = useSelector((state: any) => state.cart);
   const dispatch = useDispatch();
 
@@ -52,39 +56,13 @@ const Checkout1 = (props: Props) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // if(formValues.email !== formValues.emailConfirmation){
-    //   return
-    // }
-
-    console.log('before dispatch')
       dispatch(createOrder({
+        orderId: uuid(),
         order: cartState,
         customer: formValues
       }))
-    console.log('after dispatch')
-    // const reqOptions = {
-    //   method: 'POST',
-    //   headers: { "Content-Type": "application/json" },
-		// 	body: JSON.stringify({
-    //     order: cartState,
-    //     customer: {
-    //       firstName: formValues.firstName,
-    //       lastName: formValues.lastName,
-    //       address1: formValues.address1,
-    //       address2: formValues.address2,
-    //       city: formValues.city,
-    //       state: formValues.state,
-    //       zip: formValues.zip,
-    //       phoneNumber: formValues.phoneNumber,
-    //       specialInstructions: formValues.specialInstructions,
-    //       email: formValues.email,
-    //     }
-		// 	})
-    // }
 
-    // const resp = await fetch('/api/order', reqOptions);
-
-    // console.log(resp);
+      router.push('/checkout/2');
   }
   return (
     <div className='w-full min-h-screen flex flex-col items-center'>
