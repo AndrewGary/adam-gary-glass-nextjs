@@ -1,45 +1,81 @@
 import React, { useState } from "react";
+import { createOrder, setPaymentMethod } from '../../store/orderSlice';
+import { useSelector } from "react-redux";
+import { useDispatch } from 'react-redux'
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 type Props = {};
 
 const Checkout2 = (props: Props) => {
-	const [showVenmoDetails, setShowVenmoDetails] = useState(false);
-	const [showCreditCardDetails, setShowCreditCardDetails] = useState(false);
-    const [showPaypalDetails, setShowPaypalDetails] = useState(false);
+
+    const orderState = useSelector((state: any) => state.order);
+
+    // console.log('orderState: ', orderState);
+
+    const router = useRouter();
+
+    const dispatch = useDispatch();
+
+    const [ showDetails, setShowDetails ] = useState('');
+
+    const handleSelection = e => {
+
+        // console.log(e.target.textContent);
+        switch(e.target.textContent){
+            case 'Select Venmo':
+                dispatch(setPaymentMethod('venmo'))
+                break;
+            case 'Select Paypal':
+                dispatch(setPaymentMethod('paypal'))
+                break;
+            case 'Select Email Invoice':
+                dispatch(setPaymentMethod('invoice'))
+                break;
+        }
+        router.push('/checkout/3')
+
+    }
 
 	return (
 		<div className="w-full min-h-screen flex flex-col items-center">
 			<h1 className="text-2xl">Payments</h1>
 
-			<div className="w-[90%] flex flex-col items-center border border-black mb-4">
+			<div className="w-[90%] flex flex-col items-center border border-black mb-4 space-y-4">
 				<span className="underline">How would you like to pay?</span>
 
-                <div className="w-full flex flex-col items-center">
-                    <span
+                <div className="w-full space-y-4 flex flex-col items-center">
+                    <div
                         className="text-center w-full border border-red-500"
-                        onClick={() => {
-                            setShowVenmoDetails(!showVenmoDetails);
+                        onClick={(e) => {
+                            if(showDetails !== 'venmo'){
+                                setShowDetails('venmo');
+                            }else{
+                                setShowDetails('');
+                            }
                         }}
                     >
                         Venmo
-                    </span>
+                    </div>
 
 
-                    {showVenmoDetails && (
+                    {showDetails === 'venmo' && (
 						<div className="flex flex-col items-center">
 							<span>Venmo Instructions</span>
 							<span className="text-center">
-								Please send the full payment amount of $800 to:
+								Please send the full payment amount of ${orderState.order.total} to:
 							</span>
 							<div className="flex items-center my-2">
 								<img src="/venmo.png" alt="venmo" />
 								<span>{process.env.NEXT_PUBLIC_ADAM_VENMO}</span>
 							</div>
 
-							<span className="mx-3">
+							{/* <span className="mx-3">
 								Once payment is recieved you will recieve confirmation email and
 								tracking before the end of the work day
-							</span>
+							</span> */}
+
+                            <button onClick={handleSelection} className="border border-black rounded-md px-2">Select Venmo</button>
 						</div>
 					)}
                 </div>
@@ -48,28 +84,33 @@ const Checkout2 = (props: Props) => {
                     <span
                         className="text-center w-full border border-red-500"
                         onClick={() => {
-                            setShowPaypalDetails(!showPaypalDetails);
+                            if(showDetails !== 'paypal'){
+                                setShowDetails('paypal');
+                            }else{
+                                setShowDetails('');
+                            }
                         }}
                     >
                         Paypal
                     </span>
 
 
-                    {showPaypalDetails && (
+                    {showDetails === 'paypal' && (
 						<div className="flex flex-col items-center">
 							<span>Paypal Instructions</span>
 							<span className="text-center">
-								Please send the full payment amount of $800 to:
+								Please send the full payment amount of {orderState.order.total} to:
 							</span>
 							<div className="flex items-center my-2">
 								<img src="/paypal.png" alt="paypal logo" />
 								<span>{process.env.NEXT_PUBLIC_ADAM_PAYPAL}</span>
 							</div>
 
-							<span className="mx-3">
+							{/* <span className="mx-3">
 								Once payment is recieved you will recieve confirmation email and
 								tracking before the end of the day
-							</span>
+							</span> */}
+                            <button onClick={handleSelection} className="border border-black rounded-md px-2">Select Paypal</button>
 						</div>
 					)}
                 </div>
@@ -78,34 +119,42 @@ const Checkout2 = (props: Props) => {
                     <span
                         className="text-center w-full border border-red-500"
                         onClick={() => {
-                            setShowCreditCardDetails(!showCreditCardDetails);
+                            if(showDetails !== 'invoice'){
+                                setShowDetails('invoice');
+                            }else{
+                                setShowDetails('');
+                            }
                         }}
                     >
                         Credit Card Via Email Invoice
                     </span>
 
 
-                    {showCreditCardDetails && (
+                    {showDetails === 'invoice' && (
 						<div className="flex flex-col items-center">
 							<span>Paypal Instructions</span>
 							<span className="text-center">
-								Please send the full payment amount of $800 to:
+								Please send the full payment amount of {orderState.order.total} to:
 							</span>
 							<div className="flex items-center my-2">
 								<img src="/paypal.png" alt="paypal logo" />
 								<span>{process.env.NEXT_PUBLIC_ADAM_PAYPAL}</span>
 							</div>
 
-							<span className="mx-3">
+							{/* <span className="mx-3">
 								Once payment is recieved you will recieve confirmation email and
 								tracking before the end of the day
-							</span>
+							</span> */}
+                            <button onClick={handleSelection} className="border border-black rounded-md px-2">Select Email Invoice</button>
 						</div>
 					)}
                 </div>
 
-                
 			</div>
+                <Link href={'/checkout/3'} className="border border-black px-2">Review Order</Link>
+                {/* <button onClick={() => {
+                    dispatch(setPaymentMethod())
+                }}>test</button> */}
 		</div>
 	);
 };

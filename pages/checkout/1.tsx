@@ -59,7 +59,8 @@ const Checkout1 = (props: Props) => {
       dispatch(createOrder({
         orderId: uuid(),
         order: cartState,
-        customer: formValues
+        customer: formValues,
+        paymentMethod: ''
       }))
 
       router.push('/checkout/2');
