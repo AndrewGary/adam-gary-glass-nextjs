@@ -18,10 +18,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
 
         case 'POST': {
+            console.log(req.body);
 
-            console.log(req.body)
+            const result = await db.collection('orders').insertOne(req.body);
 
-            return res.status(200).json({ message: 'work'});
+
+            return res.status(200).json(result);
             // const result = await db.collection('orders').insertOne(req.body);
 
             // console.log('---------------------------')

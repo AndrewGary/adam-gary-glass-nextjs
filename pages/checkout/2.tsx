@@ -99,7 +99,7 @@ const Checkout2 = (props: Props) => {
 						<div className="flex flex-col items-center">
 							<span>Paypal Instructions</span>
 							<span className="text-center">
-								Please send the full payment amount of {orderState.order.total} to:
+								Please send the full payment amount of ${orderState.order.total} to:
 							</span>
 							<div className="flex items-center my-2">
 								<img src="/paypal.png" alt="paypal logo" />
@@ -134,7 +134,7 @@ const Checkout2 = (props: Props) => {
 						<div className="flex flex-col items-center">
 							<span>Paypal Instructions</span>
 							<span className="text-center">
-								Please send the full payment amount of {orderState.order.total} to:
+								You will recieve an email invoice that will have a Link to pay with your credit card.
 							</span>
 							<div className="flex items-center my-2">
 								<img src="/paypal.png" alt="paypal logo" />
