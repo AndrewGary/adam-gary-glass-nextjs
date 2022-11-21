@@ -1,5 +1,6 @@
 const { connectToDatabase } = require('../../mongoConnection');
 import type { NextApiRequest, NextApiResponse} from 'next'
+import { ObjectId } from 'mongodb';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     
@@ -35,6 +36,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
 
         case 'PUT': {
+            console.log('req.body: ', req.body);
+
+            // const yep = await db.collection('orders').findOneAndUpdate({_id: req.body._id}, {shipped: req.body.shipped, paid: req.body.paid});
+
+            const yep = await db.collection('orders').replaceOne({_id: req.body._id}, {...req.body})
+
+            // console.log('yep: ', yep);
+            // const result = await db.collection('orders').findByIdAndUpdate(req.body._id, req.body)
+
+            // console.log('result: ', result);
+
+            // return res.status(200).json(result);
+            return res.status(200).json(yep);
 
         }
     }
