@@ -19,7 +19,7 @@ const Checkout2 = (props: Props) => {
 
     const [ showDetails, setShowDetails ] = useState('');
 
-    const handleSelection = e => {
+    const handleSelection = (e: any) => {
 
         // console.log(e.target.textContent);
         switch(e.target.textContent){

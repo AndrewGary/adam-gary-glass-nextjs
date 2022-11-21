@@ -8,9 +8,9 @@ const ReviewOrder = (props: Props) => {
     const router = useRouter();
     const orderState = useSelector((state: any) => state.order);
 
-    const { customer, order, paymentMethod } = orderState;
+    const { customer, order } = orderState;
 
-    const handleSubmit = async e => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
 
         const reqOptions = {
