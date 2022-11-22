@@ -1,10 +1,15 @@
 import React from 'react'
 import { useSelector } from "react-redux";
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { removeAll } from '../../store/cartSlice'
 
 type Props = {}
 
 const ReviewOrder = (props: Props) => {
+
+    const dispatch = useDispatch();
+
     const router = useRouter();
     const orderState = useSelector((state: any) => state.order);
 
@@ -22,6 +27,7 @@ const ReviewOrder = (props: Props) => {
         const resp = await fetch('/api/order', reqOptions)
 
         if(resp.status === 200){
+            dispatch(removeAll())
             router.push('/checkout/4')
         }
 

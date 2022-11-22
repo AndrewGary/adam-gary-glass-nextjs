@@ -32,7 +32,7 @@ const AdminDashBoard = (props: Props) => {
             4 New Messages
         </Link>
 
-        <Link href={'/ManageOrders'} className='w-[85%] border border-black rounded-md flex justify-center items-center h-16'>
+        <Link href={'/Orders'} className='w-[85%] border border-black rounded-md flex justify-center items-center h-16'>
             {props.allOrders.length} Open Orders
         </Link>
 
