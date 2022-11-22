@@ -27,14 +27,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
 
         case 'PUT': {
-            // console.log('req.body: ', req.body);
 
-            const filter = { _id: ObjectId(req.body._id) };
+            const filter = { _id: new ObjectId(req.body._id) };
                 const options = { upsert: true };
                 
                 const updateDoc = {
                   $set: {
-                    paid: req.body.paid
+                    paid: req.body.paid,
+                    shipped: req.body.shipped
                   },
                 };
                 const result = await db.collection('orders').updateOne(filter, updateDoc, options);
