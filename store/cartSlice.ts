@@ -117,6 +117,7 @@ export const cartSlice = createSlice({
         removeAll: (state) => {
             state.cart = [];
             state.total = 0;
+            state.numberOfItems = 0;
         }
     }
 })
