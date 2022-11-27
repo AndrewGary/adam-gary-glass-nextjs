@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector } from "react-redux";
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 type Props = {}
 
@@ -54,7 +55,7 @@ const ReviewOrder = (props: Props) => {
             <h2 className='text-xl font-bold uppercase'>Order</h2>
             {order.cart.map((item: any, i: number) => (
                 <div className='flex items-center justify-evenly w-full border border-black border-opacity-20 p-1' key={i}>
-                    <img className='w-16 h-16' src={item.defaultImage} alt={item.name} />
+                    <Image width={100} height={100} className='w-16 h-16' src={item.defaultImage} alt={item.name} />
                     <span>{item.name}</span>
                     <span>${item.price}</span>
                     <span>x</span>
