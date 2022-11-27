@@ -1,5 +1,6 @@
 const { connectToDatabase } = require('../../mongoConnection');
 import type { NextApiRequest, NextApiResponse} from 'next'
+import { ObjectId } from 'mongodb';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     
@@ -7,7 +8,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const db = connection.db;
 
-    // switch the methods
     switch (req.method) {
         case 'GET': {
             
@@ -24,17 +24,25 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 
             return res.status(200).json(result);
-            // const result = await db.collection('orders').insertOne(req.body);
-
-            // console.log('---------------------------')
-            // console.log(result);
-            // console.log('---------------------------')
-
-
-            // return res.status(201).json(result);
         }
 
         case 'PUT': {
+
+            const filter = { _id: new ObjectId(req.body._id) };
+                const options = { upsert: true };
+                
+                const updateDoc = {
+                  $set: {
+                    paid: req.body.paid,
+                    shipped: req.body.shipped
+                  },
+                };
+                const result = await db.collection('orders').updateOne(filter, updateDoc, options);
+                console.log(
+                  `${result.matchedCount} document(s) matched the filter, updated ${result.modifiedCount} document(s)`,
+                );
+
+            return res.status(200).json({ message: 'hello'});
 
         }
     }
