@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CartEmpty from '../components/CartEmpty';
 import { ObjectId } from 'mongodb'
 import Link from 'next/link';
+import Image from 'next/image';
 
 type Props = {};
 
@@ -37,7 +38,7 @@ const Cart: NextPage = (props: Props) => {
 			<div className="w-[90%] h-full flex flex-col spacey-2">
 				{cart.map((item: CartItem, i: number) => (
 					<div key={i} className='w-full bg-gray-100 p-2 flex justify-between items-center'>
-            <img src={item.defaultImage} alt='' className="w-20 h-20"/>
+            <Image width={100} height={100} src={item.defaultImage} alt='' className="w-20 h-20"/>
             
             <div className="flex flex-col items-center border-x border-black px-5 space-y-2">
               <span>{item.name}</span>

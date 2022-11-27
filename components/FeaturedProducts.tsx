@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { connectToDatabase } from '../mongoConnection';
 import Link from 'next/link';
 import { ObjectId } from 'mongodb';
+import Image from 'next/image'
 
 type Props = {products: any}
 
@@ -38,7 +39,7 @@ const FeaturedProducts = () => {
                     if(i === 0){
                         return(
                             <div key={i} className='ml-10 min-w-[80%] h-full flex flex-col items-center'>
-                                <img className='rounded-md w-[85%] h-auto' src={product.defaultImage} alt=''/>
+                                <Image width={100} height={100} className='rounded-md w-[85%] h-auto' src={product.defaultImage} alt=''/>
                                 <Link className='mt-2 border borde-black rounded-md px-2' href={`/Products/${product._id}`}>
                                 View Product
                                 </Link>
@@ -47,7 +48,7 @@ const FeaturedProducts = () => {
                     }
                     return (
                         <div key={i} className='min-w-[80%] h-full flex flex-col items-center'>
-                            <img className='rounded-md w-[85%] h-auto' src={product.defaultImage} alt=''/>
+                            <Image width={100} height={100} className='rounded-md w-[85%] h-auto' src={product.defaultImage} alt=''/>
                             <Link className='mt-2 border borde-black rounded-md px-2' href={`/Products/${product._id}`}>
                                 View Product
                              </Link>
