@@ -185,7 +185,9 @@ const AddNewProduct = (props: Props) => {
 				{formValues.images.length > 0 && (
 					<div className="w-full overflow-x-auto flex space-x-2 pb-2">
 						{imagePreviews.map((image, i) => (
-							<img
+							<Image
+								width={100}
+								height={100}
 								key={i}
 								src={image}
 								alt=""
