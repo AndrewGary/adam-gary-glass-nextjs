@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from 'react-redux'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 type Props = {};
 
@@ -66,7 +67,7 @@ const Checkout2 = (props: Props) => {
 								Please send the full payment amount of ${orderState.order.total} to:
 							</span>
 							<div className="flex items-center my-2">
-								<img src="/venmo.png" alt="venmo" />
+								<Image width={50} height={50} src="/venmo.png" alt="venmo" />
 								<span>{process.env.NEXT_PUBLIC_ADAM_VENMO}</span>
 							</div>
 
@@ -102,7 +103,7 @@ const Checkout2 = (props: Props) => {
 								Please send the full payment amount of ${orderState.order.total} to:
 							</span>
 							<div className="flex items-center my-2">
-								<img src="/paypal.png" alt="paypal logo" />
+								<Image width={50} height={50} src="/paypal.png" alt="paypal logo" />
 								<span>{process.env.NEXT_PUBLIC_ADAM_PAYPAL}</span>
 							</div>
 
@@ -137,14 +138,10 @@ const Checkout2 = (props: Props) => {
 								You will recieve an email invoice that will have a Link to pay with your credit card.
 							</span>
 							<div className="flex items-center my-2">
-								<img src="/paypal.png" alt="paypal logo" />
+								<Image width={50} height={50} src="/paypal.png" alt="paypal logo" />
 								<span>{process.env.NEXT_PUBLIC_ADAM_PAYPAL}</span>
 							</div>
 
-							{/* <span className="mx-3">
-								Once payment is recieved you will recieve confirmation email and
-								tracking before the end of the day
-							</span> */}
                             <button onClick={handleSelection} className="border border-black rounded-md px-2">Select Email Invoice</button>
 						</div>
 					)}

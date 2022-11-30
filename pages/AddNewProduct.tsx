@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { CldUploadButton } from "next-cloudinary";
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 type Props = {};
 
@@ -178,7 +179,7 @@ const AddNewProduct = (props: Props) => {
 				{/* {defaultImageRef.current} */}
 				<div className="w-full flex overflow-x-auto space-x-1">
 					{uploadedImages.current.map((image, i) => {
-						return <img key={i} className="w-[40%] h-auto" src={image} alt="" />;
+						return <Image width={100} height={100} key={i} className="w-[40%] h-auto" src={image} alt="" />;
 					})}
 				</div>
 				{formValues.images.length > 0 && (

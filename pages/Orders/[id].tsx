@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { addItem } from "../../store/cartSlice";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
 import { connectToDatabase } from "../../mongoConnection";
 import { ObjectId } from "mongodb";
 import { GetStaticPaths, GetStaticProps } from "next";
+import Image from 'next/image';
 
 type Props = {
 	order: any;
@@ -103,7 +102,7 @@ const OrderDetails = (props: Props) => {
 				<h2 className="uppercase font-bold">Order Total ${order.order.total}</h2>
 				{order.order.cart.map((item: any, i: number) => (
                 <div className='flex items-center justify-evenly w-full border border-black p-1' key={i}>
-                    <img className='w-16 h-16' src={item.defaultImage} alt={item.name} />
+                    <Image width={100} height={100} className='w-16 h-16' src={item.defaultImage} alt={item.name} />
                     <span>{item.name}</span>
                     <span>${item.price}</span>
                     <span>x</span>

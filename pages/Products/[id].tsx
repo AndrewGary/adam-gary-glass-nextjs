@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { connectToDatabase } from "../../mongoConnection";
 import { ObjectId } from "mongodb";
 import { GetStaticPaths, GetStaticProps } from "next";
+import Image from 'next/image';
 
 type Props = { post: any };
 
@@ -33,9 +34,9 @@ const ProductDetails = (props: Props) => {
 				<div className="w-full overflow-x-scroll flex space-x-3">
 					{props.post.images.map((image: string, i: number) => {
             if(i === 0){
-              return <img key={i} className="w-[70%] ml-20" src={image} alt="" />;
+              return <Image width={100} height={100} key={i} className="w-[70%] ml-20" src={image} alt="" />;
             }
-						return <img key={i} className="w-[70%]" src={image} alt="" />;
+						return <Image width={100} height={100} key={i} className="w-[70%]" src={image} alt="" />;
 					})}
 				</div>
 
