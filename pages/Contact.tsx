@@ -1,78 +1,97 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 
-type Props = {}
+type Props = {};
 
 const initialValues = {
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-}
+	name: "",
+	email: "",
+	subject: "",
+	message: "",
+};
 
 const Contact = (props: Props) => {
+	const [formValues, setFormValues] = useState(initialValues);
 
-    const [formValues, setFormValues] = useState(initialValues);
+	const handleChange = (e: any) => {
+		setFormValues({
+			...formValues,
+			[e.target.name]: e.target.value,
+		});
+	};
 
-    const handleChange = (e: any) => {
-        setFormValues({
-            ...formValues,
-            [e.target.name]: e.target.value
-        })
-    }
+	const handleSubmit = async (e: any) => {
+		e.preventDefault();
 
-    const handleSubmit = (e: any) => {
-        e.preventDefault();
-        window.location.href = `mailto:andrew.gary91@gmail.com?subject=${formValues.subject}&body=${formValues.message}`
-    }
+		const reqOptions = {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				name: formValues.name,
+				email: formValues.email,
+				subject: formValues.subject,
+				message: formValues.message,
+			}),
+		};
 
+        const resp = await fetch('/api/contact', reqOptions)
 
-  return (
-    <div className='w-full min-h-screen flex flex-col items-center justify-center'>
-        <h1>Contact Us</h1>
+        console.log(resp);
+		// window.location.href = `mailto:andrew.gary91@gmail.com?subject=${formValues.subject}&body=${formValues.message}`
+	};
 
-        <form className='flex flex-col space-y-2 w-[80%] mx-auto items-center' onSubmit={handleSubmit}>
-                    <div className='flex flex-col space-y-2 md:flex-row md:space-x-2 w-full'>
-                        <input 
-                            value={formValues.name}
-                            name='name'
-                            type='text' 
-                            className='contactInput border border-black pl-1'
-                            placeholder='Name'
-                            onChange={handleChange}
-                        />
-                        <input 
-                            value={formValues.email}
-                            type='email' 
-                            className='contactInput border border-black pl-1'
-                            placeholder='Email'
-                            name='email'
-                            onChange={handleChange}
-                        />
-                    </div>
+	return (
+		<div className="w-full min-h-screen flex flex-col items-center justify-center">
+			<h1>Contact Us</h1>
 
-                    <input 
-                        value={formValues.subject}
-                        type='text' 
-                        className='contactInput border border-black pl-1 w-full'
-                        placeholder='Subject'
-                        name='subject'
-                        onChange={handleChange}
-                    />
+			<form
+				className="flex flex-col space-y-2 w-[80%] mx-auto items-center"
+				onSubmit={handleSubmit}
+			>
+				<div className="flex flex-col space-y-2 md:flex-row md:space-x-2 w-full">
+					<input
+						value={formValues.name}
+						name="name"
+						type="text"
+						className="contactInput border border-black pl-1"
+						placeholder="Name"
+						onChange={handleChange}
+					/>
+					<input
+						value={formValues.email}
+						type="email"
+						className="contactInput border border-black pl-1"
+						placeholder="Email"
+						name="email"
+						onChange={handleChange}
+					/>
+				</div>
 
-                    <textarea 
-                        value={formValues.message}
-                        className='contactInput border border-black pl-1 w-full'
-                        placeholder='Message'
-                        name='message'
-                        onChange={handleChange}
-                    />
-                    
-                    <button type='submit' className='border border-black py-2 px-10 rounded-md text-black font-bold text-lg w-1/2'>
-                        Submit
-                    </button>
-                </form>
-    </div>
-  )
-}
+				<input
+					value={formValues.subject}
+					type="text"
+					className="contactInput border border-black pl-1 w-full"
+					placeholder="Subject"
+					name="subject"
+					onChange={handleChange}
+				/>
 
-export default Contact
+				<textarea
+					value={formValues.message}
+					className="contactInput border border-black pl-1 w-full"
+					placeholder="Message"
+					name="message"
+					onChange={handleChange}
+				/>
+
+				<button
+					type="submit"
+					className="border border-black py-2 px-10 rounded-md text-black font-bold text-lg w-1/2"
+				>
+					Submit
+				</button>
+			</form>
+		</div>
+	);
+};
+
+export default Contact;
