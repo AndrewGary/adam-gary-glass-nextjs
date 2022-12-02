@@ -20,9 +20,24 @@ const Contact = (props: Props) => {
         })
     }
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
-        window.location.href = `mailto:andrew.gary91@gmail.com?subject=${formValues.subject}&body=${formValues.message}`
+
+        const reqOptions = {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				name: formValues.name,
+                email: formValues.email,
+                subject: formValues.subject,
+                message: formValues.message
+			}),
+		};
+
+        const yeah = await fetch('/api/contact', reqOptions);
+
+        console.log('yeah: ', yeah);
+        // window.location.href = `mailto:andrew.gary91@gmail.com?subject=${formValues.subject}&body=${formValues.message}`
     }
 
 
