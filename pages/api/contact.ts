@@ -1,17 +1,20 @@
 import type { NextApiRequest, NextApiResponse} from 'next'
 import nodemailer from 'nodemailer';
 
+const email = process.env.EMAIL;
+const pass = process.env.EMAIL_PASS;
+
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth:{
-        user: 'adamgaryglass@gmail.com',
-        pass: 'nirjcqvditaaiuan'
+        user: email,
+        pass: pass
     }
 })
 
 const mailOptions = {
-    from:'adamgaryglass@gmail.com',
-    to:'adamgaryglass@gmail.com'
+    from: email,
+    to: email
 }
 
 
@@ -37,5 +40,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
 
-    return res.status(200).json({message: 'connected'})
+    // return res.status(200).json({message: 'connected'})
 }
