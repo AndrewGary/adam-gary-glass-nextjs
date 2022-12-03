@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import { useRouter } from 'next/router';
 type Props = {}
 
 const initialValues = {
@@ -12,6 +12,9 @@ const initialValues = {
 const Contact = (props: Props) => {
 
     const [formValues, setFormValues] = useState(initialValues);
+    const [ formMessage, setFormMessage ] = useState('');
+
+    const router = useRouter();
 
     const handleChange = (e: any) => {
         setFormValues({
@@ -36,8 +39,16 @@ const Contact = (props: Props) => {
 
         const yeah = await fetch('/api/contact', reqOptions);
 
+        if(yeah.status === 200){
+            setFormMessage('Message successfully sent');
+            // router.push('/');
+            setFormValues(initialValues);
+            return;
+        }
+
+        setFormMessage('There was a problem sending the message, please try again');
+
         console.log('yeah: ', yeah);
-        // window.location.href = `mailto:andrew.gary91@gmail.com?subject=${formValues.subject}&body=${formValues.message}`
     }
 
 
@@ -85,6 +96,10 @@ const Contact = (props: Props) => {
                     <button type='submit' className='border border-black py-2 px-10 rounded-md text-black font-bold text-lg w-1/2'>
                         Submit
                     </button>
+
+                    <div>
+                        {formMessage}
+                    </div>
                 </form>
     </div>
   )
