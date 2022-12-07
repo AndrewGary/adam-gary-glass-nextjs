@@ -26,13 +26,23 @@ const ReviewOrder = (props: Props) => {
 		};
 
         const resp = await fetch('/api/order', reqOptions)
+        console.log('resp: ', resp);
+
+        const jj = await resp.json();
+
+        console.log('jj: ', jj);
+
+        // const asdf = JSON.stringify(resp);
+
+        // const asdff = JSON.parse(asdf);
+        
 
         if(resp.status === 200){
             dispatch(removeAll())
             router.push('/checkout/4')
         }
 
-        console.log(resp);
+        // console.log('!!!!!', asdff);
     }
 
   return (
