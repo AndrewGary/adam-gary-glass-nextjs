@@ -13,8 +13,6 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-let cachedAccessToken;
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
