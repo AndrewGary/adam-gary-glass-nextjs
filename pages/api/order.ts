@@ -31,43 +31,33 @@ export default async function handler(
     }
 
     case "POST": {
-      // console.log(req.body);
 
-      // var myHeaders = new Headers();
-      // myHeaders.append(
-      //   "Authorization",
-      //   "Basic QVJKX0NhX043ZTZaTzFSbWc2eTlLd2FIYkx6Yll6QkZheEVVRXpqeE5rQUc4eWt4cEZVQW52ZkRyMklLeDFmODVNOXgyM29IZkxLdVduQ2s6RUlsS0N3eHg5eXpoX2pYSEo1dUVEYzBCakFKeXpobC1BdFJOM2k1OE9hTFdsbTdGdFY4cGxXM1hoRWlxOUlzbmJjWTBNbTFhbWRqUm94ZVg="
-      // );
-      // myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+      const result = await db.collection('orders').insertOne(req.body);
+            console.log('result: ', result.insertedId);
+            const emailResponse = await transporter.sendMail({
+              to: req.body.customer.email,
+              from: process.env.EMAIL,
+              subject: 'New Order',
+              text: 'Help',
+              html: `<div>Thanks for your order ${req.body.customer.firstName}</div><div><h4>Shipping Address</h4></div><div>${req.body.customer.firstName} ${req.body.customer.lastName}</div><div>${req.body.customer.address1}</div>${req.body.customer.address2 ? `<div>${req.body.customer.address2}</div>` : ''}<div>${req.body.customer.city}, ${req.body.customer.state} ${req.body.customer.zip}</div><br><div><span style="font-weight:700">Payment Method: </span>${req.body.paymentMethod}</div><div><span style="font-weight:700">Total</span>: $${req.body.order.total}</div><div><span style="font-weight:700">Please send payment to</span> : AdamsVenmoGoesHere</div><div><br>!!-- Please send payment within the next 48 hours to avoid your items from going back for sale on the site. --!!</div><br><div>You will recieve an email with your tacking number 2 business days after payment is recieved.</div><div>Thank you so much for your support!<br><br></div><div>-Adam Gary Glass<br>adamgaryglass@gmail.com</div><div>(815)508-8556</div>`
+            })
 
-      // var urlencoded = new URLSearchParams();
-      // urlencoded.append("grant_type", "client_credentials");
+            console.log('emailResponse: ', emailResponse)
 
-      // var requestOptions: any = {
-      //   method: "POST",
-      //   headers: myHeaders,
-      //   body: urlencoded,
-      //   redirect: "follow",
-      // };
+      if(req.body.paymentMethod === 'invoice'){
+        
+        
+        const token = await getAuthToken();
+        const nextInvoiceNumber = await getNextInvoiceNumber(token);
+        const draftCreated = await createDraftInvoice(token, req.body, nextInvoiceNumber);
+        const sentInvoice = await sendInvoice(token, draftCreated);
 
-      // const token = await fetch(
-      //   "https://api-m.sandbox.paypal.com/v1/oauth2/token",
-      //   requestOptions
-      // );
+        console.log('sentInvoice: ', sentInvoice);
 
-      console.log('REQ.BODY: ', req.body);
+        return res.status(200).json(sentInvoice);
+      }
 
-      const token = await getAuthToken();
-
-      const nextInvoiceNumber = await getNextInvoiceNumber(token);
-
-      const draftCreated = await createDraftInvoice(token, req.body, nextInvoiceNumber);
-
-      const sentInvoice = await sendInvoice(token, draftCreated);
-
-      console.log('sentInvoice: ', sentInvoice);
-
-      return res.status(200).json(sentInvoice);
+      
 
     }
 
