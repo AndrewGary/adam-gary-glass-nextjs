@@ -38,8 +38,9 @@ const ReviewOrder = (props: Props) => {
         
 
         if(resp.status === 200){
-            dispatch(removeAll())
-            router.push('/checkout/4')
+            router.push(jj.href);
+            // dispatch(removeAll())
+            // router.push('/checkout/4')
         }
 
         // console.log('!!!!!', asdff);
