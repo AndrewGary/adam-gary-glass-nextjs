@@ -35,9 +35,10 @@ const ReviewOrder = (props: Props) => {
         // const asdf = JSON.stringify(resp);
 
         // const asdff = JSON.parse(asdf);
-        
+        // 
 
         if(resp.status === 200){
+            // router.push(jj.href);
             dispatch(removeAll())
             router.push('/checkout/4')
         }

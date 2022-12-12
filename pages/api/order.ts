@@ -2,6 +2,13 @@ const { connectToDatabase } = require("../../mongoConnection");
 import type { NextApiRequest, NextApiResponse } from "next";
 import { ObjectId } from "mongodb";
 import nodemailer from "nodemailer";
+import {
+  getAuthToken,
+  getNextInvoiceNumber,
+  createDraftInvoice,
+  sendInvoice,
+} from "../../utils/utils";
+
 const email = process.env.EMAIL;
 const pass = process.env.EMAIL_PASS;
 
@@ -29,215 +36,93 @@ export default async function handler(
     }
 
     case "POST": {
-      // console.log(req.body);
+      const result = await db.collection("orders").insertOne(req.body);
+      console.log("result: ", result.insertedId);
 
-      var myHeaders = new Headers();
-      myHeaders.append(
-        "Authorization",
-        "Basic QVJKX0NhX043ZTZaTzFSbWc2eTlLd2FIYkx6Yll6QkZheEVVRXpqeE5rQUc4eWt4cEZVQW52ZkRyMklLeDFmODVNOXgyM29IZkxLdVduQ2s6RUlsS0N3eHg5eXpoX2pYSEo1dUVEYzBCakFKeXpobC1BdFJOM2k1OE9hTFdsbTdGdFY4cGxXM1hoRWlxOUlzbmJjWTBNbTFhbWRqUm94ZVg="
-      );
-      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+      /**
+       * Check payment method
+       *    -paymentMethod === 'venmo'
+       *      -generate confirmation email that includes a deep link to paying with venmo
+       *      -on the /checkout/4 page display a deep Link and tell them thanks for the order, and about the confirmation email
+       *    -paymentMethod === 'invoice'
+       *      -using paypal api create and send an invoice to the user and the response from that request will have a href to the payment portal
+       *      -generate confirmation email that includes a Link to the payment href 
+       *      -on the /checkout/4 page Thank them for the order, Tell them about the confirmation email and 
+       *        the paypal invoice email and also display a link to the payment using the href from the invoice creation response
+       */
 
-      var urlencoded = new URLSearchParams();
-      urlencoded.append("grant_type", "client_credentials");
+      if (req.body.paymentMethod === "venmo") {
+        const deepLink = `venmo://paycharge?txn=pay&amount=${req.body.order.total}&recipients=${process.env.NEXT_PUBLIC_VENMO_ID}`;
 
-      var requestOptions: any = {
-        method: "POST",
-        headers: myHeaders,
-        body: urlencoded,
-        redirect: "follow",
-      };
+        console.log('DEEPLINK: ', deepLink);
+        const emailResponse = await transporter.sendMail({
+          to: req.body.customer.email,
+          from: process.env.EMAIL,
+          subject: "New Order",
+          text: 'Thank you for your support!!',
+          html: `<div>Thanks for your order ${
+            req.body.customer.firstName
+          }</div><div><h4>Shipping Address</h4></div><div>${
+            req.body.customer.firstName
+          } ${req.body.customer.lastName}</div><div>${
+            req.body.customer.address1
+          }</div>${
+            req.body.customer.address2
+              ? `<div>${req.body.customer.address2}</div>`
+              : ""
+          }<div>${req.body.customer.city}, ${req.body.customer.state} ${
+            req.body.customer.zip
+          }</div><br><div><span style="font-weight:700">Payment Method: </span>${
+            req.body.paymentMethod
+          }</div><div><a href=https://adam-gary-glass-nextjs.vercel.app/api/venmoPayment&amount=${req.body.order.total}>Click Here to Pay With Venmo</a></div><div><span style="font-weight:700">Total</span>: $${
+            req.body.order.total
+          }</div><div><span style="font-weight:700">Please send payment to</span> : ${process.env.NODE_ENV !== 'production' ? process.env.NEXT_PUBLIC_VENMO_ID : process.env.VENMO_ID}</div><div><br>!!-- Please send payment within the next 48 hours to avoid your items from going back for sale on the site. --!!</div><br><div>You will recieve an email with your tacking number 2 business days after payment is recieved.</div><div>Thank you so much for your support!<br><br></div><div>-Adam Gary Glass<br>adamgaryglass@gmail.com</div><div>(815)508-8556</div>`,
+        });
 
-      const token = await fetch(
-        "https://api-m.sandbox.paypal.com/v1/oauth2/token",
-        requestOptions
-      );
+        console.log("emailResponse: ", emailResponse);
+      }
 
-      const tokenAfterJson = await token.json();
+      if (req.body.paymentMethod === "invoice") {
+        const token = await getAuthToken();
+        const nextInvoiceNumber = await getNextInvoiceNumber(token);
+        const draftCreated = await createDraftInvoice(
+          token,
+          req.body,
+          nextInvoiceNumber
+        );
+        const sentInvoice = await sendInvoice(token, draftCreated);
 
-      const accessToken = tokenAfterJson.access_token;
+        console.log("sentInvoice: ", sentInvoice);
 
-      console.log("accesslToken: ", accessToken);
+        const emailResponse = await transporter.sendMail({
+          // to: req.body.customer.email,
+          to: 'andrew.gary91@gmail.com',
+          from: process.env.EMAIL,
+          subject: "New Order",
+          text: "Help",
+          html: `<div>Thanks for your order ${
+            req.body.customer.firstName
+          }</div><div><a href=${sentInvoice.href}> <h1>Click Here to Pay</h1></a></div><div><h4>Shipping Address</h4></div><div>${
+            req.body.customer.firstName
+          } ${req.body.customer.lastName}</div><div>${
+            req.body.customer.address1
+          }</div>${
+            req.body.customer.address2
+              ? `<div>${req.body.customer.address2}</div>`
+              : ""
+          }<div>${req.body.customer.city}, ${req.body.customer.state} ${
+            req.body.customer.zip
+          }</div><br><div><span style="font-weight:700">Payment Method: </span>${
+            req.body.paymentMethod
+          }</div><div><span style="font-weight:700">Total</span>: $${
+            req.body.order.total
+          }</div><div><span style="font-weight:700">Please send payment to</span> : AdamsVenmoGoesHere</div><div><br>!!-- Please send payment within the next 48 hours to avoid your items from going back for sale on the site. --!!</div><br><div>You will recieve an email with your tacking number 2 business days after payment is recieved.</div><div>Thank you so much for your support!<br><br></div><div>-Adam Gary Glass<br>adamgaryglass@gmail.com</div><div>(815)508-8556</div>`,
+        });
 
-      console.log("successfully retrieved access token");
+        console.log("emailResponse: ", emailResponse);
 
-      const nextInvoiceNumberResp = await fetch(
-        "https://api-m.sandbox.paypal.com/v2/invoicing/generate-next-invoice-number",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-
-      console.log("yeah: ", nextInvoiceNumberResp);
-
-      const jsonResp = await nextInvoiceNumberResp.json();
-
-      const invoiceNumber = jsonResp.invoice_number;
-
-      const { customer, order } = req.body;
-
-      const reqOptions = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-        body: JSON.stringify({
-          detail: {
-            invoice_number: invoiceNumber,
-            reference: "deal-ref",
-            invoice_date: "2022-12-04",
-            currency_code: "USD",
-            note: "Thank you for your business.",
-            term: "No refunds after 30 days.",
-            memo: "This is a long contract",
-            payment_term: {
-              term_type: "DUE_ON_DATE_SPECIFIED",
-              due_date: "2022-12-06",
-            },
-          },
-          invoicer: {
-            name: {
-              given_name: "Adam",
-              surname: "Gary",
-            },
-            address: {
-              address_line_1: "3005 Adams Address",
-              address_line_2: "",
-              admin_area_2: "Grand Junction",
-              admin_area_1: "CO",
-              postal_code: "11111",
-              country_code: "US",
-            },
-            email_address: "sb-hup2b21566779@business.example.com",
-            phones: [
-              {
-                country_code: "001",
-                national_number: "8155088556",
-                phone_type: "MOBILE",
-              },
-            ],
-            website: "",
-            tax_id: "",
-            logo_url: "",
-            additional_notes: "e",
-          },
-          primary_recipients: [
-            {
-              billing_info: {
-                name: {
-                  given_name: customer.firstName,
-                  surname: customer.lastName,
-                },
-                address: {
-                  address_line_1: customer.address1,
-                  admin_area_2: customer.city,
-                  admin_area_1: customer.state,
-                  postal_code: customer.zip,
-                  country_code: "US",
-                },
-                email_address: customer.email,
-                phones: [
-                  {
-                    country_code: "001",
-                    national_number: customer.phoneNumber,
-                    phone_type: "HOME",
-                  },
-                ],
-                additional_info_value: "",
-              },
-              shipping_info: {
-                name: {
-                  given_name: customer.firstName,
-                  surname: customer.lastName,
-                },
-                address: {
-                  address_line_1: customer.address1,
-                  admin_area_2: customer.city,
-                  admin_area_1: customer.state,
-                  postal_code: customer.zip,
-                  country_code: "US",
-                },
-              },
-            },
-          ],
-          items: order.cart.map((item: any) => {
-            return {
-              name: item.name,
-              description: item.description,
-              quantity: item.quantity.toString(),
-              unit_amount: {
-                currency_code: "USD",
-                value: item.price.toString(),
-              },
-              unit_of_measure: "QUANTITY",
-            };
-          }),
-          configuration: {
-            allow_tip: false,
-            tax_calculated_after_discount: true,
-            tax_inclusive: false,
-            template_id: "",
-          },
-          amount: {
-            breakdown: {
-              custom: {
-                label: "Packing Charges",
-                amount: {
-                  currency_code: "USD",
-                  value: "10.00",
-                },
-              },
-              shipping: {
-                amount: {
-                  currency_code: "USD",
-                  value: "10.00",
-                },
-              },
-            },
-          },
-        }),
-      };
-
-      const yeahh = await fetch(
-        "https://api-m.sandbox.paypal.com/v2/invoicing/invoices",
-        reqOptions
-      );
-
-      const jeah = await yeahh.json();
-
-      // console.log(jeah)
-      const eee = await fetch(jeah.href, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-      const eeee = await eee.json();
-
-      console.log("eeee: ", eeee);
-
-      const sendInvoice = await fetch(
-        `https://api-m.sandbox.paypal.com/v2/invoicing/invoices/${eeee.id}/send`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-
-      const sendInvoiceJson = await sendInvoice.json();
-
-      console.log("sendInvoiceJson: ", sendInvoiceJson);
-
-      return res.status(200).json(sendInvoiceJson);
+        return res.status(200).json(sentInvoice);
+      }
     }
 
     // `<div style="display: flex; flex-direction: column"><span>Thanks for your order ${req.body.customer.firstName}</span><h1>Shipping Address</h1><span>${req.body.customer.firstName} ${req.body.customer.lastName}</span><span>${req.body.customer.address1}</span><span>${req.body.customer.city}, ${req.body.customer.state} ${req.body.customer.zip}</span></div>`
