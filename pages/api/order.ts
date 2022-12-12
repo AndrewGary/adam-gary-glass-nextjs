@@ -74,7 +74,7 @@ export default async function handler(
             req.body.customer.zip
           }</div><br><div><span style="font-weight:700">Payment Method: </span>${
             req.body.paymentMethod
-          }</div><div><a href=https://adam-gary-glass-nextjs.vercel.app/api/venmoPayment&amount=${req.body.order.total}>Click Here to Pay With Venmo</a></div><div><span style="font-weight:700">Total</span>: $${
+          }</div><div><a href=https://adam-gary-glass-nextjs.vercel.app/api/venmoPayment?amount=${req.body.order.total}>Click Here to Pay With Venmo</a></div><div><span style="font-weight:700">Total</span>: $${
             req.body.order.total
           }</div><div><span style="font-weight:700">Please send payment to</span> : ${process.env.NODE_ENV !== 'production' ? process.env.NEXT_PUBLIC_VENMO_ID : process.env.VENMO_ID}</div><div><br>!!-- Please send payment within the next 48 hours to avoid your items from going back for sale on the site. --!!</div><br><div>You will recieve an email with your tacking number 2 business days after payment is recieved.</div><div>Thank you so much for your support!<br><br></div><div>-Adam Gary Glass<br>adamgaryglass@gmail.com</div><div>(815)508-8556</div>`,
         });
