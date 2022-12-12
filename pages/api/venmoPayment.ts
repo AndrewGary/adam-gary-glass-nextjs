@@ -7,5 +7,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   console.log('AMOUNT: ', amount);
 
   // redirect the user to the Venmo deep link with the specified amount
-  res.redirect(`venmo://paycharge?txn=pay&recipients=${process.env.VENMO_ID}&amount=${amount}`);
+  res.redirect(`venmo://paycharge?txn=pay&recipients=${process.env.VENMO_ID}&amount=${amount}&note=Glass Decoration`);
 }
