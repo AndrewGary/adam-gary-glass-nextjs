@@ -39,6 +39,18 @@ export default async function handler(
       const result = await db.collection("orders").insertOne(req.body);
       console.log("result: ", result.insertedId);
 
+      /**
+       * Check payment method
+       *    -paymentMethod === 'venmo'
+       *      -generate confirmation email that includes a deep link to paying with venmo
+       *      -on the /checkout/4 page display a deep Link and tell them thanks for the order, and about the confirmation email
+       *    -paymentMethod === 'invoice'
+       *      -using paypal api create and send an invoice to the user and the response from that request will have a href to the payment portal
+       *      -generate confirmation email that includes a Link to the payment href 
+       *      -on the /checkout/4 page Thank them for the order, Tell them about the confirmation email and 
+       *        the paypal invoice email and also display a link to the payment using the href from the invoice creation response
+       */
+
       if (req.body.paymentMethod === "venmo") {
         const emailResponse = await transporter.sendMail({
           to: req.body.customer.email,
