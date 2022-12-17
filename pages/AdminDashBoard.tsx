@@ -46,7 +46,7 @@ const AdminDashBoard = (props: Props) => {
             </Link>
         </div>
 
-        <button onClick={() => {
+        <button className='button-styles' onClick={() => {
             const reqOpts = {
                 method: 'DELETE'
             }

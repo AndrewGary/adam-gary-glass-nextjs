@@ -204,7 +204,7 @@ const AddNewProduct = (props: Props) => {
 				{formMessage && <span>{formMessage}</span>}
 				<button
 					type="submit"
-					className="border border-black px-3 rounded-lg w-1/2"
+					className="button-styles px-3 w-1/2"
 				>
 					Add Product
 				</button>

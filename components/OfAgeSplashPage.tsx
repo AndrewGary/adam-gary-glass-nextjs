@@ -40,10 +40,10 @@ const OfAgeSplashPage = (props: Props) => {
 				</div>
 
 				<div className="w-full h-1/2 flex items-center justify-center space-x-4">
-					<button onClick={handleOver21} className="border border-black rounded-md w-1/3 text-center py-4">
+					<button onClick={handleOver21} className="button-styles w-1/3 text-center py-4">
 						Yes
 					</button>
-					<button onClick={handleUnder21} className="border border-black rounded-md w-1/3 text-center py-4">
+					<button onClick={handleUnder21} className="button-styles w-1/3 text-center py-4">
 						No
 					</button>
 				</div>

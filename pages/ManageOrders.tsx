@@ -40,14 +40,14 @@ const ManageOrders = (props: Props) => {
                 <span className='w-1/4 text-center underline'>Total</span>
                 <span className='w-1/4 text-center underline'>Paid?</span>
                 <span className='w-1/4 text-center underline'>Shipped?</span>
-                <button className='w-1/4 text-center border border-black px-1 rounded-md'>Details</button>
+                <button className='button-styles w-1/4 text-center px-1'>Details</button>
             </div>
         {props.allOrders.map((order, i) => (
             <div key={i} className='w-full flex'>
                 <span className='w-1/4 text-center'>${order.order.total}</span>
                 <span className='w-1/4 text-center'>{order.paid ? 'YES' : 'NO'}</span>
                 <span className='w-1/4 text-center'>{order.shipped ? 'YES' : 'NO'}</span>
-                <button onClick={handleViewDeatils} className='w-1/4 text-center border border-black px-1 rounded-md'>Details</button>
+                <button onClick={handleViewDeatils} className='button-styles w-1/4 text-center px-1'>Details</button>
             </div>
         ))}
         </div>

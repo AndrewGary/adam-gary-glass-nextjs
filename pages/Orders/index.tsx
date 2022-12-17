@@ -25,6 +25,8 @@ export const getServerSideProps = async () => {
 
 const ManageOrders = (props: Props) => {
 
+  console.log('props: ', props);
+
     const handleViewDeatils = (e: any) => {
         
     }
@@ -45,13 +47,12 @@ const ManageOrders = (props: Props) => {
             console.log(order);
             return (
             <div key={i} className='w-full flex'>
-                <span className='w-1/4 text-center'>${order.order.total}</span>
+                <span className='w-1/4 text-center'>${order.total}</span>
                 <span className='w-1/4 text-center'>{order.paid ? 'YES' : 'NO'}</span>
                 <span className='w-1/4 text-center'>{order.shipped ? 'YES' : 'NO'}</span>
                 <Link className='border border-black rounded-xl px-3' href={`/Orders/${order._id}`}>
             Details
             </Link>
-                {/* <button onClick={handleViewDeatils} className='w-1/4 text-center border border-black px-1 rounded-md'>Details</button> */}
             </div>
         )})}
         </div>

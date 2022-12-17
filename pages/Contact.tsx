@@ -93,7 +93,7 @@ const Contact = (props: Props) => {
                         onChange={handleChange}
                     />
                     
-                    <button type='submit' className='border border-black py-2 px-10 rounded-md text-black font-bold text-lg w-1/2'>
+                    <button type='submit' className='button-styles py-2 px-10 font-bold text-lg w-1/2'>
                         Submit
                     </button>
 

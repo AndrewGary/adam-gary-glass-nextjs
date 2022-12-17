@@ -83,7 +83,7 @@ const ReviewOrder = (props: Props) => {
             ))}
         </div>
 
-        <button onClick={handleSubmit} className='border border-black rounded-md px-2'>Submit Order</button>
+        <button onClick={handleSubmit} className='button-styles px-2'>Submit Order</button>
     </div>
   )
 }

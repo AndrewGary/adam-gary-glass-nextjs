@@ -37,7 +37,7 @@ const index = (props: Props) => {
             <h2>{product.name}</h2>
             <h3>${product.price}</h3>
             <Link className='border border-black rounded-xl px-3' href={`/Products/${product._id}`}>
-            <button>View Details</button>
+            <button className='button-styles'>View Details</button>
             </Link>
           </div>
         </div>
