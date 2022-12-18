@@ -29,7 +29,7 @@ import { motion } from "framer-motion";
 
 const Footer: React.FC = () => {
 	return (
-		<footer className="bg-gray-800 py-4 mt-3 text-white text-center text-xs overflow-hidden">
+		<footer className="bg-gray-800 py-4  text-white text-center text-xs overflow-hidden">
 			<div className="container mx-auto">
 				<div className=" tracking-tight bg-op relative flex flex-wrap justify-center">
 					<div className="text-white absolute h-full flex justify-center items-center">

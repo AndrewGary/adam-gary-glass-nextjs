@@ -38,7 +38,7 @@ const Header = (props: Props) => {
 	const [searchTerm, setSearchTerm] = useState("");
 
 	return (
-		<div className={`w-full bg-gray-800 text-white flex items-center py-2 mb-2`}>
+		<div className={`w-full bg-gray-800 text-white flex items-center py-2`}>
 			<div
 				className={`${
 					searchActive ? "" : "hidden"
@@ -72,7 +72,7 @@ const Header = (props: Props) => {
 						onChange={(e) => {
 							setSearchTerm(e.target.value);
 						}}
-						className="border border-black"
+						className="border border-black text-black pl-1"
 						placeholder="Search site..."
 					/>
 					<Link href={`/Search/${searchTerm}`}>
@@ -157,7 +157,7 @@ const Header = (props: Props) => {
 					</svg>
 					Close
 				</div>
-				<div className="w-full flex flex-col border-2 border-black">
+				<div className="pl-2 w-full flex flex-col">
 					{options.map((option, i) => {
 						if (option.text === "Login") {
 							// return <span onClick={() => {signIn()}}>hello</span>;
@@ -168,6 +168,7 @@ const Header = (props: Props) => {
 										onClick={() => {
 											signOut();
 										}}
+										className='underline hover:opacity-25'
 									>
 										Sign Out
 									</span>
@@ -179,6 +180,7 @@ const Header = (props: Props) => {
 										onClick={() => {
 											signIn();
 										}}
+										className='underline hover:opacity-25'
 									>
 										Sign In
 									</span>
@@ -192,6 +194,7 @@ const Header = (props: Props) => {
 										setHamburgerMenuActive(false);
 									}}
 									href={option.href}
+									className='underline hover:opacity-25'
 								>
 									{option.text}
 								</Link>

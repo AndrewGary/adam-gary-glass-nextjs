@@ -9,8 +9,11 @@ import {
   sendInvoice,
 } from "../../utils/utils";
 
-const email = process.env.EMAIL;
-const pass = process.env.EMAIL_PASS;
+const email = process.env.NEXT_PUBLIC_EMAIL;
+const pass = process.env.NEXT_PUBLIC_EMAIL_PASS;
+
+console.log('email: ', email);
+console.log('pass: ', pass);
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -52,12 +55,14 @@ export default async function handler(
        */
 
       if (req.body.paymentMethod === "venmo") {
-        const deepLink = `venmo://paycharge?txn=pay&amount=${req.body.order.total}&recipients=${process.env.NEXT_PUBLIC_VENMO_ID}`;
+
+        console.log('IN HERE MARKER 1');
+        const deepLink = `venmo://paycharge?txn=pay&amount=${req.body.order.total}&recipients=${process.env.NODE_ENV === 'production' ? process.env.VENMO_ID : process.env.NEXT_PUBLIC_VENMO_ID}`;
 
         console.log('DEEPLINK: ', deepLink);
         const emailResponse = await transporter.sendMail({
           to: req.body.customer.email,
-          from: process.env.EMAIL,
+          from: process.env.NODE_ENV === 'production' ? process.env.EMAIL : process.env.NEXT_PUBLIC_EMAIL,
           subject: "New Order",
           text: 'Thank you for your support!!',
           html: `<div>Thanks for your order ${
@@ -76,10 +81,11 @@ export default async function handler(
             req.body.paymentMethod
           }</div><div><a href=https://adam-gary-glass-nextjs.vercel.app/api/venmoPayment?amount=${req.body.order.total}>Click Here to Pay With Venmo</a></div><div><span style="font-weight:700">Total</span>: $${
             req.body.order.total
-          }</div><div><span style="font-weight:700">Please send payment to</span> : ${process.env.NODE_ENV !== 'production' ? process.env.NEXT_PUBLIC_VENMO_ID : process.env.VENMO_ID}</div><div><br>!!-- Please send payment within the next 48 hours to avoid your items from going back for sale on the site. --!!</div><br><div>You will recieve an email with your tacking number 2 business days after payment is recieved.</div><div>Thank you so much for your support!<br><br></div><div>-Adam Gary Glass<br>adamgaryglass@gmail.com</div><div>(815)508-8556</div>`,
+          }</div><div><span style="font-weight:700">Please send payment to</span> : ${process.env.NODE_ENV !== 'production' ? process.env.VENMO_ID : process.env.NEXT_PUBLIC_VENMO_ID}</div><div><br>!!-- Please send payment within the next 48 hours to avoid your items from going back for sale on the site. --!!</div><br><div>You will recieve an email with your tacking number 2 business days after payment is recieved.</div><div>Thank you so much for your support!<br><br></div><div>-Adam Gary Glass<br>adamgaryglass@gmail.com</div><div>(815)508-8556</div>`,
         });
 
-        console.log("emailResponse: ", emailResponse);
+        // console.log("emailResponse: ", emailResponse);
+        return res.status(200).json(emailResponse);
       }
 
       if (req.body.paymentMethod === "invoice") {

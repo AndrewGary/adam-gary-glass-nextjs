@@ -25,12 +25,19 @@ const ReviewOrder = (props: Props) => {
 			body: JSON.stringify(orderState),
 		};
 
-        const resp = await fetch('/api/order', reqOptions)
-        console.log('resp: ', resp);
+        let resp;
+        try{
+            resp = await fetch('/api/order', reqOptions)
+            console.log('resp: ', resp);
+            
+        }catch(error){
+            console.log('error: ', error);
+        }
 
-        const jj = await resp.json();
 
-        console.log('jj: ', jj);
+        // const jj = await resp.json();
+
+        // console.log('jj: ', jj);
 
         // const asdf = JSON.stringify(resp);
 
