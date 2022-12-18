@@ -182,7 +182,7 @@ const Checkout1 = (props: Props) => {
             onChange={handleChange}
           />
 
-          <button className='border border-black rounded-md w-1/2' type='submit'>Proceed to Payment</button>
+          <button className='button-styles w-1/2' type='submit'>Proceed to Payment</button>
         </form>
       </div>
       

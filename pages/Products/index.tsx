@@ -26,8 +26,6 @@ export const getServerSideProps = async () => {
 
 const index = (props: Props) => {
 
-  // console.log(dummyProducts)
-  console.log(props)
   return (
     <div className='flex flex-col w-full min-h-screen items-center mt-4'>
       {props.allProducts.map((product, i) => (
@@ -36,8 +34,8 @@ const index = (props: Props) => {
           <div className='w-[60%] flex flex-col items-center bg-[#d3d3d3] mb-2 bg-opacity-20'>
             <h2>{product.name}</h2>
             <h3>${product.price}</h3>
-            <Link className='border border-black rounded-xl px-3' href={`/Products/${product._id}`}>
-            <button>View Details</button>
+            <Link className='button-styles px-3' href={`/Products/${product._id}`}>
+            View Details
             </Link>
           </div>
         </div>

@@ -12,8 +12,6 @@ const Checkout2 = (props: Props) => {
 
     const orderState = useSelector((state: any) => state.order);
 
-    // console.log('orderState: ', orderState);
-
     const router = useRouter();
 
     const dispatch = useDispatch();
@@ -22,7 +20,6 @@ const Checkout2 = (props: Props) => {
 
     const handleSelection = (e: any) => {
 
-        // console.log(e.target.textContent);
         switch(e.target.textContent){
             case 'Select Venmo':
                 dispatch(setPaymentMethod('venmo'))
@@ -76,7 +73,7 @@ const Checkout2 = (props: Props) => {
 								tracking before the end of the work day
 							</span> */}
 
-                            <button onClick={handleSelection} className="border border-black rounded-md px-2">Select Venmo</button>
+                            <button onClick={handleSelection} className="button-styles px-2">Select Venmo</button>
 						</div>
 					)}
                 </div>
@@ -111,7 +108,7 @@ const Checkout2 = (props: Props) => {
 								Once payment is recieved you will recieve confirmation email and
 								tracking before the end of the day
 							</span> */}
-                            <button onClick={handleSelection} className="border border-black rounded-md px-2">Select Paypal</button>
+                            <button onClick={handleSelection} className="button-styles px-2">Select Paypal</button>
 						</div>
 					)}
                 </div>
@@ -142,16 +139,13 @@ const Checkout2 = (props: Props) => {
 								<span>{process.env.NEXT_PUBLIC_ADAM_PAYPAL}</span>
 							</div>
 
-                            <button onClick={handleSelection} className="border border-black rounded-md px-2">Select Email Invoice</button>
+                            <button onClick={handleSelection} className="button-styles px-2">Select Email Invoice</button>
 						</div>
 					)}
                 </div>
 
 			</div>
                 <Link href={'/checkout/3'} className="border border-black px-2">Review Order</Link>
-                {/* <button onClick={() => {
-                    dispatch(setPaymentMethod())
-                }}>test</button> */}
 		</div>
 	);
 };

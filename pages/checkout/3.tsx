@@ -26,24 +26,14 @@ const ReviewOrder = (props: Props) => {
 		};
 
         const resp = await fetch('/api/order', reqOptions)
-        console.log('resp: ', resp);
 
         const jj = await resp.json();
 
-        console.log('jj: ', jj);
-
-        // const asdf = JSON.stringify(resp);
-
-        // const asdff = JSON.parse(asdf);
-        // 
-
         if(resp.status === 200){
-            // router.push(jj.href);
             dispatch(removeAll())
             router.push('/checkout/4')
         }
 
-        // console.log('!!!!!', asdff);
     }
 
   return (
@@ -83,7 +73,7 @@ const ReviewOrder = (props: Props) => {
             ))}
         </div>
 
-        <button onClick={handleSubmit} className='border border-black rounded-md px-2'>Submit Order</button>
+        <button onClick={handleSubmit} className='button-styles px-2'>Submit Order</button>
     </div>
   )
 }

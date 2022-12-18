@@ -10,7 +10,9 @@ const Layout = ({children}: Props) => {
   return (
     <>
         <Header />
+        <div className='bg-gray-800 bg-opacity-25 py-2'>
         {children}
+        </div>
         <Footer />
     </>
   )

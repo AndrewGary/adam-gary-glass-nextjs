@@ -30,12 +30,10 @@ export const orderSlice = createSlice({
     initialState,
     reducers: {
         createOrder: (state, action: Action) => {
-            // console.log('action.payload: ', action.payload);
             state.order = action.payload.order
             state.customer = action.payload.customer;
         },
         setPaymentMethod: (state: Order, action: Action) => {
-            // console.log('state.order: ', state);
             state.paymentMethod = action.payload;
         }
     }

@@ -23,11 +23,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         case 'POST': {
             const result = await db.collection('products').insertOne(req.body);
 
-            console.log('---------------------------')
-            console.log(result);
-            console.log('---------------------------')
-
-
             return res.status(201).json(result);
         }
 

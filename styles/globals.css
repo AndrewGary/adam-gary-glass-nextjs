@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components{
+    .button-styles{
+        @apply border border-gray-600 bg-gray-800 hover:bg-opacity-50 rounded-md transition-all text-white
+    }
+}
