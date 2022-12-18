@@ -48,7 +48,6 @@ const Contact = (props: Props) => {
 
         setFormMessage('There was a problem sending the message, please try again');
 
-        console.log('yeah: ', yeah);
     }
 
 

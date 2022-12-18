@@ -24,8 +24,6 @@ export const getServerSideProps = async () => {
 
 const ManageOrders = (props: Props) => {
 
-    // console.log(props.allOrders);
-
     const handleViewDeatils = (e: any) => {
         
     }

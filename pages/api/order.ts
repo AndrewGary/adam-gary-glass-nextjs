@@ -12,9 +12,6 @@ import {
 const email = process.env.NEXT_PUBLIC_EMAIL;
 const pass = process.env.NEXT_PUBLIC_EMAIL_PASS;
 
-console.log('email: ', email);
-console.log('pass: ', pass);
-
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -33,6 +30,11 @@ export default async function handler(
 
   switch (req.method) {
     case "GET": {
+
+      const result = await db.collection('orders').find({}).toArray();
+      
+      return res.status(200).json(result);
+
     }
 
     case "DELETE": {
@@ -40,7 +42,6 @@ export default async function handler(
 
     case "POST": {
       const result = await db.collection("orders").insertOne(req.body);
-      console.log("result: ", result.insertedId);
 
       /**
        * Check payment method
@@ -56,10 +57,8 @@ export default async function handler(
 
       if (req.body.paymentMethod === "venmo") {
 
-        console.log('IN HERE MARKER 1');
         const deepLink = `venmo://paycharge?txn=pay&amount=${req.body.order.total}&recipients=${process.env.NODE_ENV === 'production' ? process.env.VENMO_ID : process.env.NEXT_PUBLIC_VENMO_ID}`;
 
-        console.log('DEEPLINK: ', deepLink);
         const emailResponse = await transporter.sendMail({
           to: req.body.customer.email,
           from: process.env.NODE_ENV === 'production' ? process.env.EMAIL : process.env.NEXT_PUBLIC_EMAIL,
@@ -84,7 +83,6 @@ export default async function handler(
           }</div><div><span style="font-weight:700">Please send payment to</span> : ${process.env.NODE_ENV !== 'production' ? process.env.VENMO_ID : process.env.NEXT_PUBLIC_VENMO_ID}</div><div><br>!!-- Please send payment within the next 48 hours to avoid your items from going back for sale on the site. --!!</div><br><div>You will recieve an email with your tacking number 2 business days after payment is recieved.</div><div>Thank you so much for your support!<br><br></div><div>-Adam Gary Glass<br>adamgaryglass@gmail.com</div><div>(815)508-8556</div>`,
         });
 
-        // console.log("emailResponse: ", emailResponse);
         return res.status(200).json(emailResponse);
       }
 
@@ -97,8 +95,6 @@ export default async function handler(
           nextInvoiceNumber
         );
         const sentInvoice = await sendInvoice(token, draftCreated);
-
-        console.log("sentInvoice: ", sentInvoice);
 
         const emailResponse = await transporter.sendMail({
           // to: req.body.customer.email,
@@ -125,8 +121,6 @@ export default async function handler(
           }</div><div><span style="font-weight:700">Please send payment to</span> : AdamsVenmoGoesHere</div><div><br>!!-- Please send payment within the next 48 hours to avoid your items from going back for sale on the site. --!!</div><br><div>You will recieve an email with your tacking number 2 business days after payment is recieved.</div><div>Thank you so much for your support!<br><br></div><div>-Adam Gary Glass<br>adamgaryglass@gmail.com</div><div>(815)508-8556</div>`,
         });
 
-        console.log("emailResponse: ", emailResponse);
-
         return res.status(200).json(sentInvoice);
       }
     }
@@ -146,11 +140,8 @@ export default async function handler(
       const result = await db
         .collection("orders")
         .updateOne(filter, updateDoc, options);
-      console.log(
-        `${result.matchedCount} document(s) matched the filter, updated ${result.modifiedCount} document(s)`
-      );
 
-      return res.status(200).json({ message: "hello" });
+      return res.status(200).json(result);
     }
   }
 }

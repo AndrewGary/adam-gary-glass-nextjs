@@ -12,8 +12,6 @@ const Checkout2 = (props: Props) => {
 
     const orderState = useSelector((state: any) => state.order);
 
-    // console.log('orderState: ', orderState);
-
     const router = useRouter();
 
     const dispatch = useDispatch();
@@ -22,7 +20,6 @@ const Checkout2 = (props: Props) => {
 
     const handleSelection = (e: any) => {
 
-        // console.log(e.target.textContent);
         switch(e.target.textContent){
             case 'Select Venmo':
                 dispatch(setPaymentMethod('venmo'))

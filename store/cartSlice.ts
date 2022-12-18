@@ -51,7 +51,6 @@ export const cartSlice = createSlice({
     reducers: {
         // decreaseQuantity: (state:  {cart: CartItem[], total: number, numberOfItems: number})
         decreaseQuantity: (state: {cart: CartItem[], total: number, numberOfItems: number}, action: Action) => {
-            console.log(action.payload);
             if(state.numberOfItems > 0){
                 state.numberOfItems = state.numberOfItems - 1
 
@@ -110,8 +109,6 @@ export const cartSlice = createSlice({
             let newTotal = 0;
             state.cart.forEach((item: CartItem) => {newTotal = newTotal + item.price})
 
-            console.log('typeof newTotal')
-            console.log(typeof newTotal);
             state.total = newTotal;
         },
         removeAll: (state) => {

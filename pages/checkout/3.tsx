@@ -25,32 +25,15 @@ const ReviewOrder = (props: Props) => {
 			body: JSON.stringify(orderState),
 		};
 
-        let resp;
-        try{
-            resp = await fetch('/api/order', reqOptions)
-            console.log('resp: ', resp);
-            
-        }catch(error){
-            console.log('error: ', error);
-        }
+        const resp = await fetch('/api/order', reqOptions)
 
-
-        // const jj = await resp.json();
-
-        // console.log('jj: ', jj);
-
-        // const asdf = JSON.stringify(resp);
-
-        // const asdff = JSON.parse(asdf);
-        // 
+        const jj = await resp.json();
 
         if(resp.status === 200){
-            // router.push(jj.href);
             dispatch(removeAll())
             router.push('/checkout/4')
         }
 
-        // console.log('!!!!!', asdff);
     }
 
   return (

@@ -26,8 +26,6 @@ export const getServerSideProps = async () => {
 
 const index = (props: Props) => {
 
-  // console.log(dummyProducts)
-  console.log(props)
   return (
     <div className='flex flex-col w-full min-h-screen items-center mt-4'>
       {props.allProducts.map((product, i) => (

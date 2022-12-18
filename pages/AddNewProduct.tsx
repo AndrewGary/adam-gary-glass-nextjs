@@ -30,9 +30,7 @@ const AddNewProduct = (props: Props) => {
 	
 	const uploadedImages = useRef<string[]>([]);
 	const setUploadedImages = (newImage: string) => {
-		console.log("setUploadedImages has been invoked");
-		console.log(typeof newImage);
-		console.log(newImage);
+
 		uploadedImages.current.push(newImage);
 		setFormValues({
 			...formValues,
@@ -55,15 +53,7 @@ const AddNewProduct = (props: Props) => {
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
-		console.log(!defaultImageRef.current);
-		console.log(defaultImageRef.current);
-		console.log(
-			!formValues.name,
-			!formValues.description,
-			!formValues.price,
-			!defaultImageRef.current,
-			formValues.images.length === 0
-		);
+		
 		if (
 			!formValues.name ||
 			!formValues.description ||
@@ -71,7 +61,6 @@ const AddNewProduct = (props: Props) => {
 			!defaultImageRef.current ||
 			formValues.images.length === 0
 		) {
-			console.log("catching errors");
 			const newErrors = [];
 			if (!formValues.name) {
 				newErrors.push("You must provide a name");
@@ -108,13 +97,8 @@ const AddNewProduct = (props: Props) => {
 
 		const resp = await fetch("/api/addNewProduct", reqOptions);
 
-		console.log('resp: ', resp);
 		const yeah = JSON.stringify(resp)
-		const yeahh = JSON.stringify(resp.body);
-
-		console.log(yeah);
-		console.log(yeahh);
-		
+		const yeahh = JSON.stringify(resp.body);		
 
 		if (resp.status === 201) {
 			setFormMessage('Upload successful');
@@ -163,9 +147,6 @@ const AddNewProduct = (props: Props) => {
 				<CldUploadButton
 					className="border border-black px-3 rounded-lg"
 					onUpload={(error: any, result: any, widget: any) => {
-						console.log('error: ', error);
-						console.log('result: ', result);
-						console.log('widget: ', widget);
 						if (!defaultImageRef.current) {
 							defaultImageRef.current = result.info.secure_url;
 						}

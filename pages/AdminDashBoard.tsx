@@ -25,7 +25,6 @@ export const getServerSideProps = async () => {
 
 const AdminDashBoard = (props: Props) => {
 
-    // console.log(props);
   return (
     <div className='w-full min-h-screen flex flex-col items-center space-y-4 pt-2'>
         <Link href={'/'} className='w-[85%] border border-black rounded-md flex justify-center items-center h-16'>

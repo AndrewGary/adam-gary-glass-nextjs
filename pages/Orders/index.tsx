@@ -1,36 +1,42 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { connectToDatabase } from '../../mongoConnection';
 import Link from 'next/link';
 
-type Props = {allOrders: any[]}
+type Props = {}
 
-export const getServerSideProps = async () => {
+// export const getServerSideProps = async () => {
 
-    const connection = await connectToDatabase();
+//     const connection = await connectToDatabase();
   
-    const db = connection.db;
+//     const db = connection.db;
   
-    const results = await db.collection('orders').find({}).toArray();
+//     const results = await db.collection('orders').find({}).toArray();
   
-    const stringifiedResults = JSON.stringify(results);
+//     const stringifiedResults = JSON.stringify(results);
   
-    const allOrders = JSON.parse(stringifiedResults);
+//     const allOrders = JSON.parse(stringifiedResults);
   
-    return {
-      props: {
-        allOrders: allOrders
-      }
-    }
-  }
+//     return {
+//       props: {
+//         allOrders: allOrders
+//       }
+//     }
+//   }
 
 const ManageOrders = (props: Props) => {
 
-  console.log('props: ', props);
+  const [allOrders, setAllOrders] = useState([]);
 
-    const handleViewDeatils = (e: any) => {
-        
+  useEffect(() => { 
+    const asyncUseEffect = async () => {
+      const resp = await fetch('/api/order');
+
+      const idk = await resp.json();
+      setAllOrders(idk);
     }
 
+    asyncUseEffect();
+  }, [])
 
   return (
     <div className='w-full min-h-screen flex flex-col items-center'>
@@ -43,19 +49,24 @@ const ManageOrders = (props: Props) => {
                 <span className='w-1/4 text-center underline'>Shipped?</span>
                 <button className='w-1/4 text-center border border-black px-1 rounded-md'>Details</button>
             </div>
-        {props.allOrders.map((order, i) => {
-            console.log(order);
+        {allOrders.map((thisOrder: any, i) => {
+          console.log('thisOrder: ', thisOrder);
             return (
             <div key={i} className='w-full flex'>
-                <span className='w-1/4 text-center'>${order.total}</span>
-                <span className='w-1/4 text-center'>{order.paid ? 'YES' : 'NO'}</span>
-                <span className='w-1/4 text-center'>{order.shipped ? 'YES' : 'NO'}</span>
-                <Link className='border border-black rounded-xl px-3' href={`/Orders/${order._id}`}>
+                <span className='w-1/4 text-center'>${thisOrder.order.total}</span>
+                <span className='w-1/4 text-center'>{thisOrder.paid ? 'YES' : 'NO'}</span>
+                <span className='w-1/4 text-center'>{thisOrder.shipped ? 'YES' : 'NO'}</span>
+                <Link className='border border-black rounded-xl px-3' href={`/Orders/${thisOrder._id}`}>
             Details
             </Link>
             </div>
         )})}
         </div>
+        {process.env.NODE_ENV === 'production' ? '' : <button className='button-styles px-2' onClick={async () => {
+          const resp = await fetch('/api/deleteallOrders', { method: 'DELETE'})
+
+          console.log('resp: ', resp);
+        }}>Delete all orders</button>}
     </div>
   )
 }

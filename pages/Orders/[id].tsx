@@ -28,14 +28,10 @@ const OrderDetails = (props: Props) => {
 
 	const handleAddTracking = (e: any) => {
 		e.preventDefault();
-
-		console.log('connected');
 	};
 
 	const handleSaveChanges = async (e: any) => {
 		// e.preventDefault();
-
-		console.log("hitting handleSaveChanges");
 
 		const yeahh = {
 			...order,
@@ -53,8 +49,6 @@ const OrderDetails = (props: Props) => {
 
 		router.push('/Orders')
 	};
-
-	console.log("customer: ", customer);
 
 	const {
 		firstName,
@@ -122,7 +116,6 @@ const OrderDetails = (props: Props) => {
 
 				<div className="flex flex-col items-center w-[40%] justify-evenly">
 					<button onClick={() => {
-						console.log(paid);
 						setPaid(!paid);
 					}} className={`button-styles text-black w-[90%] ${paid ? 'bg-green-500' : 'bg-red-500'}`}>{paid ? "Mark As UnPaid" : "Mark as Paid"}</button>
 					<button onClick={() => {
