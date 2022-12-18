@@ -32,24 +32,24 @@ const FeaturedProducts = () => {
     },[])
 
   return (
-    <div className='flex flex-col items-center'>
+    <div className='flex flex-col items-center w-full'>
             <span className='mb-2 text-2xl uppercase font-bold'>Featured Products</span>
-        <div className='flex items-center w-[90%]black overflow-x-auto'>
+        <div className='flex items-center overflow-x-auto w-[90%]'>
                 {products.map((product: CartItem, i) => {
-                    if(i === 0){
-                        return(
-                            <div key={i} className='ml-10 min-w-[80%] h-full flex flex-col items-center'>
-                                <Image height={100} width={100} className='rounded-md w-[85%] h-auto' src={product.defaultImage} alt=''/>
-                                <Link className='mt-2 border borde-black rounded-md px-2' href={`/Products/${product._id}`}>
-                                View Product
-                                </Link>
-                            </div>
-                        )
-                    }
+                    // if(i === 0){
+                    //     return(
+                    //         <div key={i} className='ml-10 min-w-[80%] h-full flex flex-col items-center'>
+                    //             <Image height={100} width={100} className='rounded-md w-[85%] h-auto' src={product.defaultImage} alt=''/>
+                    //             <Link className='button-styles mt-2 px-2' href={`/Products/${product._id}`}>
+                    //             View Product
+                    //             </Link>
+                    //         </div>
+                    //     )
+                    // }
                     return (
                         <div key={i} className='min-w-[80%] h-full flex flex-col items-center'>
                             <Image height={100} width={100} className='rounded-md w-[85%] h-auto' src={product.defaultImage} alt=''/>
-                            <Link className='mt-2 border borde-black rounded-md px-2' href={`/Products/${product._id}`}>
+                            <Link className='button-styles mt-2 px-2' href={`/Products/${product._id}`}>
                                 View Product
                              </Link>
                         </div>

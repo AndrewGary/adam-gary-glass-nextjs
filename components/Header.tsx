@@ -38,7 +38,7 @@ const Header = (props: Props) => {
 	const [searchTerm, setSearchTerm] = useState("");
 
 	return (
-		<div className="w-full bg-gray-800 text-white flex items-center py-2 mb-2">
+		<div className={`w-full bg-gray-800 text-white flex items-center py-2 mb-2`}>
 			<div
 				className={`${
 					searchActive ? "" : "hidden"
