@@ -12,6 +12,7 @@ type Props = {}
 const Hero = (props: Props) => {
   return (
     <div className='w-full flex flex-col items-center space-y-2 pt-2 pb-3'>
+      
         <h1 className={`${quicksand.variable} font-sans text-4xl`}>Hand Crafted Glass Art</h1>
         {/* <h1 className=' text-4xl'>Hand Crafted Glass Art</h1> */}
         <div className='w-full flex flex-col items-center'>
