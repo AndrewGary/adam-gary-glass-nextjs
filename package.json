@@ -13,6 +13,7 @@
     "@cloudinary/react": "^1.5.0",
     "@cloudinary/url-gen": "^1.8.6",
     "@heroicons/react": "^2.0.12",
+    "@next/font": "^13.0.7",
     "@reduxjs/toolkit": "^1.8.6",
     "cloudinary": "1.30.0",
     "dotenv": "^16.0.3",

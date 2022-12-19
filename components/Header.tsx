@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import { useSession, signIn, signOut } from "next-auth/react";
+import {} from '@next/font/google';
 
 const options = [
 	{
