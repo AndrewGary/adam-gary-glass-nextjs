@@ -45,9 +45,6 @@ const ProductDetails = (props: Props) => {
 					<span>{props.post.description}</span>
 					{showAdded && <div className="top-4 absolute text-green-500 transition-all">Added To Cart</div>}
 					<div className="space-x-3">
-						<button className="border border-black px-4 rounded-lg">
-							Go Back
-						</button>
 						<button
 							onClick={handleAddToCart}
 							className="button-styles px-4"
