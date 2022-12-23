@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useSelector } from "react-redux";
-import { useSession, signIn, signOut } from 'next-auth/react';
+import { useSession, signIn, signOut } from "next-auth/react";
 
 const options = [
 	{
@@ -26,32 +26,26 @@ const options = [
 	},
 ];
 
-// interface RootState{
-// 	cart:
-// }
-
 type Props = {};
 
 const Header = (props: Props) => {
-
 	const { data: session } = useSession();
 
 	const cartLength = useSelector((state: any) => state.cart.numberOfItems);
-	// const { cart } = cartState;
 
 	const [hamburgerMenuActive, setHamburgerMenuActive] = useState(false);
 	const [searchActive, setSearchActive] = useState(false);
 	const [searchTerm, setSearchTerm] = useState("");
 
 	return (
-		<div className="w-full">
+		<div className={`w-full bg-gray-800 text-white flex items-center py-2`}>
 			<div
 				className={`${
 					searchActive ? "" : "hidden"
-				} w-full flex justify-between sticky top-0 bg-white`}
+				} w-full flex justify-between sticky top-0`}
 			>
 				<div
-					className={`h-full  ml-2 mt-2`}
+					className={`h-full  ml-2 `}
 					onClick={() => {
 						setHamburgerMenuActive(!hamburgerMenuActive);
 					}}
@@ -72,13 +66,13 @@ const Header = (props: Props) => {
 					</svg>
 				</div>
 
-				<div className="h-full  mt-2 flex space-x-2">
+				<div className="h-full   flex space-x-2">
 					<input
 						type="text"
 						onChange={(e) => {
 							setSearchTerm(e.target.value);
 						}}
-						className="border border-black"
+						className="border border-black text-black pl-1"
 						placeholder="Search site..."
 					/>
 					<Link href={`/Search/${searchTerm}`}>
@@ -99,7 +93,7 @@ const Header = (props: Props) => {
 					</Link>
 				</div>
 
-				<div className="h-full  mr-2 mt-2 flex space-x-3">
+				<div className="h-full  mr-2  flex space-x-3">
 					<Link href="/Cart">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -142,7 +136,7 @@ const Header = (props: Props) => {
 				} w-full flex flex-col`}
 			>
 				<div
-					className="ml-2 mt-2 flex w-full"
+					className="ml-2  flex w-full"
 					onClick={() => {
 						setHamburgerMenuActive(!hamburgerMenuActive);
 					}}
@@ -163,14 +157,34 @@ const Header = (props: Props) => {
 					</svg>
 					Close
 				</div>
-				<div className="w-full flex flex-col border-2 border-black">
+				<div className="pl-2 w-full flex flex-col">
 					{options.map((option, i) => {
 						if (option.text === "Login") {
 							// return <span onClick={() => {signIn()}}>hello</span>;
-							if(session){
-								return <span key={i} onClick={() => {signOut()}}>Sign Out</span>
-							}else{
-								return <span key={i} onClick={() => {signIn()}}>Sign In</span>;
+							if (session) {
+								return (
+									<span
+										key={i}
+										onClick={() => {
+											signOut();
+										}}
+										className='underline hover:opacity-25'
+									>
+										Sign Out
+									</span>
+								);
+							} else {
+								return (
+									<span
+										key={i}
+										onClick={() => {
+											signIn();
+										}}
+										className='underline hover:opacity-25'
+									>
+										Sign In
+									</span>
+								);
 							}
 						} else {
 							return (
@@ -180,6 +194,7 @@ const Header = (props: Props) => {
 										setHamburgerMenuActive(false);
 									}}
 									href={option.href}
+									className='underline hover:opacity-25'
 								>
 									{option.text}
 								</Link>
@@ -192,10 +207,10 @@ const Header = (props: Props) => {
 			<div
 				className={`${
 					hamburgerMenuActive || searchActive ? "hidden" : ""
-				} w-full flex justify-between sticky top-0 bg-white`}
+				} w-full flex justify-between sticky top-0`}
 			>
 				<div
-					className={`h-full  ml-2 mt-2`}
+					className={`h-full  ml-2 `}
 					onClick={() => {
 						setHamburgerMenuActive(!hamburgerMenuActive);
 					}}
@@ -217,10 +232,10 @@ const Header = (props: Props) => {
 				</div>
 
 				<Link href={"/"}>
-					<div className="h-full  mt-2">Adam Gary Glass</div>
+					<div className="h-full  ">Adam Gary Glass</div>
 				</Link>
 
-				<div className="h-full  mr-2 mt-2 flex space-x-3">
+				<div className="h-full  mr-2  flex space-x-3">
 					{/* <div className="absolute w-full"></div> */}
 					<div className="relative">
 						<div className="absolute w-3 h-3 rounded-full flex justify-center items-center left-3 text-[#ff3434] bottom-4 font-bold p-2">

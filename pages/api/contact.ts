@@ -20,9 +20,6 @@ const mailOptions = {
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse){
 
-
-    console.log(req.body);
-
     try{
         const yeah = await transporter.sendMail({
             ...mailOptions,
@@ -31,11 +28,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             html: `<div>${req.body.name}</div><div>${req.body.email}</div><div>${req.body.subject}</div><div>${req.body.message}</div>`
         })
 
-        console.log('yeah: ', yeah);
-
         return res.status(200).json(yeah);
     }catch(error: any){
-        console.log(error);
         return res.status(400).json({ message: error.message})
     }
 

@@ -50,7 +50,7 @@ const ProductDetails = (props: Props) => {
 						</button>
 						<button
 							onClick={handleAddToCart}
-							className="border border-black px-4 rounded-lg"
+							className="button-styles px-4"
 						>
 							Add to cart
 						</button>

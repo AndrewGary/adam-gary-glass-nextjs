@@ -44,7 +44,7 @@ const Cart: NextPage = (props: Props) => {
               <span>{item.name}</span>
               <button onClick={() => {
                 dispatch(removeItem(item))
-              }} className="border border-black px-3 rounded-lg">Remove</button>
+              }} className="button-styles px-3">Remove</button>
             </div>
 
             <div>
@@ -71,12 +71,12 @@ const Cart: NextPage = (props: Props) => {
         </div>
 
         <div className="flex justify-end my-2">
-          <Link className="border border-black rounded-xl px-2" href='/checkout/1' >
+          <Link className="button-styles px-2" href='/checkout/1' >
               Checkout
           </Link>
         </div>
 
-        {process.env.NODE_ENV !== 'production' && <button className="border border-black px-3 rounded-xl" onClick={() => {
+        {process.env.NODE_ENV !== 'production' && <button className="button-styles px-3" onClick={() => {
           dispatch(removeAll());
         }}>Remove All From Cart(forTesting)</button>}
 			</div>

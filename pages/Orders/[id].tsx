@@ -28,14 +28,10 @@ const OrderDetails = (props: Props) => {
 
 	const handleAddTracking = (e: any) => {
 		e.preventDefault();
-
-		console.log('connected');
 	};
 
 	const handleSaveChanges = async (e: any) => {
 		// e.preventDefault();
-
-		console.log("hitting handleSaveChanges");
 
 		const yeahh = {
 			...order,
@@ -53,8 +49,6 @@ const OrderDetails = (props: Props) => {
 
 		router.push('/Orders')
 	};
-
-	console.log("customer: ", customer);
 
 	const {
 		firstName,
@@ -122,12 +116,11 @@ const OrderDetails = (props: Props) => {
 
 				<div className="flex flex-col items-center w-[40%] justify-evenly">
 					<button onClick={() => {
-						console.log(paid);
 						setPaid(!paid);
-					}} className={`border border-black w-[90%] rounded-md ${paid ? 'bg-green-500' : 'bg-red-500'}`}>{paid ? "Mark As UnPaid" : "Mark as Paid"}</button>
+					}} className={`button-styles text-black w-[90%] ${paid ? 'bg-green-500' : 'bg-red-500'}`}>{paid ? "Mark As UnPaid" : "Mark as Paid"}</button>
 					<button onClick={() => {
 						setShipped(!shipped);
-					}} className={`border border-black w-[90%] rounded-md ${shipped ? 'bg-green-500' : 'bg-red-500'}`}>{shipped ? "Mark Not Shipped" : "Mark as Shipped"}</button>
+					}} className={`button-styles text-black w-[90%] ${shipped ? 'bg-green-500' : 'bg-red-500'}`}>{shipped ? "Mark Not Shipped" : "Mark as Shipped"}</button>
 					<div className="flex flex-col w-[90%] items-center space-y-1">
 					<input
 						type='text'
@@ -138,11 +131,11 @@ const OrderDetails = (props: Props) => {
 						}}
 						className='border border-black rounded-md pl-1 w-full'
 					/>
-					<button className="border border-black rounded-md w-[90%]" onClick={handleAddTracking}>Add Tracking</button>
+					<button className="button-styles w-[90%]" onClick={handleAddTracking}>Add Tracking</button>
 					</div>	
 				</div>
 			</div>
-			<button onClick={handleSaveChanges} className="border border-black px-2">
+			<button onClick={handleSaveChanges} className="button-styles px-2">
 				Save Changes
 			</button>
 		</div>
