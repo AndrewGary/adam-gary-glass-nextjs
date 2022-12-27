@@ -6,8 +6,8 @@ const PurchasePolicy = (props: Props) => {
   return (
     <div className='w-full min-h-screen flex flex-col items-center'>
       <div className='w-[90%] flex flex-col space-y-3'>
-        <h1>Terms and Conditions</h1>
-        <h2>Terms of Service</h2>
+        <h1 className=' border-y text-2xl uppercase border-black'>Terms and Conditions</h1>
+        <h2 className='text-xl underline'>Terms of Service</h2>
         <span className='uppercase font-bold'>PLEASE READ THIS LEGAL STATEMENT CAREFULLY BEFORE USING THIS SITE.</span>
         <span>Your use of this site and the information available on this site is subject to the following terms and conditions:</span>
         <span className='uppercase font-bold'>YOU MUST BE AT LEAST 21 YEARS OR OLDER (18 IN SOME AREAS) TO ORDER OR PURCHASE FROM ADAMGARYGLASS.COM</span>
