@@ -37,7 +37,7 @@ const ProductDetails = (props: Props) => {
             //   return <Image width={100} height={100} key={i} className="w-[70%] ml-20" src={image} alt="" />;
             // }
 			// 			return <Image width={100} height={100} key={i} className="w-[70%]" src={image} alt="" />;
-						return <img src={image} alt='' className="w-2/3 mx-2 border border-gray-400 p-2" />
+						return <img key={i} src={image} alt='' className="w-2/3 mx-2 border border-gray-400 p-2" />
 					})}
 				</div>
 
