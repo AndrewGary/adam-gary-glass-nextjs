@@ -35,7 +35,7 @@ const OfAgeSplashPage = (props: Props) => {
 	return (
 		<div className="w-full min-h-screen flex justify-center items-center">
 			<div className="w-[90%] border border-black rounded-lg h-52 flex flex-col justify-center items-center">
-				<div className="w-full h-1/2 flex justify-center items-center">
+				<div className="w-[90%] h-1/2 flex justify-center items-center text-3xl text-center">
 					Are You over the age of 21?
 				</div>
 

@@ -29,20 +29,22 @@ const ProductDetails = (props: Props) => {
 	return (
 		<div className="w-full flex flex-col min-h-screen items-center mt-4">
 			<div className="w-[90%] flex flex-col items-center">
-				<span>{props.post.name}</span>
+				<span className="text-2xl capitalize">{props.post.name}</span>
 
-				<div className="w-full overflow-x-scroll flex space-x-3">
+				<div className="w-full overflow-x-scroll flex">
 					{props.post.images.map((image: string, i: number) => {
-            if(i === 0){
-              return <Image width={100} height={100} key={i} className="w-[70%] ml-20" src={image} alt="" />;
-            }
-						return <Image width={100} height={100} key={i} className="w-[70%]" src={image} alt="" />;
+            // if(i === 0){
+            //   return <Image width={100} height={100} key={i} className="w-[70%] ml-20" src={image} alt="" />;
+            // }
+			// 			return <Image width={100} height={100} key={i} className="w-[70%]" src={image} alt="" />;
+						return <img src={image} alt='' className="w-2/3 mx-2 border border-gray-400 p-2" />
 					})}
 				</div>
 
 				<div className="relative flex flex-col items-center space-y-4 mt-3">
-					<span>${props.post.price}</span>
-					<span>{props.post.description}</span>
+					<span className="text-2xl">${props.post.price}</span>
+					<span className="text-xl w-[90%]">{props.post.description}</span>
+					<span className="text-xl">Quantity Available: {props.post.quantity}</span>
 					{showAdded && <div className="top-4 absolute text-green-500 transition-all">Added To Cart</div>}
 					<div className="space-x-3">
 						<button

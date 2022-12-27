@@ -10,6 +10,7 @@ interface InitialState {
 	name: string;
 	description: string;
 	defaultImage: string;
+	quantity: number;
 	images: string[];
 	price: number;
 }
@@ -18,6 +19,7 @@ const initialState: InitialState = {
 	name: "",
 	description: "",
 	defaultImage: "",
+	quantity: 0,
 	images: [],
 	price: 0,
 };
@@ -58,6 +60,7 @@ const AddNewProduct = (props: Props) => {
 			!formValues.name ||
 			!formValues.description ||
 			!formValues.price ||
+			!formValues.quantity ||
 			!defaultImageRef.current ||
 			formValues.images.length === 0
 		) {
@@ -71,6 +74,9 @@ const AddNewProduct = (props: Props) => {
 			}
 			if (!formValues.price) {
 				newErrors.push("You must provide a price");
+			}
+			if(!formValues.quantity){
+				newErrors.push("you must provide a quantity");
 			}
 			if (!defaultImageRef.current || formValues.images.length === 0) {
 				newErrors.push("You must upload Images for the product.");
@@ -89,6 +95,7 @@ const AddNewProduct = (props: Props) => {
 				name: formValues.name,
 				description: formValues.description,
 				price: formValues.price,
+				quantity: formValues.quantity,
 				images: uploadedImages.current,
 				defaultImage: uploadedImages.current[0],
 				time: Date.now(),
@@ -137,13 +144,23 @@ const AddNewProduct = (props: Props) => {
 					placeholder="Item Descrition"
 					value={formValues.description}
 				/>
+				<div className="flex justify-evenly">
 				<input
 					type="number"
 					name="price"
 					onChange={handleChange}
-					className="border border-black px-3 rounded-md w-[75%]"
+					className="border border-black px-3 rounded-md w-1/3"
 					placeholder="Price $"
 				/>
+				<input
+					type="number"
+					name="quantity"
+					onChange={handleChange}
+					className="border border-black px-3 rounded-md w-1/3"
+					placeholder="Quantity"
+				/>
+				</div>
+				
 				<CldUploadButton
 					className="border border-black px-3 rounded-lg"
 					onUpload={(error: any, result: any, widget: any) => {

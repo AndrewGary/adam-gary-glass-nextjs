@@ -37,14 +37,14 @@ const Checkout2 = (props: Props) => {
 
 	return (
 		<div className="w-full min-h-screen flex flex-col items-center">
-			<h1 className="text-2xl">Payments</h1>
+			<h1 className="text-2xl">Payment</h1>
 
 			<div className="w-[90%] flex flex-col items-center border border-black mb-4 space-y-4">
-				<span className="underline">How would you like to pay?</span>
+				<span className="text-2xl underline">How would you like to pay?</span>
 
                 <div className="w-full space-y-4 flex flex-col items-center">
                     <div
-                        className="text-center w-full border border-red-500"
+                        className="text-center w-full text-3xl"
                         onClick={(e) => {
                             if(showDetails !== 'venmo'){
                                 setShowDetails('venmo');
@@ -57,12 +57,12 @@ const Checkout2 = (props: Props) => {
                     </div>
 
 
-                    {showDetails === 'venmo' && (
+                    
 						<div className="flex flex-col items-center">
-							<span>Venmo Instructions</span>
-							<span className="text-center">
+							{/* <span>Venmo Instructions</span> */}
+							{/* <span className="text-center">
 								Please send the full payment amount of ${orderState.order.total} to:
-							</span>
+							</span> */}
 							<div className="flex items-center my-2">
 								<Image width={50} height={50} src="/venmo.png" alt="venmo" />
 								<span>{process.env.NEXT_PUBLIC_ADAM_VENMO}</span>
@@ -75,65 +75,23 @@ const Checkout2 = (props: Props) => {
 
                             <button onClick={handleSelection} className="button-styles px-2">Select Venmo</button>
 						</div>
-					)}
+					
                 </div>
 
                 <div className="w-full flex flex-col items-center">
                     <span
-                        className="text-center w-full border border-red-500"
-                        onClick={() => {
-                            if(showDetails !== 'paypal'){
-                                setShowDetails('paypal');
-                            }else{
-                                setShowDetails('');
-                            }
-                        }}
-                    >
-                        Paypal
-                    </span>
-
-
-                    {showDetails === 'paypal' && (
-						<div className="flex flex-col items-center">
-							<span>Paypal Instructions</span>
-							<span className="text-center">
-								Please send the full payment amount of ${orderState.order.total} to:
-							</span>
-							<div className="flex items-center my-2">
-								<Image width={50} height={50} src="/paypal.png" alt="paypal logo" />
-								<span>{process.env.NEXT_PUBLIC_ADAM_PAYPAL}</span>
-							</div>
-
-							{/* <span className="mx-3">
-								Once payment is recieved you will recieve confirmation email and
-								tracking before the end of the day
-							</span> */}
-                            <button onClick={handleSelection} className="button-styles px-2">Select Paypal</button>
-						</div>
-					)}
-                </div>
-
-                <div className="w-full flex flex-col items-center">
-                    <span
-                        className="text-center w-full border border-red-500"
-                        onClick={() => {
-                            if(showDetails !== 'invoice'){
-                                setShowDetails('invoice');
-                            }else{
-                                setShowDetails('');
-                            }
-                        }}
+                        className="text-center w-full"
                     >
                         Credit Card Via Email Invoice
                     </span>
 
 
-                    {showDetails === 'invoice' && (
+                    
 						<div className="flex flex-col items-center">
-							<span>Paypal Instructions</span>
+							{/* <span>Paypal Instructions</span>
 							<span className="text-center">
 								You will recieve an email invoice that will have a Link to pay with your credit card.
-							</span>
+							</span> */}
 							<div className="flex items-center my-2">
 								<Image width={50} height={50} src="/paypal.png" alt="paypal logo" />
 								<span>{process.env.NEXT_PUBLIC_ADAM_PAYPAL}</span>
@@ -141,11 +99,10 @@ const Checkout2 = (props: Props) => {
 
                             <button onClick={handleSelection} className="button-styles px-2">Select Email Invoice</button>
 						</div>
-					)}
+					
                 </div>
 
 			</div>
-                <Link href={'/checkout/3'} className="border border-black px-2">Review Order</Link>
 		</div>
 	);
 };
