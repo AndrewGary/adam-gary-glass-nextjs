@@ -40,7 +40,7 @@ const AdminDashBoard = (props: Props) => {
             <Link className='pl-4 border border-black rounded-md text-center' href={'/AddNewProduct'}>
                 Add New Product
             </Link>
-            <Link className='pl-4 border border-black rounded-md text-center' href={'/'}>
+            <Link className='pl-4 border border-black rounded-md text-center' href={'/EditProducts'}>
                 Edit Products
             </Link>
         </div>
