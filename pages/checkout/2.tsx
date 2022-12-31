@@ -44,7 +44,7 @@ const Checkout2 = (props: Props) => {
 
                 <div className="w-full space-y-4 flex flex-col items-center">
                     <div
-                        className="text-center w-full text-3xl"
+                        className="text-center w-full text-3xl font-bold"
                         onClick={(e) => {
                             if(showDetails !== 'venmo'){
                                 setShowDetails('venmo');
@@ -80,7 +80,7 @@ const Checkout2 = (props: Props) => {
 
                 <div className="w-full flex flex-col items-center">
                     <span
-                        className="text-center w-full"
+                        className="text-center w-full text-3xl font-bold"
                     >
                         Credit Card Via Email Invoice
                     </span>

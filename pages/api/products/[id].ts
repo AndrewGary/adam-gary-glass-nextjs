@@ -3,8 +3,8 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { ObjectId } from "mongodb";
 
 export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
+  req: any,
+  res: any
 ) {
   const connection = await connectToDatabase();
 
@@ -34,6 +34,28 @@ export default async function handler(
       } catch (error) {
         return res.status(500).json(error);
       }
+    }
+
+    case "PUT": {
+      console.log('connected');
+      console.log(req.body);
+
+      try{
+        const resp = await db.collection('products').updateOne({_id: new ObjectId(req.query.id)}, { $set: req.body});
+
+        console.log(resp);
+
+        res.status(200).json(resp);
+      }catch(error){
+        console.log(error);
+        
+        res.status(500).json(error);
+      }
+
+
+      // res.status(500).json({ message: 'Server ERROR'})
+
+      // res.status(200).json({message: 'working'});
     }
   }
 }

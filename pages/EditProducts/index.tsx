@@ -44,7 +44,7 @@ const EditProducts = (props: Props) => {
             </tr>
             {allProducts.map((product: ProductInterface, i) => {
                 return (
-                    <tr className='border-b border-black text-sm'>
+                    <tr key={i} className='border-b border-black text-sm'>
                         <td className='border border-black text-center'><img className='w-16 h-16' src={product.defaultImage} /></td>
                         <td className='border border-black text-center'>{product.name}</td>
                         <td className='pl-1 border border-black text-xs'>{product.description}</td>

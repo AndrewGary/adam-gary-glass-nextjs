@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { connectToDatabase } from '../mongoConnection';
 import Link from 'next/link';
 import { ObjectId } from 'mongodb';
 import Image from 'next/image';
