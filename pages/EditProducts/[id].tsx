@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { parse } from "dotenv";
+import { CldUploadButton } from "next-cloudinary";
+
 
 type Props = {};
 
@@ -18,7 +19,7 @@ const EditSpecificItem = (props: Props) => {
 	const router = useRouter();
 
 	const [productBeingEdited, setProductBeingEdited] = useState<any>({
-    _id: '',
+        _id: '',
 		name: "",
 		description: "",
 		price: undefined,
@@ -27,7 +28,7 @@ const EditSpecificItem = (props: Props) => {
 		defaultImage: "",
 	});
 	const [formValues, setFormValues] = useState<any>({
-    _id: '',
+        _id: '',
 		name: "",
 		description: "",
 		price: undefined,
@@ -35,6 +36,8 @@ const EditSpecificItem = (props: Props) => {
 		images: [],
 		defaultImage: "",
 	});
+
+    const [addedImages, setAddedImages] = useState([]);
 
 	useEffect(() => {
 		const asyncUseEffect = async () => {
@@ -82,7 +85,8 @@ const EditSpecificItem = (props: Props) => {
 
 		for (const key in formValues) {
 				if (formValues[key] !== productBeingEdited[key]) {
-
+console.log('formValues[key]: ', formValues[key]);
+console.log('productBeingEdited[key]: ', productBeingEdited[key])
           if(key === 'price' || key === 'quantity'){
             newValues[key] = parseInt(formValues[key]);
           }else{
@@ -102,10 +106,52 @@ const EditSpecificItem = (props: Props) => {
     const jeah = await yeahhh.json();
 
     console.log('JEAH: ', jeah);
+
+    //COME BACK HERE AND HANDLE IF IT WAS SUCCESSFULL OR NOT
 	};
 
 	return (
 		<div className="w-full min-h-screen flex flex-col items-center">
+            <h2 className="w-[70%] text-center mb-2">Change Default Image by selecting the image you want
+            </h2>
+            <div className={`flex flex-wrap justify-evenly w-full`}>
+                {formValues.images.map((image: any, i: number) => {
+                    return <img onClick={() => {
+                        setFormValues({
+                            ...formValues,
+                            defaultImage: image
+                        })
+                    }} className={`w-20 ${image === formValues.defaultImage ? 'border-2 border-red-500' : ''}`} src={image} alt='' />
+                })}
+            </div>
+
+            <div className={`flex flex-wrap justify-evenly w-full`}>
+                {addedImages.map((image: any, i: number) => {
+                    return <img onClick={() => {
+                        setFormValues({
+                            ...formValues,
+                            defaultImage: image
+                        })
+                    }} className={`w-20 ${image === formValues.defaultImage ? 'border-2 border-red-500' : ''}`} src={image} alt='' />
+                })}
+            </div>
+
+            <CldUploadButton
+					className="border border-black px-3 rounded-lg"
+					onUpload={(error: any, result: any, widget: any) => {
+                        // console.log('hello');
+						// setUploadedImages(result.info.secure_url);
+                        // console.log(result.info.secure_url)
+                        // setFormValues({
+                        //     ...formValues,
+                        //     images: [...formValues.images, result.info.secure_url]
+                        // })
+                        setAddedImages([...addedImages, result.info.secure_url])
+					}}
+					uploadPreset="product upload"
+				>
+					Upload Images Here
+				</CldUploadButton>
 			<form className="w-[90%] flex flex-col">
 				<label htmlFor="name">Name</label>
 				<input

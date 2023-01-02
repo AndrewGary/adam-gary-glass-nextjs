@@ -43,7 +43,7 @@ export default async function handler(
       try{
         const resp = await db.collection('products').updateOne({_id: new ObjectId(req.query.id)}, { $set: req.body});
 
-        console.log(resp);
+        console.log('resp: ', resp);
 
         res.status(200).json(resp);
       }catch(error){
