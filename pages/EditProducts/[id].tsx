@@ -36,17 +36,20 @@ const EditSpecificItem = (props: Props) => {
 		defaultImage: "",
 	});
 
-	let count = 0;
 	const uploadedImages = useRef<string[]>([]);
+	const [newImages, setNewImages] = useState([]);
+	
 	const setUploadedImages = (newImage: string) => {
 
 		uploadedImages.current.push(newImage);
-		setFormValues({
-			...formValues,
-			images: [...formValues.images, ...uploadedImages.current],
-		});
+		setNewImages([...newImages, newImage])
 	};
-	
+
+	const deleteUploadedImage = (imageToDelete: string) => {
+		uploadedImages.current = uploadedImages.current.filter(img => img !== imageToDelete)
+
+		setNewImages(newImages.filter(img => img !== imageToDelete));
+	}
 
 	useEffect(() => {
 		const asyncUseEffect = async () => {
@@ -150,9 +153,14 @@ const EditSpecificItem = (props: Props) => {
 				})}
 			</div>
 
+			<h2>New Images</h2>
 			<div className={`flex flex-wrap justify-evenly w-full`}>
 				{uploadedImages.current.map((image: any, i: number) => {
 					return (
+						<div className="relative w-20 flex">
+							<img onClick={() => {
+								deleteUploadedImage(image)
+							}} src='/trash.png' alt='delete image' className='border bg-opacity-50 bg-gray-400 rounded-sm top-0 right-0 w-6 h-6 absolute z-10' />
 						<img
 							onClick={() => {
 								setFormValues({
@@ -168,6 +176,7 @@ const EditSpecificItem = (props: Props) => {
 							src={image}
 							alt=""
 						/>
+						</div>
 					);
 				})}
 			</div>
@@ -182,6 +191,7 @@ const EditSpecificItem = (props: Props) => {
 					//     ...formValues,
 					//     images: [...formValues.images, result.info.secure_url]
 					// })
+					// setUploadedImages(result.info.secure_url);
 					setUploadedImages(result.info.secure_url);
 				}}
 				uploadPreset="product upload"

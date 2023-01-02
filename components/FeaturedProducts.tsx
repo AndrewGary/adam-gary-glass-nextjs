@@ -35,16 +35,6 @@ const FeaturedProducts = () => {
             <span className='mb-2 text-2xl uppercase font-bold'>Featured Products</span>
         <div className='flex items-center overflow-x-auto w-[90%] pb-3 max-w-xl'>
                 {products.map((product: CartItem, i) => {
-                    // if(i === 0){
-                    //     return(
-                    //         <div key={i} className='ml-10 min-w-[80%] h-full flex flex-col items-center'>
-                    //             <Image height={100} width={100} className='rounded-md w-[85%] h-auto' src={product.defaultImage} alt=''/>
-                    //             <Link className='button-styles mt-2 px-2' href={`/Products/${product._id}`}>
-                    //             View Product
-                    //             </Link>
-                    //         </div>
-                    //     )
-                    // }
                     return (
                         <div key={i} className='min-w-[80%] h-full flex flex-col items-center'>
                             <Image height={100} width={100} className=' hover:shadow-lg shadow-zinc-900 rounded-md w-[85%] h-auto' src={product.defaultImage} alt=''/>
