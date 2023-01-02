@@ -123,21 +123,29 @@ const EditSpecificItem = (props: Props) => {
 			<div className={`flex flex-wrap justify-evenly w-full`}>
 				{formValues.images.map((image: any, i: number) => {
 					return (
-						<img
-							onClick={() => {
+						<div className="relative w-20 flex">
+							<img onClick={() => {
 								setFormValues({
 									...formValues,
-									defaultImage: image,
-								});
-							}}
-							className={`w-20 ${
-								image === formValues.defaultImage
-									? "border-2 border-red-500"
-									: ""
-							}`}
-							src={image}
-							alt=""
-						/>
+									images: formValues.images.filter((img: string) => image !== img)
+								})
+							}} src='/trash.png' alt='delete image' className='w-8 h-8 absolute z-10 bg-white' />
+							<img
+								onClick={() => {
+									setFormValues({
+										...formValues,
+										defaultImage: image,
+									});
+								}}
+								className={`w-full h-auto ${
+									image === formValues.defaultImage
+										? "border-2 border-red-500"
+										: ""
+								}`}
+								src={image}
+								alt=""
+							/>
+						</div>
 					);
 				})}
 			</div>
