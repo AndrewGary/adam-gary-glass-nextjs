@@ -37,7 +37,7 @@ const EditSpecificItem = (props: Props) => {
 	});
 
 	const uploadedImages = useRef<string[]>([]);
-	const [newImages, setNewImages] = useState([]);
+	const [newImages, setNewImages] = useState<string[]>([]);
 	
 	const setUploadedImages = (newImage: string) => {
 
@@ -126,7 +126,7 @@ const EditSpecificItem = (props: Props) => {
 			<div className={`flex flex-wrap justify-evenly w-full`}>
 				{formValues.images.map((image: any, i: number) => {
 					return (
-						<div className="relative w-20 flex">
+						<div key={i} className="relative w-20 flex">
 							<img onClick={() => {
 								setFormValues({
 									...formValues,
@@ -157,7 +157,7 @@ const EditSpecificItem = (props: Props) => {
 			<div className={`flex flex-wrap justify-evenly w-full`}>
 				{uploadedImages.current.map((image: any, i: number) => {
 					return (
-						<div className="relative w-20 flex">
+						<div key={i} className="relative w-20 flex">
 							<img onClick={() => {
 								deleteUploadedImage(image)
 							}} src='/trash.png' alt='delete image' className='border bg-opacity-50 bg-gray-400 rounded-sm top-0 right-0 w-6 h-6 absolute z-10' />
