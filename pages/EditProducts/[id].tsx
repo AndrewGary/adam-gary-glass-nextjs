@@ -129,7 +129,7 @@ const EditSpecificItem = (props: Props) => {
 									...formValues,
 									images: formValues.images.filter((img: string) => image !== img)
 								})
-							}} src='/trash.png' alt='delete image' className='w-8 h-8 absolute z-10 bg-white' />
+							}} src='/trash.png' alt='delete image' className='border bg-opacity-50 bg-gray-400 rounded-sm top-0 right-0 w-6 h-6 absolute z-10' />
 							<img
 								onClick={() => {
 									setFormValues({
