@@ -30,7 +30,7 @@ const AdminDashBoard = (props: Props) => {
       <div className="w-1/2 min-h-[50%] flex justify-center items-center">
       <Link
         href={"/"}
-        className=" w-44 h-44 md:h-64 md:w-64 lg:h-80 lg:w-80 button-styles flex justify-center items-center mt-1"
+        className=" md:text-2xl w-44 h-44 md:h-64 md:w-64 lg:h-80 lg:w-80 button-styles flex justify-center items-center mt-1"
       >
         4 New Messages
       </Link>
@@ -39,19 +39,19 @@ const AdminDashBoard = (props: Props) => {
       <div className="w-1/2 min-h-[50%] flex justify-center items-center">
       <Link
         href={"/Orders"}
-        className=" w-44 h-44 md:h-64 md:w-64 lg:h-80 lg:w-80 button-styles flex justify-center items-center mt-1"
+        className=" md:text-2xl w-44 h-44 md:h-64 md:w-64 lg:h-80 lg:w-80 button-styles flex justify-center items-center mt-1"
       >
         {props.allOrders.length} Open Orders
       </Link>
       </div>
 
       <div className="w-1/2 min-h-[50%] flex justify-center items-center">
-      <Link className="w-44 h-44 md:h-64 md:w-64 lg:h-80 lg:w-80 button-styles flex justify-center items-center mt-1" href={"/AddNewProduct"}>
+      <Link className="md:text-2xl w-44 h-44 md:h-64 md:w-64 lg:h-80 lg:w-80 button-styles flex justify-center items-center mt-1" href={"/AddNewProduct"}>
         Add New Product
       </Link>
       </div>
       <div className="w-1/2 min-h-[50%] flex justify-center items-center">
-      <Link className="w-44 h-44 md:h-64 md:w-64 lg:h-80 lg:w-80 button-styles flex justify-center items-center mt-1" href={"/EditProducts"}>
+      <Link className="md:text-2xl w-44 h-44 md:h-64 md:w-64 lg:h-80 lg:w-80 button-styles flex justify-center items-center mt-1" href={"/EditProducts"}>
         Edit Products
       </Link>
       </div>
