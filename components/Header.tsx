@@ -168,7 +168,7 @@ const Header = (props: Props) => {
 										onClick={() => {
 											signOut();
 										}}
-										className='underline hover:opacity-25'
+										className='text-xl underline hover:opacity-25'
 									>
 										Sign Out
 									</span>
@@ -180,7 +180,7 @@ const Header = (props: Props) => {
 										onClick={() => {
 											signIn();
 										}}
-										className='underline hover:opacity-25'
+										className='text-xl underline hover:opacity-25'
 									>
 										Sign In
 									</span>
@@ -194,7 +194,7 @@ const Header = (props: Props) => {
 										setHamburgerMenuActive(false);
 									}}
 									href={option.href}
-									className='underline hover:opacity-25'
+									className='text-xl underline hover:opacity-25'
 								>
 									{option.text}
 								</Link>
