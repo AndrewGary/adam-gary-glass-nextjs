@@ -37,7 +37,7 @@ export default function Home() {
   if(over21){
     return (
       <div className='w-full min-h-screen flex justify-center'>
-        <div className='w-full md:w-[90%] max-w-6xl min-h-screen flex flex-col items-center border border-red-500'>
+        <div className='w-full md:w-[90%] max-w-6xl min-h-screen flex flex-col items-center'>
           <Hero />
           <FeaturedProducts />
         </div>
