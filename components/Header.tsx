@@ -354,7 +354,7 @@ const Header = (props: Props) => {
 								viewBox="0 0 24 24"
 								strokeWidth={1.5}
 								stroke="currentColor"
-								className="w-6 h-6"
+								className="w-8 h-8"
 							>
 								<path
 									strokeLinecap="round"
@@ -364,17 +364,18 @@ const Header = (props: Props) => {
 							</svg>
 					</div>
 					<div className="relative mr-5">
-							<div className="absolute w-3 h-3 rounded-full flex justify-center items-center left-3 text-[#ff3434] bottom-4 font-bold p-2">
-								{cartLength}
+					<Link href="/Cart">
+							<div className="absolute w-full h-full flex justify-center items-center text-[#ff3434] font-bold">
+								<div className="absolute -top-3 right-0">{cartLength}</div>
 							</div>
-							<Link href="/Cart">
+							
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
 									viewBox="0 0 24 24"
 									strokeWidth={1.5}
 									stroke="currentColor"
-									className="w-6 h-6"
+									className="w-8 h-8"
 								>
 									<path
 										strokeLinecap="round"
