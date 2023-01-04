@@ -18,7 +18,7 @@ import React, { useState } from 'react'
 
 type Props = {image: string}
 
-const EnlargedImage: React.FC<Props> = ({image}) => {
+const EnlargedImage: React.FC<Props> = ({image, setFocusImage}) => {
 
   const [darkMode, setDarkMode] = useState(true);
   
@@ -29,7 +29,7 @@ const EnlargedImage: React.FC<Props> = ({image}) => {
         <img src={darkMode ? '/NightIcon.png' : '/DayIcon.png'} alt=''  className='absolute left-2 top-2 hover:opacity-50 transition-all' onClick={() => {
           setDarkMode(!darkMode)
         }}/>
-        <img src={darkMode ? '/NightExit.png' : '/DayExit.png'} alt=''  className='absolute z-10' onClick={() => {setDarkMode(false)}}/>
+        <img src={darkMode ? '/NightExit.png' : '/DayExit.png'} alt=''  className='absolute z-10 right-2 top-2' onClick={() => {setFocusImage('')}}/>
       </div>
   )
 }

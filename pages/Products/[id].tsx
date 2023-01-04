@@ -11,7 +11,7 @@ type Props = { post: any };
 
 const ProductDetails = (props: Props) => {
 	const [showAdded, setShowAdded] = useState(false);
-	const [ focusImage, setFocusImage] = useState('');
+	const [ focusImage, setFocusImage] = useState<string>('');
 
 	useEffect(() => {
 		const yeah = () => {
@@ -67,8 +67,12 @@ const ProductDetails = (props: Props) => {
 			</div>
 
 			<div className={`relative hidden lg:flex w-full flex-col min-h-screen items-center`}>
-					{focusImage ? <EnlargedImage image={focusImage} /> : null}
-				<div className={`${focusImage ? 'blur' : ''} w-[90%] flex flex-col items-center`}>
+					{focusImage ? <EnlargedImage setFocusImage={setFocusImage} image={focusImage} /> : null}
+				<div className={`${focusImage ? 'blur' : ''} w-[90%] flex flex-col items-center`} onClick={() => {
+					if(focusImage){
+						setFocusImage('');
+					}
+				}}>
 					<span className="text-2xl capitalize mb-2">{props.post.name}</span>
 					
 					<div className="flex justify-evenly w-[60%] flex-wrap space-y-2">
