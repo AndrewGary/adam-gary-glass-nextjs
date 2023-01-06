@@ -19,13 +19,10 @@ const Checkout2 = (props: Props) => {
 
 	const handleSelection = (e: any) => {
 		switch (e.target.textContent) {
-			case "Select Venmo":
+			case "Pay With Venmo":
 				dispatch(setPaymentMethod("venmo"));
 				break;
-			case "Select Paypal":
-				dispatch(setPaymentMethod("paypal"));
-				break;
-			case "Select Email Invoice":
+			case "Pay with Credit/Debit":
 				dispatch(setPaymentMethod("invoice"));
 				break;
 		}
@@ -34,8 +31,8 @@ const Checkout2 = (props: Props) => {
 
 	return (
 		<div className="w-full min-h-screen flex justify-center">
-			<div className="max-w-3xl w-[90%] min-h-screen flex flex-col items-center">
-				<h1>How would you like to pay?</h1>
+			<div className="max-w-3xl w-[90%] min-h-screen flex flex-col items-center space-y-5">
+				<h1 className="text-xl font-bold">How would you like to pay?</h1>
 
 				{/* <div className="h-32 rounded-md relative flex flex-col w-[75%] bg-gray-100 shadow-xl border border-gray-600 -z-20">
                     <div className="w-32 h-full -z-0 absolute text-4xl left-4 border rounded-md -top-6 border-gray-600 bg-opacity-0">
@@ -57,9 +54,9 @@ const Checkout2 = (props: Props) => {
 						<span className="font-bold">{process.env.NEXT_PUBLIC_ADAM_VENMO}</span>
 					</div>
 
-                    <div className="absolute button-styles uppercase py-2 font-bold px-1 right-4 bottom-0 md:bottom-3">
+                    <button onClick={handleSelection} className="absolute button-styles uppercase py-2 font-bold px-1 right-4 bottom-0 md:bottom-3">
                         Pay With Venmo
-                    </div>
+                    </button>
 				</div>
 
                 <div className="w-[75%] flex justify-center items-center relative h-40">
@@ -73,9 +70,9 @@ const Checkout2 = (props: Props) => {
 						<span className="text-xs md:text-sm font-bold">You will revieve an email with a link to a PayPal Invoice where you can pay with credit/debit card</span>
 					</div>
 
-                    <div className="absolute button-styles uppercase py-2 font-bold px-1 right-4 bottom-0 md:bottom-3">
-                        Pay With Venmo
-                    </div>
+                    <button onClick={handleSelection} className="absolute button-styles uppercase py-2 font-bold px-1 right-4 bottom-0 md:bottom-3">
+                        Pay with Credit/Debit
+                    </button>
 				</div>
 
 				{/* <div className="relative w-[75%] border border-gray-800 rounded-md h-24 shadow-xl z-0">
@@ -84,8 +81,7 @@ const Checkout2 = (props: Props) => {
                     </div>
                 </div> */}
 
-				<div className="h-32 rounded-md relative z-20 flex flex-col w-[75%] bg-gray-100 shadow-xl mt-20 border border-gray-800">
-					{/* <div className="card-body gap-0"> */}
+				{/* <div className="h-32 rounded-md relative z-20 flex flex-col w-[75%] bg-gray-100 shadow-xl mt-20 border border-gray-800">
 					<div className="absolute left-2 -top-10 flex items-center my-2">
 						<h2 className="relative text-2xl md:text-4xl card-title">
 							<div className="absolute w-[calc(100%+1rem)] -left-1 h-full -z-10 bg-gray-100 px-2 rounded-md" />
@@ -98,8 +94,7 @@ const Checkout2 = (props: Props) => {
 					<div className="absolute bottom-0 right-0 flex flex-wrap items-start gap-2 justify-end">
 						<button className="btn btn-primary">Pay With Venmo</button>
 					</div>
-					{/* </div> */}
-				</div>
+				</div> */}
 			</div>
 		</div>
 	);
