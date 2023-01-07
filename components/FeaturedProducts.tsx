@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link';
 import { ObjectId } from 'mongodb';
-import Image from 'next/image';
 
 type Props = {products: any}
 

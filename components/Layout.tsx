@@ -19,13 +19,3 @@ const Layout = ({children}: Props) => {
 }
 
 export default Layout
-
-// export default function Layout({ children }) {
-//   return (
-//     <>
-//       <Navbar />
-//       <main>{children}</main>
-//       <Footer />
-//     </>
-//   )
-// }

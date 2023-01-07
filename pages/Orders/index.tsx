@@ -4,25 +4,6 @@ import Link from 'next/link';
 
 type Props = {}
 
-// export const getServerSideProps = async () => {
-
-//     const connection = await connectToDatabase();
-  
-//     const db = connection.db;
-  
-//     const results = await db.collection('orders').find({}).toArray();
-  
-//     const stringifiedResults = JSON.stringify(results);
-  
-//     const allOrders = JSON.parse(stringifiedResults);
-  
-//     return {
-//       props: {
-//         allOrders: allOrders
-//       }
-//     }
-//   }
-
 const ManageOrders = (props: Props) => {
 
   const [allOrders, setAllOrders] = useState([]);

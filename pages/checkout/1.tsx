@@ -41,17 +41,17 @@ interface FormState {
 }
 
 const initialErrorState = {
-  firstName: '',
-  lastName: '',
-  address1: '',
-  city: '',
-  state: '',
-  zip: '',
-  phoneNumber: '',
-  specialInstructions: '',
-  email: '',
-  emailConfirmation: ''
-}
+  firstName: "",
+  lastName: "",
+  address1: "",
+  city: "",
+  state: "",
+  zip: "",
+  phoneNumber: "",
+  specialInstructions: "",
+  email: "",
+  emailConfirmation: "",
+};
 
 interface ErrorState {
   firstName: string;
@@ -96,9 +96,9 @@ const Checkout1 = (props: Props) => {
   const [formValues, setFormValues] = useState<FormState>(initialState);
 
   useEffect(() => {
-    console.log('formErrors changed');
+    console.log("formErrors changed");
     console.log(formErrors);
-  }, [formErrors])
+  }, [formErrors]);
 
   const handleChange = (e: React.ChangeEvent<any>) => {
     setFormValues({
@@ -151,7 +151,6 @@ const Checkout1 = (props: Props) => {
           className="w-full flex flex-col space-y-3 items-center"
           onSubmit={handleSubmit}
         >
-          {/* <div className='flex w-full justify-evenly'> */}
           <div className="flex flex-col w-full">
             <input
               type="text"
@@ -299,7 +298,9 @@ const Checkout1 = (props: Props) => {
               value={formValues.phoneNumber}
               onBlur={handleBlur}
               onChange={handleChange}
-              className={`pl-1 border ${formErrors.phoneNumber ? 'border-red-500' : 'border-black'} rounded-sm w-full`}
+              className={`pl-1 border ${
+                formErrors.phoneNumber ? "border-red-500" : "border-black"
+              } rounded-sm w-full`}
               placeholder="Phone Number"
             />
             {formErrors.phoneNumber ? (

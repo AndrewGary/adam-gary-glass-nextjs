@@ -1,13 +1,13 @@
-import React from 'react'
+import React from "react";
 
-type Props = {}
+type Props = {};
 
 const Wholesale = (props: Props) => {
   return (
-    <div className='w-full min-h-screen flex justify-center items-center'>
-        Wholesale Page Needs Work
+    <div className="w-full min-h-screen flex justify-center items-center">
+      Wholesale Page Needs Work
     </div>
-  )
-}
+  );
+};
 
-export default Wholesale
+export default Wholesale;

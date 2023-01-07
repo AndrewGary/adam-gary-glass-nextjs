@@ -65,7 +65,6 @@ const OrderConfirmation = (props: Props) => {
             <span>Please follow the instructions in the email</span>
           </div>
         )}
-
       </div>
     </div>
   );
