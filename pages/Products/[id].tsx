@@ -77,9 +77,8 @@ const ProductDetails = (props: Props) => {
 					
 					<div className="flex justify-evenly w-[60%] flex-wrap space-y-2">
 						{props.post.images.map((img: string, i: number) => (
-							<div className="w-1/2 flex justify-center">
+							<div key={i} className="w-1/2 flex justify-center">
 								<img
-									key={i}
 									src={img}
 									className='h-80 rounded-md cursor-pointer'
 									onClick={() => {

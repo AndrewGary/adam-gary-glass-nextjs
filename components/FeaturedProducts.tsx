@@ -36,7 +36,7 @@ const FeaturedProducts = () => {
         <div className='flex items-center overflow-x-auto w-[90%] pb-3 lg:border-x lg:border-gray-500 lg:border-opacity-20'>
                 {products.map((product: CartItem, i) => {
                     return (
-                        <div className='relative min-w-[90%] md:min-w-[30%] flex justify-center'>
+                        <div key={i} className='relative min-w-[90%] md:min-w-[30%] flex justify-center'>
                             <div className='relative'>
                             <label className='absolute left-1 font-extrabold'>{product.name}</label>
                             <Link href={`/Products/${product._id}`} className='button-styles absolute bottom-1 right-1 px-1'>Shop</Link>

@@ -16,7 +16,10 @@
 
 import React, { useState } from 'react'
 
-type Props = {image: string}
+type Props = {
+  image: string
+  setFocusImage: any
+}
 
 const EnlargedImage: React.FC<Props> = ({image, setFocusImage}) => {
 
