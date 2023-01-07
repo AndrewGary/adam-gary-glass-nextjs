@@ -33,14 +33,15 @@ const FeaturedProducts = () => {
   return (
     <div className='flex flex-col items-center w-full'>
             <span className='mb-2 text-2xl uppercase font-bold'>Featured Products</span>
-        <div className='flex items-center overflow-x-auto w-[90%] pb-3 max-w-xl'>
+        <div className='flex items-center overflow-x-auto w-[90%] pb-3 lg:border-x lg:border-gray-500 lg:border-opacity-20'>
                 {products.map((product: CartItem, i) => {
                     return (
-                        <div key={i} className='min-w-[80%] h-full flex flex-col items-center'>
-                            <Image height={100} width={100} className=' hover:shadow-lg shadow-zinc-900 rounded-md w-[85%] h-auto' src={product.defaultImage} alt=''/>
-                            <Link className='button-styles mt-2 px-2' href={`/Products/${product._id}`}>
-                                View Product
-                             </Link>
+                        <div key={i} className='relative min-w-[90%] md:min-w-[30%] flex justify-center'>
+                            <div className='relative'>
+                            <label className='absolute left-1 font-extrabold'>{product.name}</label>
+                            <Link href={`/Products/${product._id}`} className='button-styles absolute bottom-1 right-1 px-1'>Shop</Link>
+                            <img src={product.defaultImage} alt=''  className='border border-gray-500 border-opacity-10 h-72 px-5 shadow-lg'/>
+                            </div>
                         </div>
                     )
                 })}

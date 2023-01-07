@@ -143,7 +143,7 @@ const Checkout1 = (props: Props) => {
   };
   return (
     <div className="w-full min-h-screen flex flex-col items-center">
-      <div className="flex flex-col items-center w-[90%] mt-4">
+      <div className="max-w-3xl flex flex-col items-center w-[90%] mt-4">
         <OrderPreview />
         <h1 className="text-2xl">Shipping Address</h1>
 

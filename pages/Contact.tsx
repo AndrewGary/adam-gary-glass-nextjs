@@ -53,22 +53,41 @@ const Contact = (props: Props) => {
 
   return (
     <div className='w-full min-h-screen flex flex-col items-center justify-center'>
-        <h1>Contact Us</h1>
+        <h1 className='md:text-3xl mb-2'>Contact Us</h1>
 
-        <form className='flex flex-col space-y-2 w-[80%] mx-auto items-center' onSubmit={handleSubmit}>
-                    <div className='flex flex-col space-y-2 md:flex-row md:space-x-2 w-full'>
+        <form className=' max-w-3xl flex flex-col space-y-2 w-[80%] mx-auto items-center' onSubmit={handleSubmit}>
+                    {/* <div className='flex flex-col space-y-2 md:flex-row md:space-x-2 w-full'>
                         <input 
                             value={formValues.name}
                             name='name'
                             type='text' 
-                            className='contactInput border border-black pl-1'
+                            className='border border-black pl-1 md:w-1/2'
                             placeholder='Name'
                             onChange={handleChange}
                         />
                         <input 
                             value={formValues.email}
-                            type='email' 
-                            className='contactInput border border-black pl-1'
+                            type='text' 
+                            className='border border-black pl-1 md:w-1/2'
+                            placeholder='Email'
+                            name='email'
+                            onChange={handleChange}
+                        />
+                    </div> */}
+
+                    <div className='md:w-full md:flex md:flex-row md:space-x-1 flex flex-col w-full'>
+                        <input
+                            value={formValues.name}
+                            name='name'
+                            type='text'
+                            className='w-full md:w-1/2 border border-black pl-1 mb-2 md:mb-0'
+                            placeholder='Name'
+                            onChange={handleChange}
+                        />
+                        <input
+                            value={formValues.email}
+                            type='text'
+                            className='w-full md:w-1/2 border border-black pl-1'
                             placeholder='Email'
                             name='email'
                             onChange={handleChange}

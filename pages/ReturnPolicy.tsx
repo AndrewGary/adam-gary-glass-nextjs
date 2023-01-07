@@ -5,7 +5,7 @@ type Props = {}
 const ReturnPolicy = (props: Props) => {
   return (
     <div className='w-full font-semibold min-h-screen flex flex-col items-center space-y-1'>
-      <div className='w-[90%] flex flex-col min-h-screen space-y-3'>
+      <div className='max-w-3xl w-[90%] flex flex-col min-h-screen space-y-3'>
         <h1 className='text-center font-bold text-xl'>Refund/Return Policy</h1>
         <span>Refund Policy:</span>
         <span>Please E-mail {process.env.NODE_ENV === 'production' ? process.env.EMAIL : process.env.NEXT_PUBLIC_EMAIL} regarding any returns/refunds.</span>
