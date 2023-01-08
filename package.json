@@ -17,6 +17,7 @@
     "@reduxjs/toolkit": "^1.8.6",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
     "cloudinary": "1.30.0",
     "daisyui": "^2.46.1",
     "dotenv": "^16.0.3",
