@@ -34,7 +34,6 @@ const DesktopHeader = (props: Props) => {
   const cartLength = useSelector((state: any) => state.cart.numberOfItems);
 
   const [hamburgerMenuActive, setHamburgerMenuActive] = useState(false);
-  const [searchActive, setSearchActive] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
   return (
@@ -86,7 +85,7 @@ const DesktopHeader = (props: Props) => {
 
         <div className="w-1/3 flex justify-center">
           <Link href={"/"}>
-            <div className="h-full  ">Adam Gary Glass</div>
+            <h1 className="h-full  ">Adam Gary Glass</h1>
           </Link>
         </div>
 

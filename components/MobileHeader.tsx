@@ -38,7 +38,7 @@ const MobileHeader = (props: Props) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   return (
-    <>
+    
       <div
         data-testid='mobile component'
         className={`w-full bg-gray-800 text-white flex items-center py-2 lg:hidden`}
@@ -55,6 +55,7 @@ const MobileHeader = (props: Props) => {
             }}
           >
             <svg
+              data-testid='hamburgerMenuIcon'
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -70,7 +71,7 @@ const MobileHeader = (props: Props) => {
             </svg>
           </div>
 
-          <div className="h-full   flex space-x-2">
+          <div className="h-full flex space-x-2">
             <input
               type="text"
               onChange={(e) => {
@@ -235,7 +236,7 @@ const MobileHeader = (props: Props) => {
           </div>
 
           <Link href={"/"}>
-            <div className="h-full  ">Adam Gary Glass</div>
+            <h1 className="h-full  ">Adam Gary Glass</h1>
           </Link>
 
           <div className="h-full  mr-2  flex space-x-3">
@@ -280,7 +281,6 @@ const MobileHeader = (props: Props) => {
           </div>
         </div>
       </div>
-    </>
   );
 };
 
