@@ -40,6 +40,7 @@ const Header = (props: Props) => {
   return (
     <>
       <div
+        data-testid='mobile component'
         className={`w-full bg-gray-800 text-white flex items-center py-2 lg:hidden`}
       >
         <div
@@ -280,7 +281,7 @@ const Header = (props: Props) => {
         </div>
       </div>
 
-      <div className="hidden lg:flex w-full bg-gray-800 text-white items-center py-4 text-xl">
+      <div data-testid='desktop component' className="hidden lg:flex w-full bg-gray-800 text-white items-center py-4 text-xl">
         <div className="w-1/3 flex justify-evenly text-sm">
           {options.map((option, i) => {
             if (option.text === "Login") {

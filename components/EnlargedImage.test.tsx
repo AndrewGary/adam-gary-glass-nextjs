@@ -1,7 +1,6 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import EnlargedImage from "./EnlargedImage";
-import '@testing-library/react'
 
 describe("EnlargedImage", () => {
   it("renders the image", () => {
