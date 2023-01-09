@@ -40,7 +40,7 @@ const options = [
 describe('Desktop Header Component', () => {
   let store: Store<any, AnyAction>;
   let mockStore;
-  let useSessionMock;
+  let useSessionMock: jest.Mock<any, any>;
 
   beforeEach(() => {
     mockStore = configureStore([]);
@@ -52,12 +52,12 @@ describe('Desktop Header Component', () => {
     useSessionMock = useSession as jest.Mock;
   });
 
-  it('Renders Correctly', () => {
+  it('Renders Correctly', async () => {
     useSessionMock.mockReturnValue({
       data: null,
     });
 
-    screen.resize({ width: 1920, height: 1080 });
+    
 
     const component = render(
         <Provider store={store}>
@@ -65,44 +65,26 @@ describe('Desktop Header Component', () => {
         </Provider>
     )
     
-    const mobileComponent = component.getByTestId('mobile component');
+    window.resizeTo(1920, 1080);
 
-    const desktopComponent = component.getByTestId('desktop component');
+    const shopLink = component.queryByText('Shop');
 
-    expect(mobileComponent).toBeTruthy();
-    expect(desktopComponent).toBeTruthy();
+    expect(shopLink).toBeTruthy();
 
-    const idk = mobileComponent.getByText('Shop');    
     
-    expect(idk).toBeFalsy();
 
-  });
-
-//   it('Displays the correct number of items in the cart', () => {
-//     useSessionMock.mockReturnValue({
-//       data: null,
-//     });
-//     const { getByTestId } = render(
-//       <Provider store={store}>
-//         <Header />
-//       </Provider>
-//     );
-
-//     const cartButton = getByTestId('cart-button');
-//     expect(cartButton).toHaveTextContent(`Cart (${store.getState().cart.numberOfItems})`);
-//   });
-
-//   it('Displays the correct options when the user is not logged in', () => {
-//     useSessionMock.mockReturnValue({
-//       data: null,
-//     });
-//     const { getByTestId, getByText } = render(
-//       <Provider store={store}>
-//         <Header />
-//       </Provider>
-//     );
-
-//     const menuList = getByTestId('menu-list');
-
+    
 })
+
+// it('yeah', () => {
+//   window.resizeTo(400, 800);
+
+//     // const mobileShopLink = component.findByText('Shop');
+//     const yeah = screen.getByText('Shop');
+
+//     console.log('YEAH: ', yeah);
+
+//     expect(yeah).toBeTruthy();
+// })
    
+})

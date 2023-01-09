@@ -1,5 +1,6 @@
 import React from 'react'
-import Header from './Header'
+import MobileHeader from './MobileHeader';
+import DesktopHeader from './DesktopHeader';
 import Footer from './Footer';
 
 type Props = {
@@ -9,7 +10,13 @@ type Props = {
 const Layout = ({children}: Props) => {
   return (
     <>
-        <Header />
+        <div className='lg:hidden'>
+        <MobileHeader />
+        </div>
+
+        <div className='hidden lg:flex'>
+          <DesktopHeader />
+        </div>
         <div className='bg-gray-800 bg-opacity-25 py-2'>
         {children}
         </div>
