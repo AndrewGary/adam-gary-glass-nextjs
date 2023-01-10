@@ -1,36 +1,32 @@
-import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom'
-import CartEmpty from './CartEmpty';
-import userEvent from '@testing-library/user-event';
+import React from "react";
+import { render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import CartEmpty from "./CartEmpty";
 
+describe("Empty Cart Component", () => {
+	it("Should render correctly", () => {
+		render(<CartEmpty />);
+	});
 
-describe('Empty Cart Component', () => {
+	it("should ask if they are 21", () => {
+		render(<CartEmpty />);
 
-    it('Should render correctly', () => {
-        render(<CartEmpty />)
-    })
+		const text = screen.getByText("Your cart is empty");
 
-    it('should ask if they are 21', () => {
-        render(<CartEmpty />);
+		expect(text).toBeTruthy();
+	});
 
-        const text = screen.getByText('Your cart is empty')
+	it("renders the correct Link text", () => {
+		render(<CartEmpty />);
+		const buttonText = screen.getByText("Shop Now");
 
-        expect(text).toBeTruthy(); 
-    })
+		expect(buttonText).toBeTruthy();
+	});
 
-    it("renders the correct Link text", () => {
-        render(<CartEmpty />);
-        const buttonText = screen.getByText('Shop Now');
+	it("Button should link to the /Products page", async () => {
+		render(<CartEmpty />);
+		const button = screen.getByText("Shop Now");
 
-        expect(buttonText).toBeTruthy();
-      });
-
-    it('Button should link to the /Products page', async () => {
-        render(<CartEmpty />);
-        const button = screen.getByText('Shop Now');
-
-        expect(button.getAttribute('href')).toEqual('/Products');
-    })
-      
-})
+		expect(button.getAttribute("href")).toEqual("/Products");
+	});
+});

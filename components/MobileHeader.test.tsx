@@ -1,9 +1,6 @@
 import React from "react";
 import {
 	render,
-	fireEvent,
-	waitFor,
-	within,
 	screen,
 } from "@testing-library/react";
 import { Provider } from "react-redux";
@@ -11,7 +8,7 @@ import configureStore from "redux-mock-store";
 import { useSession } from "next-auth/react";
 import { Store, AnyAction } from "@reduxjs/toolkit";
 import MobileHeader from "./MobileHeader";
-import '@testing-library/jest-dom';
+import "@testing-library/jest-dom";
 
 jest.mock("next-auth/react", () => {
 	return {
@@ -22,23 +19,23 @@ jest.mock("next-auth/react", () => {
 });
 
 const mockSetHamburgerMenuActive = jest.fn();
-jest.mock('react', () => {
-    const originalReact = jest.requireActual('react');
-    return{
-        ...originalReact,
-        useState: jest.fn(() => [false, mockSetHamburgerMenuActive])
-    }
-})
+jest.mock("react", () => {
+	const originalReact = jest.requireActual("react");
+	return {
+		...originalReact,
+		useState: jest.fn(() => [false, mockSetHamburgerMenuActive]),
+	};
+});
 
 let searchActive = false;
 const mockSetSearchActive = jest.fn();
-jest.mock('react', () => {
-    const originalReact = jest.requireActual('react');
-    return{
-        ...originalReact,
-        useState: jest.fn(() => [searchActive, mockSetSearchActive])
-    }
-})
+jest.mock("react", () => {
+	const originalReact = jest.requireActual("react");
+	return {
+		...originalReact,
+		useState: jest.fn(() => [searchActive, mockSetSearchActive]),
+	};
+});
 
 const options = [
 	{
@@ -89,92 +86,90 @@ describe("Desktop Header Component", () => {
 			</Provider>
 		);
 
-        expect(component).toBeTruthy();
+		expect(component).toBeTruthy();
 	});
 
-    it('Displays the website title', () => {
-            useSessionMock.mockReturnValue({
-        		data: null,
-        	});
-    
-        	const component = render(
-        		<Provider store={store}>
-        			<MobileHeader />
-        		</Provider>
-        	);
-    
-            const websiteTitle = component.queryByRole('heading');
-    
-            expect(websiteTitle).toBeTruthy();
-        })
+	it("Displays the website title", () => {
+		useSessionMock.mockReturnValue({
+			data: null,
+		});
 
-        it('Displays a hamburger menu', () => {
-            useSessionMock.mockReturnValue({
-        		data: null,
-        	});
-    
-        	const component = render(
-        		<Provider store={store}>
-        			<MobileHeader />
-        		</Provider>
-        	);
+		const component = render(
+			<Provider store={store}>
+				<MobileHeader />
+			</Provider>
+		);
 
-            const hamburgerMenuIcon = component.queryByTestId('hamburgerMenuIcon');
+		const websiteTitle = component.queryByRole("heading");
 
-            expect(hamburgerMenuIcon).toBeTruthy();
-        })
+		expect(websiteTitle).toBeTruthy();
+	});
 
-        // it("SetHamburgerMenuActive is called when the hamburger menu is clicked", () => {
-        //     useSessionMock.mockReturnValue({
-        // 		data: null,
-        // 	});
-    
-        // 	const component = render(
-        // 		<Provider store={store}>
-        // 			<MobileHeader />
-        // 		</Provider>
-        // 	);
+	it("Displays a hamburger menu", () => {
+		useSessionMock.mockReturnValue({
+			data: null,
+		});
 
-        //     const hamburgerMenuNode = screen.getByTestId('hamburgerMenu');
+		const component = render(
+			<Provider store={store}>
+				<MobileHeader />
+			</Provider>
+		);
 
-        //     fireEvent.click(hamburgerMenuNode);
+		const hamburgerMenuIcon = component.queryByTestId("hamburgerMenuIcon");
 
-        //     expect(mockSetHamburgerMenuActive).toHaveBeenCalledWith(!false);
+		expect(hamburgerMenuIcon).toBeTruthy();
+	});
 
-            
-        //   });
+	// it("SetHamburgerMenuActive is called when the hamburger menu is clicked", () => {
+	//     useSessionMock.mockReturnValue({
+	// 		data: null,
+	// 	});
 
-          it('Make sure the search bar shows up when the search icon is clicked on', () => {
-            useSessionMock.mockReturnValue({
-        		data: null,
-        	});
-    
-            render(
-                <Provider store={store}>
-                    <MobileHeader />
-                </Provider>
-            )
+	// 	const component = render(
+	// 		<Provider store={store}>
+	// 			<MobileHeader />
+	// 		</Provider>
+	// 	);
 
-            const searchInput = screen.getByPlaceholderText('Search site...');
+	//     const hamburgerMenuNode = screen.getByTestId('hamburgerMenu');
 
-            const searchIcon = screen.getByTestId('activateSearchIcon');
+	//     fireEvent.click(hamburgerMenuNode);
 
-            console.log()
+	//     expect(mockSetHamburgerMenuActive).toHaveBeenCalledWith(!false);
 
-            expect(searchInput).toBeVisible();
+	//   });
 
-            const yeah = screen.getByText('Shop');
+	it("Make sure the search bar shows up when the search icon is clicked on", () => {
+		useSessionMock.mockReturnValue({
+			data: null,
+		});
 
-            expect(yeah).toBeVisible();
+		render(
+			<Provider store={store}>
+				<MobileHeader />
+			</Provider>
+		);
 
-            // fireEvent.click(searchIcon);
+		const searchInput = screen.getByPlaceholderText("Search site...");
 
-            // expect(searchInput).toBeVisible();
-        	// const component = render(
-        	// 	<Provider store={store}>
-        	// 		<MobileHeader />
-        	// 	</Provider>
-        	// );
+		const searchIcon = screen.getByTestId("activateSearchIcon");
 
-          })
+		console.log();
+
+		expect(searchInput).toBeVisible();
+
+		const yeah = screen.getByText("Shop");
+
+		expect(yeah).toBeVisible();
+
+		// fireEvent.click(searchIcon);
+
+		// expect(searchInput).toBeVisible();
+		// const component = render(
+		// 	<Provider store={store}>
+		// 		<MobileHeader />
+		// 	</Provider>
+		// );
+	});
 });

@@ -1,11 +1,5 @@
 import React from "react";
-import {
-	render,
-	fireEvent,
-	waitFor,
-	within,
-	screen,
-} from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import { Provider } from "react-redux";
 import configureStore from "redux-mock-store";
 import { useSession } from "next-auth/react";
@@ -69,10 +63,10 @@ describe("Desktop Header Component", () => {
 			</Provider>
 		);
 
-        expect(component).toBeTruthy();
+		expect(component).toBeTruthy();
 	});
 
-    it("Displays the correct Link texts", async () => {
+	it("Displays the correct Link texts", async () => {
 		useSessionMock.mockReturnValue({
 			data: null,
 		});
@@ -84,9 +78,9 @@ describe("Desktop Header Component", () => {
 		);
 
 		const shopLink = component.queryByText("Shop");
-        const purchasePolicyLink = component.queryByText('Purchase Policy');
-        const returnPolicyLink = component.queryByText('Return Policy');
-        const contactLink = component.queryByText('Contact');
+		const purchasePolicyLink = component.queryByText("Purchase Policy");
+		const returnPolicyLink = component.queryByText("Return Policy");
+		const contactLink = component.queryByText("Contact");
 
 		expect(shopLink).toBeTruthy();
 		expect(purchasePolicyLink).toBeTruthy();
@@ -94,8 +88,8 @@ describe("Desktop Header Component", () => {
 		expect(contactLink).toBeTruthy();
 	});
 
-    it('Displays the website title', () => {
-        useSessionMock.mockReturnValue({
+	it("Displays the website title", () => {
+		useSessionMock.mockReturnValue({
 			data: null,
 		});
 
@@ -105,13 +99,13 @@ describe("Desktop Header Component", () => {
 			</Provider>
 		);
 
-        const websiteTitle = component.queryByRole('heading');
+		const websiteTitle = component.queryByRole("heading");
 
-        expect(websiteTitle).toBeTruthy();
-    })
+		expect(websiteTitle).toBeTruthy();
+	});
 
-    it('Types the correct info in the search bar when it is selected and then typed in', async () => {
-        useSessionMock.mockReturnValue({
+	it("Types the correct info in the search bar when it is selected and then typed in", async () => {
+		useSessionMock.mockReturnValue({
 			data: null,
 		});
 
@@ -121,12 +115,12 @@ describe("Desktop Header Component", () => {
 			</Provider>
 		);
 
-        const searchInput: any = component.queryByPlaceholderText('Search site...')
+		const searchInput: any = component.queryByPlaceholderText("Search site...");
 
-        expect(searchInput).toBeTruthy();
+		expect(searchInput).toBeTruthy();
 
-        fireEvent.change(searchInput, { target: { value: 'Search Test!' }})
+		fireEvent.change(searchInput, { target: { value: "Search Test!" } });
 
-        expect(searchInput).toHaveProperty('value', 'Search Test!');
-    })
+		expect(searchInput).toHaveProperty("value", "Search Test!");
+	});
 });
