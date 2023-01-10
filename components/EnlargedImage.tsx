@@ -17,7 +17,7 @@ const EnlargedImage: React.FC<Props> = ({ image, setFocusImage }) => {
       <img className=" h-96 m-5" src={image} alt={image} />
       <img
         src={darkMode ? "/NightIcon.png" : "/DayIcon.png"}
-        alt=""
+        alt='dayNightIcon'
         className="absolute left-2 top-2 hover:opacity-50 transition-all"
         onClick={() => {
           setDarkMode(!darkMode);
@@ -25,7 +25,7 @@ const EnlargedImage: React.FC<Props> = ({ image, setFocusImage }) => {
       />
       <img
         src={darkMode ? "/NightExit.png" : "/DayExit.png"}
-        alt=""
+        alt='exit icon'
         className="absolute z-10 right-2 top-2"
         onClick={() => {
           setFocusImage("");

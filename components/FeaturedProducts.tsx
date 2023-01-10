@@ -31,7 +31,7 @@ const FeaturedProducts = () => {
 
   return (
     <div className='flex flex-col items-center w-full'>
-            <span className='mb-2 text-2xl uppercase font-bold'>Featured Products</span>
+            <h1 className='mb-2 text-2xl uppercase font-bold'>Featured Products</h1>
         <div className='flex items-center overflow-x-auto w-[90%] pb-3 lg:border-x lg:border-gray-500 lg:border-opacity-20'>
                 {products.map((product: CartItem, i) => {
                     return (

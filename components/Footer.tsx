@@ -40,6 +40,7 @@ const Footer: React.FC = () => {
               className="hidden md:block"
             >
               <SocialIcon
+                data-testid='footerInstagramLink'
                 bgColor="#8D9199"
                 style={{ height: 35, width: 35, opacity: 0.5 }}
                 url="https://instagram.com"
