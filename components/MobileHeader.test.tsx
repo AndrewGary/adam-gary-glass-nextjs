@@ -1,8 +1,5 @@
 import React from "react";
-import {
-	render,
-	screen,
-} from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import configureStore from "redux-mock-store";
 import { useSession } from "next-auth/react";
@@ -121,25 +118,6 @@ describe("Desktop Header Component", () => {
 		expect(hamburgerMenuIcon).toBeTruthy();
 	});
 
-	// it("SetHamburgerMenuActive is called when the hamburger menu is clicked", () => {
-	//     useSessionMock.mockReturnValue({
-	// 		data: null,
-	// 	});
-
-	// 	const component = render(
-	// 		<Provider store={store}>
-	// 			<MobileHeader />
-	// 		</Provider>
-	// 	);
-
-	//     const hamburgerMenuNode = screen.getByTestId('hamburgerMenu');
-
-	//     fireEvent.click(hamburgerMenuNode);
-
-	//     expect(mockSetHamburgerMenuActive).toHaveBeenCalledWith(!false);
-
-	//   });
-
 	it("Make sure the search bar shows up when the search icon is clicked on", () => {
 		useSessionMock.mockReturnValue({
 			data: null,
@@ -153,7 +131,7 @@ describe("Desktop Header Component", () => {
 
 		const searchInput = screen.getByPlaceholderText("Search site...");
 
-		const searchIcon = screen.getByTestId("activateSearchIcon");
+		const searchIcon = screen.getByTestId("searchIcon");
 
 		console.log();
 
@@ -162,14 +140,5 @@ describe("Desktop Header Component", () => {
 		const yeah = screen.getByText("Shop");
 
 		expect(yeah).toBeVisible();
-
-		// fireEvent.click(searchIcon);
-
-		// expect(searchInput).toBeVisible();
-		// const component = render(
-		// 	<Provider store={store}>
-		// 		<MobileHeader />
-		// 	</Provider>
-		// );
 	});
 });

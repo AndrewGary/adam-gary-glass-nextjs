@@ -6,6 +6,7 @@ const initialState = {
   paid: false,
   shipped: false,
   paymentMethod: "",
+  trackingNumber: '',
 };
 
 interface Order {
@@ -14,6 +15,7 @@ interface Order {
   paid: boolean;
   shipped: boolean;
   paymentMethod?: string;
+  trackingNumber: string;
 }
 
 interface Action {

@@ -138,6 +138,7 @@ export default async function handler(
         $set: {
           paid: req.body.paid,
           shipped: req.body.shipped,
+          trackingNumber: req.body.trackingNumber
         },
       };
       const result = await db
