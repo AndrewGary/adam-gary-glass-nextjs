@@ -13,6 +13,7 @@ interface InitialState {
   quantity: number;
   images: string[];
   price: number;
+  category: string;
 }
 
 const initialState: InitialState = {
@@ -22,6 +23,7 @@ const initialState: InitialState = {
   quantity: 0,
   images: [],
   price: 0,
+  category: ''
 };
 
 const AddNewProduct = (props: Props) => {
@@ -43,7 +45,10 @@ const AddNewProduct = (props: Props) => {
   const [formMessage, setFormMessage] = useState<string>("");
   const [formErrors, setFormErrors] = useState<string[]>([]);
 
-  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  // const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = async (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+
+    console.log(e.target.name, e.target.value);
     setFormValues({
       ...formValues,
       [e.target.name]: e.target.value,
@@ -75,6 +80,9 @@ const AddNewProduct = (props: Props) => {
       if (!formValues.quantity) {
         newErrors.push("you must provide a quantity");
       }
+      if(!formValues.category){
+        newErrors.push("You must select a category")
+      }
       if (!defaultImageRef.current || formValues.images.length === 0) {
         newErrors.push("You must upload Images for the product.");
       }
@@ -93,14 +101,12 @@ const AddNewProduct = (props: Props) => {
         quantity: formValues.quantity,
         images: uploadedImages.current,
         defaultImage: uploadedImages.current[0],
+        category: formValues.category,
         time: Date.now(),
       }),
     };
 
     const resp = await fetch("/api/addNewProduct", reqOptions);
-
-    const yeah = JSON.stringify(resp);
-    const yeahh = JSON.stringify(resp.body);
 
     if (resp.status === 201) {
       setFormMessage("Upload successful");
@@ -153,6 +159,28 @@ const AddNewProduct = (props: Props) => {
               placeholder="Quantity"
             />
           </div>
+          <select name='category' onChange={handleChange}>
+            <option value=''>--Please Choose A Category--</option>
+            <option value='newWork'>NEW WORK</option>
+            <optgroup label="Drys">
+              <option value='spoon'>Spoon</option>
+              <option value='chillum'>Chillum</option>
+              <option value='sherlock'>Sherlock</option>
+              <option value='hammer'>Hammer</option>
+            </optgroup>
+            <optgroup label="Rigs">
+              <option value='recycler'>Recycler</option>
+              <option value='minitube'>Minitube</option>
+            </optgroup>
+            
+            <optgroup label="Accessories">
+              <option value='carbCap'>Carb Caps</option>
+              <option value='slurperSet'>Slurper Sets</option>
+              <option value='pendant'>Pendants</option>
+              <option value='cup'>Cups</option>
+              <option value='marble'>Marbles</option>
+            </optgroup>
+          </select>
           <CldUploadButton
             className="border border-black px-3 rounded-lg"
             onUpload={(error: any, result: any, widget: any) => {
